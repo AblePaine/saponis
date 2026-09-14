@@ -60,13 +60,26 @@ describe("oils.json seed dataset", () => {
       "shea-unrefined",
       "babassu",
       "tallow",
+      "cocoa-butter",
+      "mango-butter",
+      "sweet-almond",
+      "avocado",
+      "rice-bran",
+      "lard",
+      "sunflower-ho",
+      "safflower-ho",
+      "canola",
+      "jojoba-oil",
+      "hemp-seed-oil",
+      "kokum",
+      "neem-oil",
     ]) {
       assert.ok(ids.includes(required), `missing ${required}`);
     }
     const slugs = OIL_DATABASE.map((o) => o.slug);
     assert.equal(new Set(ids).size, ids.length);
     assert.equal(new Set(slugs).size, slugs.length);
-    assert.ok(OIL_DATABASE.length >= 10);
+    assert.ok(OIL_DATABASE.length >= 20);
     for (const record of OIL_DATABASE) {
       assert.equal(typeof record.name, "string");
       assert.equal(typeof record.slug, "string");
@@ -85,6 +98,10 @@ describe("oils.json seed dataset", () => {
         "linoleic",
         "linolenic",
       ] as const) {
+        assert.ok(
+          Number.isInteger(record.fatty_acids[key]),
+          `${record.id}.${key} must be an integer`,
+        );
         assert.ok(
           Number.isFinite(record.fatty_acids[key]),
           `${record.id}.${key}`,

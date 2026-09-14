@@ -150,32 +150,441 @@
     "trace_speed_impact": "slows"
   },
   {
+    "id": "cocoa-butter",
+    "name": "Cocoa Butter",
+    "slug": "cocoa-butter",
+    "aliases": ["cocoa"],
+    "workhorse": true,
+    "common_botanical_name": "Theobroma cacao",
+    "sap_naoh": 0.137,
+    "sap_koh": 0.193,
+    "iodine": 37,
+    "ins": 157,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 28,
+      "stearic": 35,
+      "ricinoleic": 0,
+      "oleic": 33,
+      "linoleic": 3,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 15,
+    "hardness_profile": "hard",
+    "inci_names": {
+      "standard": "Theobroma Cacao (Cocoa) Seed Butter",
+      "saponified_naoh": "Sodium Cocoa Butterate",
+      "saponified_koh": "Potassium Cocoa Butterate"
+    },
+    "trace_speed_impact": "accelerates"
+  },
+  {
     "id": "babassu",
     "name": "Babassu Oil",
     "slug": "babassu-oil",
     "aliases": ["babassu"],
     "workhorse": true,
-    "common_botanical_name": "Attalea speciosa",
+    "common_botanical_name": "Orbignya oleifera",
     "sap_naoh": 0.175,
     "sap_koh": 0.245,
     "iodine": 15,
     "ins": 230,
     "fatty_acids": {
-      "lauric": 50,
-      "myristic": 20,
-      "palmitic": 11,
+      "lauric": 44,
+      "myristic": 17,
+      "palmitic": 9,
       "stearic": 4,
       "ricinoleic": 0,
-      "oleic": 10,
+      "oleic": 15,
       "linoleic": 2,
       "linolenic": 0
     },
-    "recommended_max_percentage": 30,
+    "recommended_max_percentage": 33,
     "hardness_profile": "hard",
     "inci_names": {
       "standard": "Orbignya Oleifera (Babassu) Seed Oil",
       "saponified_naoh": "Sodium Babassuate",
       "saponified_koh": "Potassium Babassuate"
+    },
+    "trace_speed_impact": "accelerates"
+  },
+  {
+    "id": "mango-butter",
+    "name": "Mango Seed Butter",
+    "slug": "mango-butter",
+    "aliases": ["mango", "mango-seed-butter"],
+    "common_botanical_name": "Mangifera indica",
+    "sap_naoh": 0.1371,
+    "sap_koh": 0.1923,
+    "iodine": 45,
+    "ins": 146,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 1,
+      "palmitic": 7,
+      "stearic": 42,
+      "ricinoleic": 0,
+      "oleic": 45,
+      "linoleic": 3,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 15,
+    "hardness_profile": "hard",
+    "inci_names": {
+      "standard": "Mangifera Indica (Mango) Seed Butter",
+      "saponified_naoh": "Sodium Mango Butterate",
+      "saponified_koh": "Potassium Mango Butterate"
+    },
+    "trace_speed_impact": "neutral"
+  },
+  {
+    "id": "sweet-almond",
+    "name": "Sweet Almond Oil",
+    "slug": "sweet-almond-oil",
+    "aliases": ["almond-oil", "sweet-almond"],
+    "common_botanical_name": "Prunus amygdalus dulcis",
+    "sap_naoh": 0.136,
+    "sap_koh": 0.192,
+    "iodine": 99,
+    "ins": 97,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 7,
+      "stearic": 2,
+      "ricinoleic": 0,
+      "oleic": 69,
+      "linoleic": 17,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 25,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Prunus Amygdalus Dulcis (Sweet Almond) Oil",
+      "saponified_naoh": "Sodium Sweet Almondate",
+      "saponified_koh": "Potassium Sweet Almondate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "avocado",
+    "name": "Avocado Oil",
+    "slug": "avocado-oil",
+    "aliases": ["avocado"],
+    "common_botanical_name": "Persea gratissima",
+    "sap_naoh": 0.133,
+    "sap_koh": 0.187,
+    "iodine": 86,
+    "ins": 99,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 12,
+      "stearic": 2,
+      "ricinoleic": 0,
+      "oleic": 65,
+      "linoleic": 15,
+      "linolenic": 1
+    },
+    "recommended_max_percentage": 20,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Persea Gratissima (Avocado) Oil",
+      "saponified_naoh": "Sodium Avocadoate",
+      "saponified_koh": "Potassium Avocadoate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "rice-bran",
+    "name": "Rice Bran Oil",
+    "slug": "rice-bran-oil",
+    "aliases": ["rice-bran"],
+    "common_botanical_name": "Oryza sativa",
+    "sap_naoh": 0.134,
+    "sap_koh": 0.187,
+    "iodine": 100,
+    "ins": 87,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 1,
+      "palmitic": 21,
+      "stearic": 2,
+      "ricinoleic": 0,
+      "oleic": 42,
+      "linoleic": 31,
+      "linolenic": 1
+    },
+    "recommended_max_percentage": 20,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Oryza Sativa (Rice) Bran Oil",
+      "saponified_naoh": "Sodium Rice Branate",
+      "saponified_koh": "Potassium Rice Branate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "tallow",
+    "name": "Beef Tallow",
+    "slug": "tallow",
+    "aliases": ["beef-tallow"],
+    "workhorse": true,
+    "common_botanical_name": "Adeps bovis",
+    "sap_naoh": 0.141,
+    "sap_koh": 0.198,
+    "iodine": 45,
+    "ins": 147,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 3,
+      "palmitic": 28,
+      "stearic": 22,
+      "ricinoleic": 0,
+      "oleic": 42,
+      "linoleic": 3,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 50,
+    "hardness_profile": "hard",
+    "inci_names": {
+      "standard": "Adeps Bovis (Tallow)",
+      "saponified_naoh": "Sodium Tallowate",
+      "saponified_koh": "Potassium Tallowate"
+    },
+    "trace_speed_impact": "neutral"
+  },
+  {
+    "id": "lard",
+    "name": "Lard",
+    "slug": "lard",
+    "aliases": ["adeps-suillus"],
+    "workhorse": true,
+    "common_botanical_name": "Adeps suillus",
+    "sap_naoh": 0.139,
+    "sap_koh": 0.195,
+    "iodine": 57,
+    "ins": 139,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 1,
+      "palmitic": 26,
+      "stearic": 14,
+      "ricinoleic": 0,
+      "oleic": 44,
+      "linoleic": 10,
+      "linolenic": 1
+    },
+    "recommended_max_percentage": 50,
+    "hardness_profile": "hard",
+    "inci_names": {
+      "standard": "Adeps Suillus (Lard)",
+      "saponified_naoh": "Sodium Lardate",
+      "saponified_koh": "Potassium Lardate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "sunflower-ho",
+    "name": "High Oleic Sunflower Oil",
+    "slug": "sunflower-oil-high-oleic",
+    "aliases": ["ho-sunflower", "high-oleic-sunflower"],
+    "common_botanical_name": "Helianthus annuus",
+    "sap_naoh": 0.135,
+    "sap_koh": 0.189,
+    "iodine": 83,
+    "ins": 106,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 4,
+      "stearic": 4,
+      "ricinoleic": 0,
+      "oleic": 82,
+      "linoleic": 9,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 25,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Helianthus Annuus (Sunflower) Seed Oil",
+      "saponified_naoh": "Sodium Sunflowerate",
+      "saponified_koh": "Potassium Sunflowerate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "safflower-ho",
+    "name": "High Oleic Safflower Oil",
+    "slug": "safflower-oil-high-oleic",
+    "aliases": ["ho-safflower", "safflower", "safflower-oil"],
+    "common_botanical_name": "Carthamus tinctorius",
+    "sap_naoh": 0.136,
+    "sap_koh": 0.19,
+    "iodine": 93,
+    "ins": 97,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 5,
+      "stearic": 2,
+      "ricinoleic": 0,
+      "oleic": 77,
+      "linoleic": 15,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 20,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Carthamus Tinctorius (Safflower) Seed Oil",
+      "saponified_naoh": "Sodium Safflowerate",
+      "saponified_koh": "Potassium Safflowerate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "canola",
+    "name": "Canola Oil",
+    "slug": "canola-oil",
+    "aliases": ["canola", "rapeseed-oil"],
+    "common_botanical_name": "Brassica napus",
+    "sap_naoh": 0.133,
+    "sap_koh": 0.186,
+    "iodine": 110,
+    "ins": 56,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 4,
+      "stearic": 2,
+      "ricinoleic": 0,
+      "oleic": 61,
+      "linoleic": 21,
+      "linolenic": 9
+    },
+    "recommended_max_percentage": 20,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Canola Oil",
+      "saponified_naoh": "Sodium Canolate",
+      "saponified_koh": "Potassium Canolate"
+    },
+    "trace_speed_impact": "slows"
+  },
+  {
+    "id": "jojoba-oil",
+    "name": "Jojoba Oil",
+    "slug": "jojoba-oil",
+    "aliases": ["jojoba"],
+    "common_botanical_name": "Simmondsia chinensis",
+    "sap_naoh": 0.066,
+    "sap_koh": 0.0925,
+    "iodine": 83,
+    "ins": 11,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 1,
+      "stearic": 0,
+      "ricinoleic": 0,
+      "oleic": 10,
+      "linoleic": 0,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 5,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Simmondsia Chinensis (Jojoba) Seed Oil",
+      "saponified_naoh": "Sodium Jojobate",
+      "saponified_koh": "Potassium Jojobate"
+    },
+    "trace_speed_impact": "neutral"
+  },
+  {
+    "id": "hemp-seed-oil",
+    "name": "Hemp Seed Oil",
+    "slug": "hemp-seed-oil",
+    "aliases": ["hemp", "hemp-oil"],
+    "common_botanical_name": "Cannabis sativa",
+    "sap_naoh": 0.137,
+    "sap_koh": 0.193,
+    "iodine": 165,
+    "ins": 39,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 6,
+      "stearic": 2,
+      "ricinoleic": 0,
+      "oleic": 12,
+      "linoleic": 56,
+      "linolenic": 21
+    },
+    "recommended_max_percentage": 10,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Cannabis Sativa (Hemp) Seed Oil",
+      "saponified_naoh": "Sodium Hempseedate",
+      "saponified_koh": "Potassium Hempseedate"
+    },
+    "trace_speed_impact": "accelerates"
+  },
+  {
+    "id": "kokum",
+    "name": "Kokum Butter",
+    "slug": "kokum-butter",
+    "aliases": ["kokum"],
+    "common_botanical_name": "Garcinia indica",
+    "sap_naoh": 0.137,
+    "sap_koh": 0.191,
+    "iodine": 35,
+    "ins": 155,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 3,
+      "stearic": 56,
+      "ricinoleic": 0,
+      "oleic": 38,
+      "linoleic": 2,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 10,
+    "hardness_profile": "brittle",
+    "inci_names": {
+      "standard": "Garcinia Indica (Kokum) Seed Butter",
+      "saponified_naoh": "Sodium Kokum Butterate",
+      "saponified_koh": "Potassium Kokum Butterate"
+    },
+    "trace_speed_impact": "accelerates"
+  },
+  {
+    "id": "neem-oil",
+    "name": "Neem Oil",
+    "slug": "neem-oil",
+    "aliases": ["neem"],
+    "common_botanical_name": "Azadirachta indica",
+    "sap_naoh": 0.1387,
+    "sap_koh": 0.1945,
+    "iodine": 72,
+    "ins": 123,
+    "fatty_acids": {
+      "lauric": 0,
+      "myristic": 0,
+      "palmitic": 18,
+      "stearic": 18,
+      "ricinoleic": 0,
+      "oleic": 52,
+      "linoleic": 9,
+      "linolenic": 0
+    },
+    "recommended_max_percentage": 10,
+    "hardness_profile": "soft",
+    "inci_names": {
+      "standard": "Azadirachta Indica (Neem) Seed Oil",
+      "saponified_naoh": "Sodium Neemate",
+      "saponified_koh": "Potassium Neemate"
     },
     "trace_speed_impact": "accelerates"
   },
@@ -210,182 +619,6 @@
     "trace_speed_impact": "accelerates"
   },
   {
-    "id": "tallow",
-    "name": "Beef Tallow",
-    "slug": "tallow",
-    "aliases": ["beef-tallow"],
-    "workhorse": true,
-    "common_botanical_name": "Bos taurus",
-    "sap_naoh": 0.141,
-    "sap_koh": 0.199,
-    "iodine": 45,
-    "ins": 147,
-    "fatty_acids": {
-      "lauric": 2,
-      "myristic": 3,
-      "palmitic": 29,
-      "stearic": 18,
-      "ricinoleic": 0,
-      "oleic": 42,
-      "linoleic": 3,
-      "linolenic": 1
-    },
-    "recommended_max_percentage": 50,
-    "hardness_profile": "hard",
-    "inci_names": {
-      "standard": "Tallow",
-      "saponified_naoh": "Sodium Tallowate",
-      "saponified_koh": "Potassium Tallowate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "lard",
-    "name": "Lard",
-    "slug": "lard",
-    "workhorse": true,
-    "common_botanical_name": "Sus scrofa",
-    "sap_naoh": 0.138,
-    "sap_koh": 0.193,
-    "iodine": 57,
-    "ins": 139,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 1,
-      "palmitic": 28,
-      "stearic": 13,
-      "ricinoleic": 0,
-      "oleic": 46,
-      "linoleic": 6,
-      "linolenic": 1
-    },
-    "recommended_max_percentage": 100,
-    "hardness_profile": "hard",
-    "inci_names": {
-      "standard": "Lard",
-      "saponified_naoh": "Sodium Lardate",
-      "saponified_koh": "Potassium Lardate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "cocoa-butter",
-    "name": "Cocoa Butter",
-    "slug": "cocoa-butter",
-    "aliases": ["cocoa"],
-    "workhorse": true,
-    "common_botanical_name": "Theobroma cacao",
-    "sap_naoh": 0.137,
-    "sap_koh": 0.194,
-    "iodine": 37,
-    "ins": 157,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 28,
-      "stearic": 33,
-      "ricinoleic": 0,
-      "oleic": 35,
-      "linoleic": 3,
-      "linolenic": 0
-    },
-    "recommended_max_percentage": 15,
-    "hardness_profile": "hard",
-    "inci_names": {
-      "standard": "Theobroma Cacao (Cocoa) Seed Butter",
-      "saponified_naoh": "Sodium Cocoa Butterate",
-      "saponified_koh": "Potassium Cocoa Butterate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "avocado",
-    "name": "Avocado Oil",
-    "slug": "avocado-oil",
-    "aliases": ["avocado"],
-    "common_botanical_name": "Persea americana",
-    "sap_naoh": 0.133,
-    "sap_koh": 0.186,
-    "iodine": 86,
-    "ins": 99,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 20,
-      "stearic": 2,
-      "ricinoleic": 0,
-      "oleic": 58,
-      "linoleic": 12,
-      "linolenic": 1
-    },
-    "recommended_max_percentage": 20,
-    "hardness_profile": "soft",
-    "inci_names": {
-      "standard": "Persea Gratissima (Avocado) Oil",
-      "saponified_naoh": "Sodium Avocadoate",
-      "saponified_koh": "Potassium Avocadoate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "sweet-almond",
-    "name": "Sweet Almond Oil",
-    "slug": "sweet-almond-oil",
-    "aliases": ["almond-oil", "sweet-almond"],
-    "common_botanical_name": "Prunus dulcis",
-    "sap_naoh": 0.136,
-    "sap_koh": 0.19,
-    "iodine": 99,
-    "ins": 97,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 7,
-      "stearic": 2,
-      "ricinoleic": 0,
-      "oleic": 71,
-      "linoleic": 18,
-      "linolenic": 1
-    },
-    "recommended_max_percentage": 20,
-    "hardness_profile": "soft",
-    "inci_names": {
-      "standard": "Prunus Amygdalus Dulcis (Sweet Almond) Oil",
-      "saponified_naoh": "Sodium Sweetalmondate",
-      "saponified_koh": "Potassium Sweetalmondate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "rice-bran",
-    "name": "Rice Bran Oil",
-    "slug": "rice-bran-oil",
-    "aliases": ["rice-bran"],
-    "common_botanical_name": "Oryza sativa",
-    "sap_naoh": 0.128,
-    "sap_koh": 0.181,
-    "iodine": 100,
-    "ins": 70,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 22,
-      "stearic": 3,
-      "ricinoleic": 0,
-      "oleic": 38,
-      "linoleic": 34,
-      "linolenic": 2
-    },
-    "recommended_max_percentage": 20,
-    "hardness_profile": "soft",
-    "inci_names": {
-      "standard": "Oryza Sativa (Rice) Bran Oil",
-      "saponified_naoh": "Sodium Ricebranate",
-      "saponified_koh": "Potassium Ricebranate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
     "id": "sunflower",
     "name": "Sunflower Oil",
     "slug": "sunflower-oil",
@@ -411,93 +644,6 @@
       "standard": "Helianthus Annuus (Sunflower) Seed Oil",
       "saponified_naoh": "Sodium Sunflowerate",
       "saponified_koh": "Potassium Sunflowerate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "canola",
-    "name": "Canola Oil",
-    "slug": "canola-oil",
-    "aliases": ["canola", "rapeseed-oil"],
-    "common_botanical_name": "Brassica napus",
-    "sap_naoh": 0.124,
-    "sap_koh": 0.174,
-    "iodine": 110,
-    "ins": 56,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 4,
-      "stearic": 2,
-      "ricinoleic": 0,
-      "oleic": 61,
-      "linoleic": 21,
-      "linolenic": 9
-    },
-    "recommended_max_percentage": 20,
-    "hardness_profile": "soft",
-    "inci_names": {
-      "standard": "Brassica Napus (Canola) Seed Oil",
-      "saponified_naoh": "Sodium Canolate",
-      "saponified_koh": "Potassium Canolate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "kokum",
-    "name": "Kokum Butter",
-    "slug": "kokum-butter",
-    "aliases": ["kokum"],
-    "common_botanical_name": "Garcinia indica",
-    "sap_naoh": 0.137,
-    "sap_koh": 0.192,
-    "iodine": 35,
-    "ins": 155,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 4,
-      "stearic": 56,
-      "ricinoleic": 0,
-      "oleic": 39,
-      "linoleic": 1,
-      "linolenic": 0
-    },
-    "recommended_max_percentage": 10,
-    "hardness_profile": "hard",
-    "inci_names": {
-      "standard": "Garcinia Indica Seed Butter",
-      "saponified_naoh": "Sodium Kokum Butterate",
-      "saponified_koh": "Potassium Kokum Butterate"
-    },
-    "trace_speed_impact": "slows"
-  },
-  {
-    "id": "mango-butter",
-    "name": "Mango Butter",
-    "slug": "mango-butter",
-    "aliases": ["mango"],
-    "common_botanical_name": "Mangifera indica",
-    "sap_naoh": 0.128,
-    "sap_koh": 0.18,
-    "iodine": 45,
-    "ins": 119,
-    "fatty_acids": {
-      "lauric": 0,
-      "myristic": 0,
-      "palmitic": 8,
-      "stearic": 42,
-      "ricinoleic": 0,
-      "oleic": 45,
-      "linoleic": 4,
-      "linolenic": 0
-    },
-    "recommended_max_percentage": 15,
-    "hardness_profile": "hard",
-    "inci_names": {
-      "standard": "Mangifera Indica (Mango) Seed Butter",
-      "saponified_naoh": "Sodium Mango Butterate",
-      "saponified_koh": "Potassium Mango Butterate"
     },
     "trace_speed_impact": "slows"
   }

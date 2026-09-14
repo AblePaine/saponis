@@ -31,7 +31,12 @@ describe("oil library identity", () => {
     assert.equal(getOilBySlug("coconut-oil")?.id, "coconut-76");
     assert.equal(getOilBySlug("palm-oil")?.id, "palm-rspo");
     assert.equal(getOilBySlug("tallow")?.id, "tallow");
+    assert.equal(getOilBySlug("beef-tallow")?.id, "tallow");
     assert.equal(getOilBySlug("babassu-oil")?.id, "babassu");
+    assert.equal(getOilBySlug("sunflower-oil-high-oleic")?.id, "sunflower-ho");
+    assert.equal(getOilBySlug("jojoba-oil")?.id, "jojoba-oil");
+    assert.equal(getOilBySlug("hemp-seed-oil")?.id, "hemp-seed-oil");
+    assert.equal(getOilBySlug("neem-oil")?.id, "neem-oil");
   });
 });
 
