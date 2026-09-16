@@ -1,10 +1,14 @@
 # Saponis
 
-Cold-process soap formulation bench — stoichiometric lye, liquid, fatty acids, and quality scores.
+Formulation hub — stoichiometric soap, with balm, emulsion, and surfactant benches on deck.
 
 **Site:** [saponis.app](https://saponis.app)
 
-Public calculator stays free. Pro adds FDA / EU-UK ingredient labels and mold volumetric batch sizing.
+- Hub: `/`
+- Soap bench: `/soap` (legacy `/?r=` and `/?oil=` links redirect here)
+- Oil library: `/oils`
+
+Public soap bench stays free. Pro adds FDA / EU-UK ingredient labels and mold volumetric batch sizing.
 
 ## Stack
 

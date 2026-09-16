@@ -16,7 +16,7 @@
     "preview:stop": "node scripts/preview.mjs stop",
     "typecheck": "tsc --noEmit",
     "check:auth": "node scripts/check-auth-invariant.mjs",
-    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/calcEngine.test.ts src/lib/recipe-url.test.ts src/lib/oil-specs.test.ts src/lib/label-engine.test.ts src/lib/mold-engine.test.ts",
+    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/calcEngine.test.ts src/lib/recipe-url.test.ts src/lib/oil-specs.test.ts src/lib/label-engine.test.ts src/lib/mold-engine.test.ts src/lib/soap-search.test.ts src/types/ingredients.test.ts",
     "test:engine": "node --experimental-strip-types --test src/lib/calcEngine.test.ts",
     "lint": "eslint .",
     "format": "prettier --write ."

@@ -254,7 +254,7 @@ export function calculatorPreloadPath(
   oil: MasterOilRecord,
   weight = DEFAULT_PRELOAD_WEIGHT_G,
 ): string {
-  return `/?oil=${encodeURIComponent(oil.slug)}&wt=${weight}`;
+  return `/soap?oil=${encodeURIComponent(oil.slug)}&wt=${weight}`;
 }
 
 type JsonLd = Record<string, unknown>;

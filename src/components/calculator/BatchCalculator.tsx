@@ -16,33 +16,13 @@ import { safetyLabel, safetyLevel } from "@/lib/safety";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AuthSlot } from "@/components/auth-slot";
+import { BrandMark } from "@/components/brand-mark";
 import { StepOils } from "@/components/calculator/step-oils";
 import { StepLye } from "@/components/calculator/step-lye";
 import { StepMetrics } from "@/components/calculator/step-metrics";
 import { StepOutput } from "@/components/calculator/step-output";
 import { StickyBar } from "@/components/calculator/sticky-bar";
 import { PrintSheet } from "@/components/calculator/print-sheet";
-
-function Mark() {
-  return (
-    <svg viewBox="0 0 32 32" className="size-8 shrink-0" aria-hidden="true">
-      <rect width="32" height="32" rx="8" fill="currentColor" className="text-primary" />
-      <path
-        d="M10 20c0-5 6-9 6-13 0 4 6 8 6 13 0 3.3-2.7 6-6 6s-6-2.7-6-6z"
-        fill="currentColor"
-        className="text-primary-fg"
-      />
-      <path
-        d="M16 9c.4 2.2-.2 4-1.4 5.4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        className="text-primary"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
 
 export function BatchCalculator() {
   const config = useRecipeStore((s) => s.config);
@@ -106,8 +86,8 @@ export function BatchCalculator() {
     <div className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col px-4 pt-6 pb-8 sm:px-6 lg:px-8 lg:pb-12">
       <header className="no-print flex flex-col gap-5 border-b border-line pb-5">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex min-w-0 items-center gap-3">
-            <Mark />
+          <Link to="/" search={{}} className="flex min-w-0 items-center gap-3">
+            <BrandMark />
             <div className="min-w-0">
               <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
                 Cold-process bench
@@ -116,7 +96,7 @@ export function BatchCalculator() {
                 Saponis
               </h1>
             </div>
-          </div>
+          </Link>
           <div className="flex items-center gap-2">
             <span
               className={cn(
@@ -197,6 +177,9 @@ export function BatchCalculator() {
           >
             {copied ? <Check /> : <Link2 />}
             {copied ? "Link copied" : "Share recipe"}
+          </Button>
+          <Button asChild variant="outline" className="h-12">
+            <Link to="/" search={{}}>Hub</Link>
           </Button>
           <Button asChild variant="outline" className="h-12">
             <Link to="/oils">Oil library</Link>

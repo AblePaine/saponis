@@ -67,11 +67,11 @@ function Login() {
         </p>
       </section>
       <Link
-        to="/"
+        to="/soap"
         search={{}}
         className="mt-6 inline-flex h-12 items-center text-sm font-medium text-primary"
       >
-        Back to calculator
+        Back to soap bench
       </Link>
     </main>
   );

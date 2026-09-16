@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as BalmsRouteImport } from './routes/balms'
+import { Route as EmulsionsRouteImport } from './routes/emulsions'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as SoapRouteImport } from './routes/soap'
+import { Route as SurfactantsRouteImport } from './routes/surfactants'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe-webhook'
 import { Route as OilsIndexRouteImport } from './routes/oils.index'
 import { Route as OilsSlugRouteImport } from './routes/oils.$slug'
@@ -29,9 +33,29 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BalmsRoute = BalmsRouteImport.update({
+  id: '/balms',
+  path: '/balms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmulsionsRoute = EmulsionsRouteImport.update({
+  id: '/emulsions',
+  path: '/emulsions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SoapRoute = SoapRouteImport.update({
+  id: '/soap',
+  path: '/soap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SurfactantsRoute = SurfactantsRouteImport.update({
+  id: '/surfactants',
+  path: '/surfactants',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
@@ -68,7 +92,11 @@ const OilsComparePairRoute = OilsComparePairRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/balms': typeof BalmsRoute
+  '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
+  '/soap': typeof SoapRoute
+  '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/oils/$slug': typeof OilsSlugRoute
   '/oils/': typeof OilsIndexRoute
@@ -79,7 +107,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/balms': typeof BalmsRoute
+  '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
+  '/soap': typeof SoapRoute
+  '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/oils/$slug': typeof OilsSlugRoute
   '/oils': typeof OilsIndexRoute
@@ -91,7 +123,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRoute
+  '/balms': typeof BalmsRoute
+  '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
+  '/soap': typeof SoapRoute
+  '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/oils/$slug': typeof OilsSlugRoute
   '/oils/': typeof OilsIndexRoute
@@ -104,7 +140,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/balms'
+    | '/emulsions'
     | '/login'
+    | '/soap'
+    | '/surfactants'
     | '/api/stripe-webhook'
     | '/oils/$slug'
     | '/oils/'
@@ -115,7 +155,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/app'
+    | '/balms'
+    | '/emulsions'
     | '/login'
+    | '/soap'
+    | '/surfactants'
     | '/api/stripe-webhook'
     | '/oils/$slug'
     | '/oils'
@@ -126,7 +170,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/balms'
+    | '/emulsions'
     | '/login'
+    | '/soap'
+    | '/surfactants'
     | '/api/stripe-webhook'
     | '/oils/$slug'
     | '/oils/'
@@ -138,7 +186,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRoute
+  BalmsRoute: typeof BalmsRoute
+  EmulsionsRoute: typeof EmulsionsRoute
   LoginRoute: typeof LoginRoute
+  SoapRoute: typeof SoapRoute
+  SurfactantsRoute: typeof SurfactantsRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
   OilsSlugRoute: typeof OilsSlugRoute
   OilsIndexRoute: typeof OilsIndexRoute
@@ -163,11 +215,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/balms': {
+      id: '/balms'
+      path: '/balms'
+      fullPath: '/balms'
+      preLoaderRoute: typeof BalmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emulsions': {
+      id: '/emulsions'
+      path: '/emulsions'
+      fullPath: '/emulsions'
+      preLoaderRoute: typeof EmulsionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/soap': {
+      id: '/soap'
+      path: '/soap'
+      fullPath: '/soap'
+      preLoaderRoute: typeof SoapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/surfactants': {
+      id: '/surfactants'
+      path: '/surfactants'
+      fullPath: '/surfactants'
+      preLoaderRoute: typeof SurfactantsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/stripe-webhook': {
@@ -218,7 +298,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
+  BalmsRoute: BalmsRoute,
+  EmulsionsRoute: EmulsionsRoute,
   LoginRoute: LoginRoute,
+  SoapRoute: SoapRoute,
+  SurfactantsRoute: SurfactantsRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,
   OilsSlugRoute: OilsSlugRoute,
   OilsIndexRoute: OilsIndexRoute,

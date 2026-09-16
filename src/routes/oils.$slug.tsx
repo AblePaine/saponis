@@ -93,9 +93,9 @@ function OilSpec() {
           {oil.workhorse ? <Badge variant="outline">workhorse</Badge> : null}
         </div>
         <Button asChild size="lg" className="mt-5 h-12 w-full sm:w-auto">
-          <Link to="/" search={{ oil: oil.slug, wt: DEFAULT_PRELOAD_WEIGHT_G }}>
+          <Link to="/soap" search={{ oil: oil.slug, wt: DEFAULT_PRELOAD_WEIGHT_G }}>
             <Plus />
-            Load into Calculator
+            Load into soap bench
           </Link>
         </Button>
       </section>

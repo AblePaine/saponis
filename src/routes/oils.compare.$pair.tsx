@@ -281,7 +281,7 @@ function OilLead({ oil, slot }: { oil: MasterOilRecord; slot: "A" | "B" }) {
         NaOH {formatSap(oil.sap_naoh)}
       </p>
       <Button asChild variant="outline" className="mt-3 h-12 w-full">
-        <Link to="/" search={{ oil: oil.slug, wt: 500 }}>
+        <Link to="/soap" search={{ oil: oil.slug, wt: 500 }}>
           Load 500 g
         </Link>
       </Button>

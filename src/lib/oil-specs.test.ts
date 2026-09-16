@@ -4,6 +4,7 @@ import { OIL_DATABASE, getOilBySlug } from "../data/oils.ts";
 import {
   COMPARE_DELIMITER,
   KOH_COMMERCIAL_PURITY,
+  calculatorPreloadPath,
   comparePairPath,
   kohAdjustedSap,
   listWorkhorseComparePairs,
@@ -130,6 +131,14 @@ describe("compare pair routing", () => {
     assert.equal(
       comparePairPath(must("babassu-oil"), must("coconut-oil-76")),
       "babassu-oil-vs-coconut-oil-76",
+    );
+  });
+
+  it("points spec-sheet preload at the soap bench", () => {
+    const coconut = must("coconut-oil-76");
+    assert.equal(
+      calculatorPreloadPath(coconut, 500),
+      "/soap?oil=coconut-oil-76&wt=500",
     );
   });
 });

@@ -16,7 +16,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Saponis is a cold-process soap formulation bench: stoichiometric lye, liquid, fatty acids, and quality scores — entirely in the browser.",
+          "Saponis is a formulation hub: stoichiometric soap, oil spec sheets, and upcoming balm, emulsion, and surfactant engines.",
       },
       { name: "theme-color", content: "#3F5A4A" },
     ],

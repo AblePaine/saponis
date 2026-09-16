@@ -135,11 +135,11 @@ function GuestPanel() {
         )}
       </div>
       <Link
-        to="/"
+        to="/soap"
         search={{}}
         className="mt-5 inline-flex h-12 items-center text-sm font-medium text-primary"
       >
-        Stay on the free calculator
+        Stay on the free soap bench
       </Link>
     </section>
   );
