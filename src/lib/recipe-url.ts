@@ -63,7 +63,9 @@ export function decodeRecipe(raw: string | null | undefined): RecipeConfig | nul
   return {
     unit,
     oils,
-    superfatPercentage: num(1, 5),
+    // Clamp superfat to [0, 100]: a negative value from a crafted URL would
+    // produce lye excess (safety-relevant direction); >100% is meaningless.
+    superfatPercentage: Math.min(100, Math.max(0, num(1, 5))),
     lyeChoice: {
       naohRatio: Math.min(1, Math.max(0, num(2, 1))),
       naohPurity: num(3, 0.99) || 0.99,
