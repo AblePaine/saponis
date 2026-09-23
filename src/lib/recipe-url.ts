@@ -68,8 +68,11 @@ export function decodeRecipe(raw: string | null | undefined): RecipeConfig | nul
     superfatPercentage: Math.min(100, Math.max(0, num(1, 5))),
     lyeChoice: {
       naohRatio: Math.min(1, Math.max(0, num(2, 1))),
-      naohPurity: num(3, 0.99) || 0.99,
-      kohPurity: num(4, 0.9) || 0.9,
+      // C1: bound purity — an unbounded value from a crafted URL silently
+      // multiplies lye (purity 0.1 = 10x lye) while the app shows "Safe."
+      // Nothing sold is below ~0.85 NaOH / ~0.80 KOH.
+      naohPurity: Math.min(1, Math.max(0.85, num(3, 1) || 1)),
+      kohPurity: Math.min(1, Math.max(0.8, num(4, 0.9) || 0.9)),
     },
     liquidConfig: {
       mode,

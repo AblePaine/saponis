@@ -395,7 +395,7 @@ export function compareDatasetJsonLd(
             "@type": "PropertyValue",
             name: "Substitution factor",
             value: Number(factor.toFixed(4)),
-            description: `SAP_Oil_A / SAP_Oil_B. Multiply lye by this factor when swapping ${oilA.name} for ${oilB.name}.`,
+            description: `SAP_Oil_A / SAP_Oil_B. Oil-weight factor: use this many grams of ${oilB.name} per gram of ${oilA.name} to keep lye unchanged. To swap at equal oil weight instead, multiply that oil's lye share by ${Number((1 / factor).toFixed(4))} (SAP_B / SAP_A).`,
           },
         ],
         hasPart: [
@@ -459,5 +459,6 @@ export function comparePageDescription(
   oilB: MasterOilRecord,
 ): string {
   const factor = substitutionFactor(oilA, oilB);
-  return `${oilA.name} vs ${oilB.name}. NaOH SAP ${oilA.sap_naoh.toFixed(4)} / ${oilB.sap_naoh.toFixed(4)}. Substitution factor ${factor.toFixed(4)} (SAP_A / SAP_B). Multiply lye by ${factor.toFixed(4)} when swapping ${oilA.name} for ${oilB.name}.`;
+  const lyeFactor = 1 / factor;
+  return `${oilA.name} vs ${oilB.name}. NaOH SAP ${oilA.sap_naoh.toFixed(4)} / ${oilB.sap_naoh.toFixed(4)}. Substitution factor ${factor.toFixed(4)} (SAP_A / SAP_B): use ${factor.toFixed(4)} g of ${oilB.name} per gram of ${oilA.name} to keep lye unchanged, or multiply that oil's lye share by ${lyeFactor.toFixed(4)} at equal oil weight.`;
 }

@@ -171,6 +171,23 @@ describe("computeBatch stoichiometry", () => {
     close(result.dryLyeWeight.naoh, 0);
     close(result.dryLyeWeight.koh, (1000 * coconut().sap_koh) / 0.9);
   });
+
+  it("matches the external reference: 1000 g olive at 0% superfat = 134 g NaOH", () => {
+    // Absolute check against SoapCalc's published chart (olive SAP NaOH 0.134).
+    // Hardcoded so a wrong SAP value in oils.json fails instead of passing.
+    const result = computeBatch(
+      baseConfig({
+        oils: [{ oilId: "olive", amount: 1000 }],
+        superfatPercentage: 0,
+        lyeChoice: { naohRatio: 1, naohPurity: 1, kohPurity: 1 },
+      }),
+      OIL_DATABASE,
+    );
+    assert.ok(
+      Math.abs(result.dryLyeWeight.naoh - 134) < 1,
+      `expected ~134 g NaOH, got ${result.dryLyeWeight.naoh}`,
+    );
+  });
 });
 
 describe("computeBatch liquid modes", () => {

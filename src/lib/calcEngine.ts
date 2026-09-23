@@ -117,13 +117,25 @@ export function computeBatch(
   const totalOilWeight = resolved.reduce((sum, row) => sum + row.amount, 0);
 
   const naohRatio = clamp(config.lyeChoice.naohRatio, 0, 1);
-  const naohPurity =
-    config.lyeChoice.naohPurity > 0 ? config.lyeChoice.naohPurity : 1;
-  const kohPurity =
-    config.lyeChoice.kohPurity > 0 ? config.lyeChoice.kohPurity : 0.9;
-  const superfatPercentage = Number.isFinite(config.superfatPercentage)
-    ? config.superfatPercentage
-    : 0;
+  // C1: bound purity inside the engine as well — covers UI inputs, saved
+  // recipes, and any other entry point. Unbounded purity silently multiplies
+  // lye (purity 0.1 = 10x). Nothing sold is below ~0.85 NaOH / ~0.80 KOH.
+  const naohPurity = clamp(
+    config.lyeChoice.naohPurity > 0 ? config.lyeChoice.naohPurity : 1,
+    0.85,
+    1,
+  );
+  const kohPurity = clamp(
+    config.lyeChoice.kohPurity > 0 ? config.lyeChoice.kohPurity : 0.9,
+    0.8,
+    1,
+  );
+  // M1: clamp superfat in the engine, not just the URL decoder.
+  const superfatPercentage = clamp(
+    Number.isFinite(config.superfatPercentage) ? config.superfatPercentage : 0,
+    0,
+    100,
+  );
   const discount = 1 - superfatPercentage / 100;
 
   let naohPure = 0;
@@ -167,7 +179,9 @@ export function computeBatch(
 
   const qualityScores = qualityFromFattyAcids(fattyAcids, iodine, ins);
 
-  if (totalOilWeight > 0) {
+  // m1: skip concentration alerts when there is no lye (e.g. 100% superfat) —
+  // a 0% concentration with no water is not an excess-water problem.
+  if (totalOilWeight > 0 && totalDryLye > 0) {
     if (lyeConcentrationPercent > 40) {
       safetyAlerts.push(DANGER_UNSATURATED_SOLUTION);
     }

@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 import { computeBatch } from "./calcEngine.ts";
 import {
   CURE_WATER_RETAINED,
-  GLYCERIN_YIELD,
   euSaponifiedLabel,
   fdaInputLabel,
 } from "./label-engine.ts";
@@ -57,7 +56,7 @@ describe("FDA input-method label", () => {
 });
 
 describe("EU saponified-salt label", () => {
-  it("splits glycerin at 10.5% and retains 85% of water after cure", () => {
+  it("derives glycerin from saponified oil only and retains 85% of water after cure", () => {
     const result = computeBatch(CASTILE, OIL_DATABASE);
     const label = euSaponifiedLabel(CASTILE, result, OIL_DATABASE);
     const glycerin = label.lines.find((line) => line.name === "Glycerin");
@@ -65,7 +64,8 @@ describe("EU saponified-salt label", () => {
     const salt = label.lines.find((line) => line.name === olive().inci_names.saponified_naoh);
     const leftover = label.lines.find((line) => line.name === olive().inci_names.standard);
     assert.ok(glycerin);
-    assert.equal(glycerin.grams, 1000 * GLYCERIN_YIELD);
+    // m2: glycerol only from saponified oil: 1000g x 0.95 x sap_koh(0.188) x 0.547
+    assert.equal(glycerin.grams, 1000 * 0.95 * 0.188 * 0.547);
     assert.ok(aqua);
     assert.equal(aqua.grams, result.liquidWeight * CURE_WATER_RETAINED);
     assert.ok(salt);

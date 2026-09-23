@@ -94,17 +94,20 @@ export function euSaponifiedLabel(
   database: MasterOilRecord[] = OIL_DATABASE,
 ): LabelOutput {
   const toG = (amount: number) => recipeUnitToGrams(amount, config.unit);
-  const totalOilG = toG(result.totalOilWeight);
   const sf = Math.min(1, Math.max(0, config.superfatPercentage / 100));
   const sapFrac = 1 - sf;
   const naohRatio = Math.min(1, Math.max(0, config.lyeChoice.naohRatio));
   const lines: LabelLine[] = [];
+  // m2: glycerol comes only from saponified oil — unsaponified (superfat) oil
+  // releases no glycerol. Accumulate per-oil: saponified g × SAP_KOH × 0.547.
+  let glycerin = 0;
 
   for (const row of config.oils) {
     const oil = getOilById(row.oilId, database);
     if (!oil || row.amount <= 0) continue;
     const grams = toG(row.amount);
     const sapGrams = grams * sapFrac;
+    glycerin += sapGrams * oil.sap_koh * 0.547;
     if (naohRatio > 0 && sapGrams > 0) {
       lines.push({
         name: oil.inci_names.saponified_naoh,
@@ -123,7 +126,6 @@ export function euSaponifiedLabel(
     }
   }
 
-  const glycerin = totalOilG * GLYCERIN_YIELD;
   if (glycerin > 0) lines.push({ name: "Glycerin", grams: glycerin });
 
   const aqua = toG(result.liquidWeight) * CURE_WATER_RETAINED;
