@@ -12,6 +12,7 @@ const FAT_COUNT = OIL_DATABASE.length;
 const NAV = [
   { to: "/soap" as const, label: "Soap" },
   { to: "/oils" as const, label: "Oils" },
+  { to: "/guides" as const, label: "Guides" },
   { to: "/app" as const, label: "Pro bench" },
 ];
 

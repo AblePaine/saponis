@@ -8,13 +8,14 @@ const NAV = [
   { to: "/soap", label: "Soap", current: "calculator" },
   { to: "/oils", label: "Oils", current: "library" },
   { to: "/oils/compare", label: "Compare", current: "compare" },
+  { to: "/guides", label: "Guides", current: "guides" },
   { to: "/app", label: "Pro", current: "pro" },
 ] as const;
 
 export function DirectoryHeader({
   current,
 }: {
-  current?: "hub" | "calculator" | "library" | "compare" | "pro";
+  current?: "hub" | "calculator" | "library" | "compare" | "guides" | "pro";
 }) {
   return (
     <header className="border-b border-line pb-4">

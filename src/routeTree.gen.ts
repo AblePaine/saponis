@@ -17,6 +17,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as SoapRouteImport } from './routes/soap'
 import { Route as SurfactantsRouteImport } from './routes/surfactants'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe-webhook'
+import { Route as GuidesIndexRouteImport } from './routes/guides.index'
+import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
 import { Route as OilsIndexRouteImport } from './routes/oils.index'
 import { Route as OilsSlugRouteImport } from './routes/oils.$slug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
@@ -63,6 +65,16 @@ const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
   path: '/api/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesSlugRoute = GuidesSlugRouteImport.update({
+  id: '/guides/$slug',
+  path: '/guides/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OilsIndexRoute = OilsIndexRouteImport.update({
   id: '/oils/',
   path: '/oils/',
@@ -98,7 +110,9 @@ export interface FileRoutesByFullPath {
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
+  '/guides/': typeof GuidesIndexRoute
   '/oils/': typeof OilsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/oils/compare/$pair': typeof OilsComparePairRoute
@@ -113,7 +127,9 @@ export interface FileRoutesByTo {
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
+  '/guides': typeof GuidesIndexRoute
   '/oils': typeof OilsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/oils/compare/$pair': typeof OilsComparePairRoute
@@ -129,7 +145,9 @@ export interface FileRoutesById {
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
+  '/guides/': typeof GuidesIndexRoute
   '/oils/': typeof OilsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/oils/compare/$pair': typeof OilsComparePairRoute
@@ -146,7 +164,9 @@ export interface FileRouteTypes {
     | '/soap'
     | '/surfactants'
     | '/api/stripe-webhook'
+    | '/guides/$slug'
     | '/oils/$slug'
+    | '/guides/'
     | '/oils/'
     | '/api/auth/$'
     | '/oils/compare/$pair'
@@ -161,7 +181,9 @@ export interface FileRouteTypes {
     | '/soap'
     | '/surfactants'
     | '/api/stripe-webhook'
+    | '/guides/$slug'
     | '/oils/$slug'
+    | '/guides'
     | '/oils'
     | '/api/auth/$'
     | '/oils/compare/$pair'
@@ -176,7 +198,9 @@ export interface FileRouteTypes {
     | '/soap'
     | '/surfactants'
     | '/api/stripe-webhook'
+    | '/guides/$slug'
     | '/oils/$slug'
+    | '/guides/'
     | '/oils/'
     | '/api/auth/$'
     | '/oils/compare/$pair'
@@ -192,7 +216,9 @@ export interface RootRouteChildren {
   SoapRoute: typeof SoapRoute
   SurfactantsRoute: typeof SurfactantsRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
+  GuidesSlugRoute: typeof GuidesSlugRoute
   OilsSlugRoute: typeof OilsSlugRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   OilsIndexRoute: typeof OilsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   OilsComparePairRoute: typeof OilsComparePairRoute
@@ -257,6 +283,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/$slug': {
+      id: '/guides/$slug'
+      path: '/guides/$slug'
+      fullPath: '/guides/$slug'
+      preLoaderRoute: typeof GuidesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/oils/': {
       id: '/oils/'
       path: '/oils'
@@ -304,7 +344,9 @@ const rootRouteChildren: RootRouteChildren = {
   SoapRoute: SoapRoute,
   SurfactantsRoute: SurfactantsRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,
+  GuidesSlugRoute: GuidesSlugRoute,
   OilsSlugRoute: OilsSlugRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   OilsIndexRoute: OilsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   OilsComparePairRoute: OilsComparePairRoute,
