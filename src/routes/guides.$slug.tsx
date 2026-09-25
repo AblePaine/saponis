@@ -51,7 +51,7 @@ function GuideNotFound() {
       <DirectoryHeader current="guides" />
       <h1 className="mt-10 font-display text-2xl">Guide not found</h1>
       <p className="mt-2 text-sm text-muted">
-        That guide does not exist yet. Start from the guides index.
+        No guide there yet. Start from the list.
       </p>
       <Button asChild className="mt-6 h-12">
         <Link to="/guides">All guides</Link>

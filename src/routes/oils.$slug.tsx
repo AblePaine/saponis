@@ -50,7 +50,7 @@ function OilNotFound() {
       <DirectoryHeader current="library" />
       <h1 className="mt-10 font-display text-2xl">Oil not in this library</h1>
       <p className="mt-2 text-sm text-muted">
-        Spec sheets are generated from the master oil table. Pick a fat from the catalog.
+        Every spec sheet comes from the same oil table. Pick a fat from the catalog.
       </p>
       <Button asChild className="mt-6 h-12">
         <Link to="/oils">Oil library</Link>
@@ -101,7 +101,7 @@ function OilSpec() {
       </section>
 
       <div className="mt-4 flex flex-col gap-4">
-        <SpecCard kicker="01" title="Saponification & chemical constants">
+        <SpecCard kicker="01" title="Saponification & chemical numbers">
           <dl className="divide-y divide-line">
             <ConstantRow
               label="NaOH SAP (pure)"
@@ -131,26 +131,26 @@ function OilSpec() {
           <FattySpectrum profile={oil.fatty_acids} />
         </SpecCard>
 
-        <SpecCard kicker="03" title="Physical contribution matrix">
+        <SpecCard kicker="03" title="What it does in the bar">
           <QualityMatrix oil={oil} />
         </SpecCard>
 
-        <SpecCard kicker="04" title="Legal INCI naming convention">
+        <SpecCard kicker="04" title="INCI names for the label">
           <div className="flex flex-col gap-3">
             <CopyBlock
               label="Pre-saponification INCI"
               value={oil.inci_names.standard}
-              hint="Unsaponified oil remaining as superfat."
+              hint="The oil left over as superfat, by name."
             />
             <CopyBlock
               label="Post-saponification NaOH salt"
               value={oil.inci_names.saponified_naoh}
-              hint="Declared soap after sodium hydroxide saponification."
+              hint="How to list it on a NaOH soap label."
             />
             <CopyBlock
               label="Post-saponification KOH salt"
               value={oil.inci_names.saponified_koh}
-              hint="Declared soap after potassium hydroxide saponification."
+              hint="How to list it on a KOH soap label."
             />
           </div>
         </SpecCard>
@@ -159,7 +159,7 @@ function OilSpec() {
       {counterparts.length > 0 ? (
         <section className="mt-8">
           <h2 className="font-display text-xl font-medium tracking-tight">
-            Head-to-head substitution
+            Head-to-head: can you swap it?
           </h2>
           <ul className="mt-3 flex flex-col gap-2">
             {counterparts.map((row) => (

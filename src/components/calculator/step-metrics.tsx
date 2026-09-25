@@ -9,7 +9,7 @@ export function StepMetrics({ result }: { result: BatchResult }) {
     <StepCard
       step={3}
       title="Performance"
-      subtitle="Live bars against recommended soapmaking ranges."
+      subtitle="How your bar scores against the ranges soapmakers aim for."
     >
       <div className="flex flex-col gap-4">
         {METRIC_KEYS.map((key) => {

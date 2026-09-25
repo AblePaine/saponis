@@ -16,30 +16,30 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Saponis is a formulation hub: stoichiometric soap, oil spec sheets, and upcoming balm, emulsion, and surfactant engines.",
+          "Saponis is a soap and cosmetic recipe lab: a live soap calculator, oil spec sheets, and balm, emulsion, and surfactant calculators on the way.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Saponis" },
       {
         property: "og:title",
-        content: "Saponis — Precision Soap & Cosmetic Formulation",
+        content: "Saponis — soap & cosmetic recipes that do the math",
       },
       {
         property: "og:description",
         content:
-          "Saponis is a formulation hub: stoichiometric soap, oil spec sheets, and upcoming balm, emulsion, and surfactant engines.",
+          "Saponis is a soap and cosmetic recipe lab: a live soap calculator, oil spec sheets, and balm, emulsion, and surfactant calculators on the way.",
       },
       { property: "og:url", content: "https://saponis.app/" },
       { property: "og:image", content: "https://saponis.app/og.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Saponis — Precision Soap & Cosmetic Formulation",
+        content: "Saponis — soap & cosmetic recipes that do the math",
       },
       {
         name: "twitter:description",
         content:
-          "Saponis is a formulation hub: stoichiometric soap, oil spec sheets, and upcoming balm, emulsion, and surfactant engines.",
+          "Saponis is a soap and cosmetic recipe lab: a live soap calculator, oil spec sheets, and balm, emulsion, and surfactant calculators on the way.",
       },
       { name: "twitter:image", content: "https://saponis.app/og.jpg" },
       { name: "theme-color", content: "#3F5A4A" },

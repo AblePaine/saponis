@@ -106,11 +106,11 @@ export function UpgradePanel({
         Saponis Pro
       </p>
       <h2 className="mt-1 font-display text-xl font-medium tracking-tight">
-        Unlock labels and mold math
+        Unlock labels and mold sizing
       </h2>
       <p className="mt-2 text-sm text-muted">
-        FDA input declarations, EU/UK saponified INCI, and volumetric mold charging.
-        Cancel or update the card any time in the Stripe customer portal.
+        FDA labels, EU/UK declarations, and batches sized to your mold. Cancel or
+        change cards any time in the Stripe customer portal.
       </p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <button

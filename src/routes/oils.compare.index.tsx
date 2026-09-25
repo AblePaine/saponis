@@ -11,11 +11,11 @@ const horses = workhorseOils();
 export const Route = createFileRoute("/oils/compare/")({
   head: () => ({
     meta: [
-      { title: "Oil substitution matrix — Saponis" },
+      { title: "Oil swap guide — Saponis" },
       {
         name: "description",
         content:
-          "Head-to-head SAP substitution factors for workhorse soapmaking oils. Factor = SAP_A / SAP_B. Multiply lye by the factor when swapping A for B.",
+          "Swapping oils? The factor tells you how much to adjust the lye. Head-to-head SAP factors for workhorse soapmaking oils.",
       },
       { name: "robots", content: "index,follow" },
     ],
@@ -49,8 +49,8 @@ function CompareIndex() {
         Substitution matrix
       </h1>
       <p className="mt-2 max-w-2xl font-mono text-sm text-muted">
-        Substitution Factor = SAP_Oil_A / SAP_Oil_B. {horses.length} workhorses · {pairs.length}{" "}
-        ordered pairs.
+        Factor = SAP of oil A ÷ SAP of oil B. {horses.length} workhorses · {pairs.length}{" "}
+        pairs.
       </p>
 
       <div className="mt-6 overflow-x-auto rounded-2xl bg-surface shadow-[var(--shadow-border)]">

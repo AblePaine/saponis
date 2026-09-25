@@ -10,11 +10,11 @@ export const Route = createFileRoute("/")({
   validateSearch: soapSearchSchema,
   head: () => ({
     meta: [
-      { title: "Saponis — formulation engines" },
+      { title: "Saponis — soap & cosmetic calculators" },
       {
         name: "description",
         content:
-          "Precision cosmetic and soap formulation engines: stoichiometric alkali, HLB, surfactant matter, and regulatory labels. Pure math, zero guesswork.",
+          "Soap and cosmetic calculators that do the math: exact lye for your oils, superfat you can trust, and INCI & FDA labels ready to print. Zero guesswork.",
       },
       { name: "robots", content: "index,follow" },
     ],

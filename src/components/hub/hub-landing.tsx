@@ -30,29 +30,29 @@ const BENCHES: {
 }[] = [
   {
     id: "soap",
-    kicker: "01 · Alkali",
+    kicker: "01 · Soap",
     title: "Cold-process & hot-process soap",
     status: "online",
-    statusLabel: "Online / Active",
+    statusLabel: "Live now",
     specs: [
       `${FAT_COUNT} verified fats & butters`,
-      "Dual-lye (NaOH / KOH) stoichiometry",
-      "INCI & FDA mass-balance labels",
-      "Mold dimension scaler",
+      "Lye math for NaOH, KOH, or a blend of both",
+      "INCI & FDA labels, ready to print",
+      "Batch sized to your mold",
     ],
     href: "/soap",
     cta: "Open soap bench",
   },
   {
     id: "balms",
-    kicker: "02 · Anhydrous",
+    kicker: "02 · Balms",
     title: "Balms, salves & waxes",
     status: "calibrating",
-    statusLabel: "Bench calibrating",
+    statusLabel: "Almost ready",
     specs: [
-      "Wax-to-butter-to-liquid ratio balancing",
-      "Dynamic melting-point curve (Tmelt)",
-      "Anti-graininess solidification alerts",
+      "Wax, butter, and oil ratios that actually set",
+      "Know when it melts — and when it holds in the jar",
+      "A heads-up before a batch goes grainy",
     ],
     href: "/balms",
     cta: "Preview spec",
@@ -62,25 +62,25 @@ const BENCHES: {
     kicker: "03 · Creams",
     title: "Emulsions & creams",
     status: "next",
-    statusLabel: "Coming next",
+    statusLabel: "Coming soon",
     specs: [
-      "Required HLB (rHLB) blending",
-      "Preservative dermal ceilings",
-      "Water-phase shrinkage adjusters",
+      "The right emulsifier blend for your oil phase",
+      "Preservative amounts that stay skin-safe",
+      "Water adjusted for what evaporates off",
     ],
     href: "/emulsions",
     cta: "Preview spec",
   },
   {
     id: "surfactants",
-    kicker: "04 · Wash",
+    kicker: "04 · Cleansers",
     title: "Surfactant cleansers",
     status: "next",
-    statusLabel: "Coming next",
+    statusLabel: "Coming soon",
     specs: [
-      "Active surfactant matter (ASM) balancing",
-      "Charge compatibility (anionic / cationic)",
-      "Dermal mildness index",
+      "Cleansing strength dialed to your recipe",
+      "Surfactants that play nice together",
+      "A gentleness score for skin",
     ],
     href: "/surfactants",
     cta: "Preview spec",
@@ -88,10 +88,10 @@ const BENCHES: {
 ];
 
 const TELEMETRY = [
-  `${FAT_COUNT} pure saponification standards`,
-  "0.00% caustic drift tolerance",
-  "ISO 22716 / FDA 21 CFR schemas",
-  "100% client-side reactive compute",
+  `${FAT_COUNT} fats in the library, SAP to 4 decimals`,
+  "Lye amounts that don't drift",
+  "Labels that follow ISO 22716 and FDA rules",
+  "Runs in your browser — your recipes stay on your device",
 ];
 
 function statusVariant(status: BenchStatus): "ok" | "warn" | "outline" {
@@ -109,7 +109,7 @@ export function HubLanding() {
             <BrandMark />
             <div className="min-w-0">
               <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
-                Formulation hub
+                Recipe lab
               </p>
               <p className="font-display text-xl font-medium tracking-tight text-ink">
                 Saponis
@@ -120,7 +120,7 @@ export function HubLanding() {
         </div>
         <p className="mt-3 flex items-center gap-2 font-mono text-xs leading-relaxed text-muted">
           <span className="size-1.5 shrink-0 rounded-full bg-ok" aria-hidden="true" />
-          System status: all engines calibrated · v2.0
+          Everything's checked and working · v2.0
         </p>
         <nav className="mt-3 flex gap-1 overflow-x-auto">
           {NAV.map((item) => (
@@ -138,12 +138,11 @@ export function HubLanding() {
 
       <section className="mt-8 max-w-3xl">
         <h1 className="font-display text-3xl font-medium tracking-tight text-ink sm:text-5xl sm:leading-tight">
-          Precision cosmetic & soap formulation engines
+          Soap and cosmetic recipes, minus the guesswork.
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-          Stoichiometric alkali balances, required HLB calculations, active surfactant
-          percentages, and automated regulatory label compliance. Pure math, zero
-          guesswork.
+          Get your lye right, dial in your superfat, and print labels the rules
+          actually accept — without touching a spreadsheet.
         </p>
       </section>
 
@@ -198,7 +197,7 @@ export function HubLanding() {
         className="mt-8 rounded-2xl bg-bg-subtle px-4 py-4 sm:px-5"
       >
         <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
-          Telemetry
+          Under the hood
         </p>
         <ul className="mt-3 grid gap-3 sm:grid-cols-2">
           {TELEMETRY.map((item) => (
@@ -214,7 +213,7 @@ export function HubLanding() {
 
       <section className="mt-8 mb-10">
         <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
-          Spec library
+          Reference shelf
         </p>
         <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
           <Link
@@ -234,7 +233,7 @@ export function HubLanding() {
               "sm:min-w-56",
             )}
           >
-            Substitution tables
+            Oil swap tables
             <ArrowRight className="size-4 text-muted" />
           </Link>
           <Link

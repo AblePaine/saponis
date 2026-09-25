@@ -16,7 +16,7 @@ export const Route = createFileRoute("/oils/")({
       {
         name: "description",
         content:
-          "Directory of soapmaking oils: NaOH SAP, KOH SAP (pure and 90%), iodine, INS, fatty acid profiles, INCI names, and quality scores.",
+          "Look up any soapmaking oil: NaOH and KOH SAP, iodine, INS, fatty acids, INCI names, and how it behaves in the bar.",
       },
       { name: "robots", content: "index,follow" },
     ],
@@ -42,8 +42,8 @@ function OilLibrary() {
         Oil library
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
-        {OIL_DATABASE.length} fats. SAP to 4 decimals. INCI pre- and post-saponification.
-        Workhorse pairs generate head-to-head substitution pages.
+        {OIL_DATABASE.length} fats, SAP to 4 decimals, and the INCI names you'll
+        actually print on the label. Workhorse oils get head-to-head swap pages.
       </p>
 
       <div className="mt-6 md:hidden">

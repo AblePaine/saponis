@@ -56,7 +56,7 @@ export function StepOutput({
     <StepCard
       step={4}
       title="Batch sheet"
-      subtitle="Weigh-up table, then print a one-page production checklist."
+      subtitle="Your weigh-up table — then print a one-page checklist for the bench."
     >
       {result.safetyAlerts.length > 0 ? (
         <ul className="mb-4 flex flex-col gap-2">

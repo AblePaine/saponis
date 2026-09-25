@@ -138,8 +138,9 @@ export function BatchCalculator() {
           </div>
         </div>
         <p className="hidden max-w-xl text-sm text-muted sm:block">
-          Thumb-first formulation. Percent or weight, live lye, and a shareable recipe link —
-          all on-device.
+          Built for the bench, phone in one hand. Percent or weight, lye that
+          updates as you type, and a link you can share — nothing leaves your
+          device.
         </p>
         <div className="flex flex-wrap gap-2">
           {PRESETS.map((preset) => (

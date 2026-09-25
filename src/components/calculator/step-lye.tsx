@@ -46,7 +46,7 @@ export function StepLye() {
     <StepCard
       step={2}
       title="Lye & liquid"
-      subtitle="Alkali type, purity, superfat, and water."
+      subtitle="Which lye, how pure, how much water — and your superfat."
     >
       <Label>Lye type</Label>
       <div className="mt-1 grid grid-cols-3 gap-1 rounded-lg bg-bg-subtle p-1">
@@ -128,7 +128,7 @@ export function StepLye() {
       {kohInfo ? (
         <p className="mt-3 rounded-lg bg-bg-subtle px-3 py-3 text-sm text-muted">
           Potassium hydroxide is typically sold at 90% purity. Enter the assay on
-          your bottle — the engine inflates the dose so the true alkali mass is
+          your bottle — Saponis bumps up the dose so the true alkali mass is
           correct.
         </p>
       ) : null}

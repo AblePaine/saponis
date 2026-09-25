@@ -24,7 +24,7 @@ export function DirectoryHeader({
           <BrandMark />
           <div className="min-w-0">
             <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
-              {current === "calculator" ? "Cold-process bench" : "Formulation hub"}
+              {current === "calculator" ? "Cold-process bench" : "Recipe lab"}
             </p>
             <p className="font-display text-xl font-medium tracking-tight text-ink">Saponis</p>
           </div>

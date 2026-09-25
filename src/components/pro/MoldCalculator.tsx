@@ -191,11 +191,12 @@ export function MoldCalculator() {
         disabled={!canInject}
         onClick={inject}
       >
-        Inject target weight into batch calculator
+        Size my recipe to this mold
       </Button>
       {!canInject ? (
         <p className="mt-2 text-xs text-muted">
-          Add at least one oil on the calculator so the charge can scale in place.
+          Add at least one oil on the soap bench first, so this can scale your recipe
+          to fit the mold.
         </p>
       ) : null}
     </SpecCard>

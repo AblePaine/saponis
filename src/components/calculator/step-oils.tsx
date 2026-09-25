@@ -34,7 +34,7 @@ export function StepOils() {
     <StepCard
       step={1}
       title="Oils"
-      subtitle="Search the library, then enter % of total or direct weight."
+      subtitle="Search the oil shelf, then enter % of the batch or straight weight."
     >
       <div className="flex rounded-lg bg-bg-subtle p-1">
         {(

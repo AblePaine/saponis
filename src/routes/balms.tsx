@@ -8,7 +8,7 @@ export const Route = createFileRoute("/balms")({
       {
         name: "description",
         content:
-          "Anhydrous balm, salve, and wax formulation bench. Calibrating: ratio balance, melting-point curve, graininess alerts.",
+          "Balm, salve, and wax calculator — coming soon: wax-to-oil ratios, melt points, and graininess alerts.",
       },
     ],
   }),
@@ -18,15 +18,15 @@ export const Route = createFileRoute("/balms")({
 function BalmsBench() {
   return (
     <ComingBench
-      kicker="02 · Anhydrous"
+      kicker="02 · Balms"
       title="Balms, salves & waxes"
       status="calibrating"
-      statusLabel="Bench calibrating"
-      summary="Wax-to-butter-to-liquid ratios, melting-point curves, and graininess alerts. The soap bench stays live while this engine is calibrated."
+      statusLabel="Almost ready"
+      summary="Wax, butter, and oil ratios that set right — plus when the balm melts and a heads-up before it goes grainy. The soap bench is live while this one gets finished."
       specs={[
-        "Wax-to-butter-to-liquid ratio balancing",
-        "Dynamic melting-point curve (Tmelt)",
-        "Anti-graininess solidification alerts",
+        "Wax, butter, and oil ratios that actually set",
+        "Melt-point curves for your waxes",
+        "Graininess warnings before you pour",
       ]}
     />
   );

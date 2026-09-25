@@ -8,7 +8,7 @@ export const Route = createFileRoute("/surfactants")({
       {
         name: "description",
         content:
-          "Surfactant cleanser formulation bench. Coming next: ASM balancing, charge compatibility, dermal mildness index.",
+          "Surfactant cleanser calculator — coming soon: cleansing strength, surfactant compatibility, and a gentleness score for skin.",
       },
     ],
   }),
@@ -18,15 +18,15 @@ export const Route = createFileRoute("/surfactants")({
 function SurfactantsBench() {
   return (
     <ComingBench
-      kicker="04 · Wash"
+      kicker="04 · Cleansers"
       title="Surfactant cleansers"
       status="next"
-      statusLabel="Coming next"
-      summary="Active surfactant matter, charge compatibility, and mildness. The soap bench remains the live engine until this one ships."
+      statusLabel="Coming soon"
+      summary="Cleansing strength, surfactants that play nice together, and a gentleness score for skin. The soap bench is live while this one gets finished."
       specs={[
-        "Active surfactant matter (ASM) balancing",
-        "Charge compatibility matrix (anionic / cationic)",
-        "Dermal mildness index",
+        "Cleansing strength dialed to your recipe",
+        "Surfactants that play nice together",
+        "A gentleness score for skin",
       ]}
     />
   );

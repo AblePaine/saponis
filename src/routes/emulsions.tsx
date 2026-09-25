@@ -8,7 +8,7 @@ export const Route = createFileRoute("/emulsions")({
       {
         name: "description",
         content:
-          "Emulsion and cream formulation bench. Coming next: required HLB blending, preservative ceilings, water-phase shrinkage.",
+          "Emulsion and cream calculator — coming soon: emulsifier blending, skin-safe preservative amounts, and water-phase math.",
       },
     ],
   }),
@@ -21,12 +21,12 @@ function EmulsionsBench() {
       kicker="03 · Creams"
       title="Emulsions & creams"
       status="next"
-      statusLabel="Coming next"
-      summary="Required HLB blending, preservative dermal ceilings, and water-phase shrinkage. Specs are locked; the compute engine is next."
+      statusLabel="Coming soon"
+      summary="The right emulsifier blend, skin-safe preservative amounts, and water adjusted for what evaporates off. The recipe math is mapped out; the calculator is what's next."
       specs={[
-        "Required HLB (rHLB) mathematical blending",
-        "Preservative dermal ceilings",
-        "Water-phase shrinkage adjusters",
+        "Emulsifier blends matched to your oil phase",
+        "Preservative amounts that stay skin-safe",
+        "Water amounts adjusted for evaporation",
       ]}
     />
   );

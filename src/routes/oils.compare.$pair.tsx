@@ -54,7 +54,7 @@ function CompareNotFound() {
       <DirectoryHeader current="compare" />
       <h1 className="mt-10 font-display text-2xl">Pair not in this library</h1>
       <p className="mt-2 text-sm text-muted">
-        Comparison URLs are {`{slug1}-vs-{slug2}`} from the oil library.
+        A comparison link looks like oil-one-vs-oil-two, built from the oil library.
       </p>
       <Button asChild className="mt-6 h-12">
         <Link to="/oils/compare">Substitution matrix</Link>

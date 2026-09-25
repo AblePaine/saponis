@@ -21,7 +21,7 @@ export const Route = createFileRoute("/app")({
       {
         name: "description",
         content:
-          "Saponis Pro: FDA and EU/UK ingredient labels plus mold volumetric batch sizing.",
+          "Saponis Pro: FDA and EU/UK labels plus batch sizing for your mold.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -50,15 +50,15 @@ function ProBench() {
       <DirectoryHeader current="pro" />
 
       <p className="mt-8 text-xs font-medium tracking-[0.22em] text-muted uppercase">
-        Subscriber bench
+        Pro tools
       </p>
       <h1 className="mt-1 font-display text-3xl font-medium tracking-tight sm:text-4xl">
         Labels and molds
       </h1>
       <p className="mt-2 max-w-2xl text-sm text-muted">
-        One-click FDA input and EU/UK saponified declarations, plus volumetric oil
-        charge from loaf, slab, cylinder, or water-fill. The public calculator stays
-        free.
+        FDA labels and EU/UK declarations in one click, plus batches sized to your
+        actual mold — loaf, slab, cylinder, or by water weight. The soap calculator
+        stays free.
       </p>
 
       {checkout === "success" ? (
@@ -114,8 +114,8 @@ function GuestPanel() {
         Passwordless access
       </h2>
       <p className="mt-2 text-sm text-muted">
-        Continue with Google or X. No passwords, no reset tickets. After sign-in,
-        subscribers open labels and molds; everyone else sees a self-serve upgrade.
+        Sign in with Google or X — no passwords. Subscribers get labels and mold
+        sizing; everyone else can upgrade right here.
       </p>
       <div className="mt-5 flex flex-col gap-3">
         {authEnabled ? (

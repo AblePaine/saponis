@@ -10,7 +10,7 @@ export const Route = createFileRoute("/soap")({
       {
         name: "description",
         content:
-          "Cold-process soap formulation bench: stoichiometric lye, liquid, fatty acids, and quality scores — entirely in the browser.",
+          "Cold-process soap calculator: exact lye, water, fatty acids, and a read on how the bar will behave — all in your browser.",
       },
       { name: "robots", content: "index,follow" },
     ],

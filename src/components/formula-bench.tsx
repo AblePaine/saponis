@@ -146,7 +146,8 @@ export function FormulaBench() {
           </div>
         </div>
         <p className="max-w-xl text-sm text-muted sm:text-base">
-          Weigh the oils. The engine returns dry lye, liquid, and a quality fingerprint — entirely in the browser, with no network round-trip.
+          Weigh the oils. You get your lye, your water, and a read on how the bar
+          will behave — all in your browser, nothing sent anywhere.
         </p>
         <div className="flex flex-wrap gap-2">
           {PRESETS.map((preset) => (
