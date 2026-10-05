@@ -840,6 +840,370 @@ const balmBasics: Guide = {
   ],
 };
 
+const dualLye: Guide = {
+  slug: "dual-lye-soap",
+  title: "Dual Lye Soap Recipe: NaOH and KOH Blends",
+  description:
+    "Dual lye soap recipe basics: why blend NaOH and KOH, where a 95/5 split earns its keep, and how the SAP math divides.",
+  kicker: "Formulation",
+  tags: ["dual-lye", "NaOH", "KOH", "shaving-soap", "formulation"],
+  published: "2026-10-05",
+  intro: [
+    "A dual-lye soap uses sodium hydroxide and potassium hydroxide in the same batch. NaOH builds the hard bar. KOH builds solubility. The blend is a texture tool, not a second recipe.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "Add lye to water, never water to lye.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Why blend at all",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Sodium soaps of the common bar fats are solid at room temperature. They stack into a firm lattice. That is the bar you can stamp and ship.",
+        },
+        {
+          kind: "paragraph",
+          text: "Potassium soaps of the same fats are softer and more soluble. Pure KOH and a high water phase is liquid soap. Used as a minority share in a bar, KOH does not liquefy the batch. It loosens the lattice. The bar wets faster, lather starts sooner, and the feel moves toward cream rather than tight bubbles.",
+        },
+        {
+          kind: "paragraph",
+          text: "Shaving soaps exploited this first. A face lather needs to load a brush and stay slick. A pure NaOH bar can be too stubborn unless the formula is already heavy in stearic acid and clay. A little KOH fixes the solubility without giving up the puck.",
+        },
+      ],
+    },
+    {
+      heading: "The 95/5 classic, and where it actually matters",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "The working classic is 95% of the alkali as NaOH and 5% as KOH, counted on neutralization demand — not by tossing 5 grams of each into the cup. KOH is a heavier molecule. The same neutralizing power takes more grams of KOH than of NaOH. A calculator has to convert SAP, then split.",
+        },
+        {
+          kind: "paragraph",
+          text: "Five percent KOH is enough to change how a shaving puck drinks water. It is often enough in a bath bar that feels slow to lather: high tallow, high palm, high stearic. It is not a rescue for a recipe that is mostly soft oils. Those bars are already soluble. Extra KOH makes them smear.",
+        },
+        {
+          kind: "paragraph",
+          text: "Go higher — 10%, occasionally 15% in a shaving formula — only when you have already raised stearic acid or hard butters and the puck still will not load. Above that, you are making a soft soap and calling it a bar. Cream soaps and shave pastes live in that range on purpose. Stamped bars do not.",
+        },
+        {
+          kind: "paragraph",
+          text: "Dual-lye is fussiness when the goal is a swirl-friendly cold-process bath bar with ordinary coconut, olive, and a hard oil. NaOH alone will do that job. Add KOH and you add a second weigh, a second SAP path, and a softer cure, for a difference most users will not notice in the shower.",
+        },
+      ],
+    },
+    {
+      heading: "How the split SAP math works",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Each oil has a NaOH SAP and a KOH SAP. The KOH figure is the NaOH figure scaled by the ratio of the two molar masses. You do not average the two alkalis and multiply once.",
+        },
+        { kind: "paragraph", text: "The sequence is fixed." },
+        {
+          kind: "ordered",
+          items: [
+            "Total the NaOH demand from every oil.",
+            "Apply superfat to that total.",
+            "Split the remaining alkali by the ratio you chose.",
+            "Convert the KOH share from NaOH-equivalent grams into actual KOH grams.",
+            "Weigh the two alkalis separately. Dissolve them in the same water phase unless you have a reason not to.",
+          ],
+        },
+        {
+          kind: "paragraph",
+          text: "Skip the conversion and the batch is lye-heavy or lye-light by the amount of the error. That is the whole case for a calculator. Hand charts that list \"5% KOH\" as a spoon measure are not charts. They are guesses.",
+        },
+        {
+          kind: "paragraph",
+          text: "Superfat still applies once, to the combined alkali demand. Do not discount NaOH and then discount KOH again. Water is set for the full lye solution, not for each alkali on its own.",
+        },
+      ],
+    },
+    {
+      heading: "What changes on the bench",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Trace can look different. KOH soaps thicken on their own timeline, and a dual-lye batch sometimes moves faster than the same oils on NaOH alone. Plan swirls with that in mind, or skip them.",
+        },
+        {
+          kind: "paragraph",
+          text: "The cure is still a water-loss cure. A dual-lye bar can feel done sooner in the hand and still be wet in the middle. Give it the same weeks you would give the NaOH version. High-olive dual-lye bars need the long cure, not a pass.",
+        },
+        {
+          kind: "paragraph",
+          text: "Labels change. The saponified portion lists both sodium and potassium salts of the oils — Sodium Olivate and Potassium Olivate, and the rest of the pair. Free oil from superfat stays in the INCI as the oil name. A calculator that already emits INCI for NaOH or KOH should emit the blend without a second naming pass.",
+        },
+        {
+          kind: "paragraph",
+          text: "Set the ratio, then read both lye lines before you open either container. The Saponis soap bench (/soap) runs the split SAP math for NaOH, KOH, or a blend, and keeps superfat as a single discount.",
+        },
+        {
+          kind: "paragraph",
+          text: "Write the ratio on the batch note as percent NaOH / percent KOH. Weigh each alkali to 0.1 g. The blend is only as precise as the second number on the scale.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "95/5 NaOH/KOH is counted on neutralization demand, not spoon measures.",
+    "Superfat applies once, to the combined alkali — never discount twice.",
+    "KOH share converts from NaOH-equivalent grams; the engine uses per-oil KOH SAP values.",
+    "Write the ratio on the batch note; weigh each alkali to 0.1 g.",
+  ],
+};
+
+const sapValues: Guide = {
+  slug: "sap-values-explained",
+  title: "SAP Value Chart for Soap Making: What SAP Value Means",
+  description:
+    "What a SAP value is, why a soap making SAP chart is only a start, and a worked NaOH example you can check by hand.",
+  kicker: "Formulation",
+  tags: ["SAP", "lye", "formulation", "calculator"],
+  published: "2026-10-05",
+  intro: [
+    "A SAP value is the conversion factor between a fat and the alkali that fat can consume. Every oil needs a different amount of lye. The SAP value is why.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "Add lye to water, never water to lye.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "What the number is",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Classic lab SAP is milligrams of potassium hydroxide to saponify one gram of fat. Soap calculators store the practical form: grams of NaOH per gram of oil. A KOH SAP is the same relationship expressed for potassium hydroxide.",
+        },
+        {
+          kind: "paragraph",
+          text: "The number moves because fats are not one molecule. Coconut is rich in shorter chains. Olive is mostly oleic. Tallow sits in between, and its SAP moves with the animal and the trim. A published chart is an average of a defined crop or render, not a universal constant.",
+        },
+        {
+          kind: "paragraph",
+          text: "Use the figure that matches the alkali in the cup. A NaOH SAP fed into a KOH batch is a lye-light error. The reverse is lye-heavy.",
+        },
+      ],
+    },
+    {
+      heading: "A worked example, one oil",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Take coconut oil (76°) as the single fat. Its NaOH SAP on the Saponis oil sheet is 0.183 g of NaOH per gram of oil.",
+        },
+        {
+          kind: "list",
+          items: [
+            "100 g of that oil, at zero superfat, calls for 18.3 g of NaOH.",
+            "A 5% superfat withholds 5% of that alkali: 18.3 × 0.95 = 17.385 g of NaOH.",
+          ],
+        },
+        {
+          kind: "paragraph",
+          text: "The oil weight does not change. Only the alkali does. Add a second oil and you do not average the SAP values by vibe. You multiply each oil's weight by its own SAP, sum the lye, then apply superfat once.",
+        },
+        {
+          kind: "paragraph",
+          text: "That is the whole chart. Rows are oils. Columns are discounts. A blend is a sum down the column, not a new SAP invented for the recipe.",
+        },
+      ],
+    },
+    {
+      heading: "Why the chart is not optional — and not enough",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Eyeballing is how lye-heavy soap happens. \"About the same as last time\" fails when the olive percentage moved, the coconut was a different grade, or the batch was scaled to a new mold and the water was scaled but the lye was copied.",
+        },
+        {
+          kind: "paragraph",
+          text: "A stale chart fails more quietly. SAP tables in old books disagree with each other in the third decimal. That digit is tenths of a gram on a small batch and grams on a production slab. Enough to zap. Enough to soften.",
+        },
+        {
+          kind: "paragraph",
+          text: "A calculator is the chart kept current: one verified SAP per fat, NaOH and KOH both available, superfat applied after the sum. It also refuses the silent error of a 100% sum that is actually 98% because of a typed weight.",
+        },
+      ],
+    },
+    {
+      heading: "What SAP does not tell you",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "SAP does not tell you hardness, lather, or a recommended maximum. Those come from the fatty-acid split — lauric, myristic, palmitic, stearic, oleic, and the rest — and from practice. An oil can have a modest SAP and still be a poor idea at 40% of the blend.",
+        },
+        {
+          kind: "paragraph",
+          text: "SAP does not include the superfat. If you look up a chart value and weigh that lye, you have chosen 0% superfat whether you meant to or not.",
+        },
+        {
+          kind: "paragraph",
+          text: "SAP does not know your water. Water is a solvent and a temperature sink. It is not part of the saponification ratio. Discount water for a harder pour. Do not discount lye to make the batch thicker.",
+        },
+      ],
+    },
+    {
+      heading: "From one oil to a real batch",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Build the formula as weights of fats. Confirm the weights sum to the oil phase you intend. Read each SAP. Multiply. Sum. Apply one superfat. Round the lye to the precision of the scale — 0.1 g is the useful floor on a home batch under a kilogram.",
+        },
+        {
+          kind: "paragraph",
+          text: "Then stop editing. Changing an oil after the lye is weighed is how the SAP work gets thrown out.",
+        },
+        {
+          kind: "paragraph",
+          text: "Check a single-oil example against the library before you trust a new tool. The Saponis soap bench (/soap) stores a verified SAP for each of 22 fats and butters, and runs NaOH, KOH, or a dual-lye blend from those figures.",
+        },
+        {
+          kind: "paragraph",
+          text: "If the hand product and the calculator disagree, believe neither until you find the rounding. The scale will not arbitrate a math error.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "SAP = grams of alkali per gram of oil. Match the SAP to the alkali in the cup.",
+    "Coconut (76°) NaOH SAP 0.183: 100 g oil → 18.3 g NaOH at 0%; 17.385 g at 5% superfat.",
+    "Blend math: each oil × its own SAP, sum, then one superfat. Never average SAPs.",
+    "One SAP table per batch. Tables disagree in the third decimal — enough to matter.",
+    "SAP covers the lye, not the water, hardness, or lather.",
+  ],
+};
+
+const grainyBalm: Guide = {
+  slug: "grainy-balm-fix",
+  title: "Why Is My Lip Balm Grainy",
+  description:
+    "Why lip balm goes grainy, the fast-cool fix, and the melt-and-reset rescue for a grainy salve. Ratio first.",
+  kicker: "Anhydrous",
+  tags: ["balm", "graininess", "beeswax", "troubleshooting"],
+  published: "2026-10-05",
+  intro: [
+    "Graininess is crystal structure. The balm set, then the butter re-crystallized into particles large enough to feel. It is not spoilage. It is not grit from a dirty beaker, unless you can see wax specks that never melted.",
+  ],
+  sections: [
+    {
+      heading: "What the grain actually is",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Butters are triglycerides. As they cool they choose a crystal form. Cocoa butter is the notorious case. It has several polymorphs. One is smooth and stable. The others are soft, unstable, and coarse. Cool cocoa butter slowly and it often lands in a grainy form. Days later it can bloom into a sandy texture even if it looked fine at the pour.",
+        },
+        {
+          kind: "paragraph",
+          text: "Shea butter does this too, especially unrefined shea with a broad melt range. Mango and kokum are calmer. They are not immune. Any butter cooled through its set point without a plan can throw crystals.",
+        },
+        {
+          kind: "paragraph",
+          text: "Wax is the other half. Beeswax, candelilla, and carnauba set a network that traps oil. A strong enough wax network limits how far butter crystals can grow. A weak network lets them migrate. That is why two recipes with the same cocoa percentage do not grain equally.",
+        },
+      ],
+    },
+    {
+      heading: "The fast-cool fix",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Melt the phase completely. Cocoa butter should be fully clear, not cloudy, and past the point where streaks remain — hold it there briefly so the last crystal memory is gone. Pour at a temperature where the mix is still fluid but not so hot that the tin stays warm for an hour.",
+        },
+        {
+          kind: "paragraph",
+          text: "Then cool it fast. A counter is slow. A fridge is faster. A freezer is faster still, for small tins. The goal is many small crystals instead of a few large ones. Move the tins in one layer, not stacked. Pull them when the surface is set and the tin is cold, not when you remember them the next day.",
+        },
+        {
+          kind: "paragraph",
+          text: "Room-temperature pouring into a warm mold is the usual way to grow the grain. Holiday batches left to cool in a closed oven are the same mistake with a door.",
+        },
+      ],
+    },
+    {
+      heading: "The melt-and-reset rescue",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "A grainy tin can be saved. Scrape it back into the beaker. Remelt until every grain is gone and the phase is clear. Do not stop at \"mostly smooth.\" A surviving crystal seeds the next set.",
+        },
+        {
+          kind: "paragraph",
+          text: "Cool fast, as above. If the same tin grains again, the ratio is wrong for that butter, not the cooling alone. Add wax, or cut the butter with a liquid oil, and reset. Do not keep remelting a formula that wants to grain. Heat cycles tire fragrance and can darken butters.",
+        },
+        {
+          kind: "paragraph",
+          text: "Stirring hard as the mix turns hazy is a third trick used on shea-heavy salves. It works until it incorporates air. Fast cooling is cleaner.",
+        },
+      ],
+    },
+    {
+      heading: "How ratio discipline prevents it",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Grain shows up when butter outruns the wax-and-oil system. A lip balm that is mostly cocoa or shea, with beeswax at a token percent, will grain no matter how heroic the freezer. A salve with a real wax share and a defined liquid-oil share has less free butter to recrystallize.",
+        },
+        {
+          kind: "paragraph",
+          text: "Write the formula as three buckets: wax, butter, liquid oil. Keep the butter share inside what that wax can lock. Cocoa is the one to cap first. Shea is second. Liquid oils (jojoba, sweet almond, fractionated coconut) dilute the crystal formers without softening the set the way extra butter does.",
+        },
+        {
+          kind: "paragraph",
+          text: "Temperature discipline belongs in the same note. Melt temperature. Pour temperature. Cool method. A grainy batch with no temperatures written down cannot be diagnosed. It can only be remelted.",
+        },
+        {
+          kind: "paragraph",
+          text: "Add-ins make it worse if they are cold. A spoon of room-temperature powder or a cold essential oil dumped into a barely fluid phase can seed crystals. Warm the oil. Disperse powders in a portion of the melt.",
+        },
+        {
+          kind: "paragraph",
+          text: "The bench version of this is a ratio check before the first melt, plus a graininess flag when the butter share is high for the wax. The Saponis balms bench (/balms) is built for that wax-to-butter-to-liquid balance, and for a heads-up before the batch sets coarse.",
+        },
+        {
+          kind: "paragraph",
+          text: "If the reset tin is smooth and the original was not, keep the cooling method and change nothing else. The chemistry was already fine.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "Grain is crystal structure, not spoilage.",
+    "Melt fully clear — a surviving crystal seeds the next set.",
+    "Cool fast: one layer, pull when set and cold.",
+    "If it grains twice, the ratio is wrong — add wax or cut the butter.",
+    "Write down melt temp, pour temp, and cool method or you cannot diagnose it.",
+  ],
+};
+
 export const GUIDE_DATABASE: Guide[] = [
   lyeSafety,
   readingAnOil,
@@ -847,6 +1211,9 @@ export const GUIDE_DATABASE: Guide[] = [
   superfatting,
   cureTime,
   balmBasics,
+  dualLye,
+  sapValues,
+  grainyBalm,
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {
