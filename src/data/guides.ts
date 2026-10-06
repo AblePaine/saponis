@@ -1204,6 +1204,660 @@ const grainyBalm: Guide = {
   ],
 };
 
+const waterDiscount: Guide = {
+  slug: "water-discount",
+  title: "Water Discount in Cold Process Soap",
+  description:
+    "Water discount in cold process soap — how lye concentration changes trace speed, hardness, and cure time.",
+  kicker: "Formulation",
+  tags: ["water-discount", "lye-concentration", "cold-process", "formulation"],
+  published: "2026-10-05",
+  intro: [
+    "Lye concentration is the share of alkali in the solution you pour into the oils. Water discount is the decision to use less water than a full-water batch. Same oils. Same superfat. Less water to evaporate later, and less time while the batter is fluid.",
+    "Full water, a standard working strength, and a true water discount are three points on that line. The oils do not care which you pick. Trace speed and cure do.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "Add lye to the water, never water to lye.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "What the number actually is",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Lye concentration is alkali weight divided by alkali weight plus water weight. A higher percent means a stronger solution and less water in the pot. It is not a second superfat, and it does not change how much lye the oils require. The alkali dose comes from the SAP values and the superfat you set. Water only decides how that dose is dissolved.",
+        },
+      ],
+    },
+    {
+      heading: "Full water",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Full water is the older, wetter batch. The solution is milder. The batter stays fluid longer. Swirls and slow layers get a wider window, especially in a recipe that already wants to move.",
+        },
+        {
+          kind: "paragraph",
+          text: "The cost shows up after the cut. Extra water has to leave the bar. Bars stay softer for longer. Cure still has to finish saponification and mellow the soap; a wetter start simply adds drying time on top of that. Full water is the right call when the design needs time, or when you are learning a new oil blend and do not want the clock running fast.",
+        },
+      ],
+    },
+    {
+      heading: "A standard working strength",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Most working batches sit between those extremes. Enough water that the lye dissolves cleanly and the batter can be poured. Little enough that the bars are not sodden in the mold. This is the default habit for a plain cold-process loaf: a usable fluid phase, then a bar that firms on a normal cure.",
+        },
+        {
+          kind: "paragraph",
+          text: "If a recipe neither sprints nor stalls, stay here. Chasing a harder bar by drying the solution is how a calm formula turns into a false emergency.",
+        },
+      ],
+    },
+    {
+      heading: "Water-discounted",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "A water discount shortens the path from pour to a firm bar. Less free water remains after saponification, so the loaf hardens sooner and shrinks less in the cure. That is the point of the method, and it is a real one for makers who cut early or ship on a schedule.",
+        },
+        {
+          kind: "paragraph",
+          text: "The working window shrinks with it. Trace comes faster. A recipe that was polite at full water can hit medium trace while you are still stirring fragrance. Heat has less liquid to soak into, so gel is more likely if the mold is wrapped. Discounted water plus a fast oil — coconut, a butter, a floral that accelerates — is a short session. Plan the mold, the fragrance, and the swirl before the lye goes in.",
+        },
+        {
+          kind: "paragraph",
+          text: "Discounting does not replace cure. A harder bar at day three is not a finished bar. Saponification completes, excess alkali from a low superfat still needs time to settle, and scent still shifts. You have removed water. You have not removed weeks.",
+        },
+      ],
+    },
+    {
+      heading: "What not to stack",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Do not treat a water discount as a fix for a soft oil blend. Softness from a high liquid-oil recipe is a fatty-acid problem. Drying the lye solution firms the early bar and then leaves you with a soluble bar that melts fast in the shower. Fix the oils.",
+        },
+        {
+          kind: "paragraph",
+          text: "Do not discount so far that the lye will not dissolve, or that the solution sets up in the jug. Undissolved alkali in the batter is a lye pocket, not a harder bar. If the solution looks cloudy with grains, it is not ready. Add no oil until every grain is gone.",
+        },
+        {
+          kind: "paragraph",
+          text: "Hot process already cooks water off. A deep discount there is easy to overdo; the paste goes stiff before the cook is even. Cold process is where the discount earns its place.",
+        },
+        {
+          kind: "paragraph",
+          text: "Open the soap calculator at /soap, set the oils and the superfat, then set the water. Read the concentration before you commit. The alkali line should not move when you change only the water. If it does, something else changed.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "Lye concentration is alkali ÷ (alkali + water). It never changes the alkali dose.",
+    "Full water buys working time and costs drying time.",
+    "A discount firms the early bar but does not replace cure.",
+    "Never discount past full lye dissolution — grains in the jug are lye pockets.",
+    "Softness from liquid oils is a fatty-acid problem. Fix the oils, not the water.",
+  ],
+};
+
+const formulateRecipe: Guide = {
+  slug: "formulate-soap-recipe",
+  title: "How to Formulate a Soap Recipe",
+  description:
+    "How to formulate a soap recipe: balance hardness, cleansing, bubbly lather, and conditioning in a short blend.",
+  kicker: "Formulation",
+  tags: ["formulation", "recipe-design", "fatty-acids", "cold-process"],
+  published: "2026-10-05",
+  intro: [
+    "Reading an oil tells you what that fat will do. Formulating is the next step: choosing three to five oils so the bar is hard enough to last, mild enough to use, and able to lather in the kind of water you actually have. A recipe is a set of tradeoffs with the amounts written down. It is not a list of favorite bottles.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "Add lye to water, never water to lye.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Why a short blend",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Five oils can cover hardness, cleansing, cream, bubbles, and conditioning. A twelfth oil rarely adds a property the first five missed. It does make the next batch harder to repeat, and it muddies the lesson when something feels wrong.",
+        },
+        {
+          kind: "paragraph",
+          text: "Start with a job for each oil. One oil firms the bar. One oil does the cleaning and the fast bubbles. One oil conditions. A small share of a lather helper if the blend needs it. Stop when every job has an owner. If two oils do the same job, keep the one you can buy again.",
+        },
+      ],
+    },
+    {
+      heading: "The pairs you are balancing",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Hardness against solubility. Saturated fats and butters — tallow, lard, palm, cocoa butter, a measured share of shea — make a bar that holds its shape and lasts. Liquid oils keep it from turning into a brick that will not lather. A bar that is all hard fat feels dry and stubborn in the hand. A bar that is all liquid oil slicks away and needs a long cure just to be cut cleanly.",
+        },
+        {
+          kind: "paragraph",
+          text: "Cleansing against conditioning. The short saturated chains in coconut, palm kernel, and babassu are what make a bar feel like it is washing. They also strip if they dominate. Long unsaturated oils — olive, avocado, rice bran, high-oleic sunflower — leave the skin comfortable and slow the lather down. A cleansing bar with no conditioning oil is a laundry bar wearing a bathroom label. A conditioning bar with no cleansing oil is a castile: fine, and not what most people mean by soap.",
+        },
+        {
+          kind: "paragraph",
+          text: "Bubbly against creamy. Fast, open bubbles come from those same short saturates, plus a little castor if you want the lather to stretch. Cream comes from palmitic and stearic fats — the palm, the tallow, the cocoa butter. A bar can be bubbly and harsh, or creamy and quiet. The useful ones are both, in proportions you chose on purpose.",
+        },
+        {
+          kind: "paragraph",
+          text: "Solubility is the quiet fourth. A hard, low-solubility bar lasts and feels dead in cold water. A soft, high-solubility bar lathers fast and disappears. Match the blend to the water and the use. A face bar can afford more soluble oils than a shop bar that sits wet.",
+        },
+      ],
+    },
+    {
+      heading: "What a single-oil soap is for",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "A 100 percent olive batch, a 100 percent coconut batch, and a 100 percent tallow batch are not recipes to sell. They are the controls. Olive alone is mild, slow to trace, and slow to lather. Coconut alone is hard, fast, and stripping. Tallow alone is firm, creamy, and quiet. Once you have felt the extreme, a blend is easier to read. You stop asking an oil to do a job it does not have.",
+        },
+        {
+          kind: "paragraph",
+          text: "Run those controls small. Label them as tests. The point is the shower, not the mold photo.",
+        },
+      ],
+    },
+    {
+      heading: "Superfat is not the formula",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Superfat is the oil left unsaponified after the lye is calculated. It buffers a harsh edge and adds a little slip. It will not rescue a blend that is mostly coconut, and it will not harden a blend that is mostly olive. Set it where you want the margin. Then fix the oils if the bar is wrong. Raising superfat to hide a bad ratio just makes a softer version of the same mistake.",
+        },
+        {
+          kind: "paragraph",
+          text: "Additives are last. Clay, salt, silk, and a spoon of butter on top do not rewrite the fatty-acid balance. Get the base honest before you decorate it.",
+        },
+      ],
+    },
+    {
+      heading: "A workable order",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Write the jobs. Assign an oil to each. Keep any single fast or stripping oil inside the range its spec sheet allows — the library marks those ceilings. Check the blend for the five qualities: hardness, cleansing, conditioning, bubbly lather, creamy lather. If cleansing is high and conditioning is thin, move weight from the coconut side to an oleic oil. If the bar will be soft, move weight toward a saturated fat, not toward a deeper water discount.",
+        },
+        {
+          kind: "paragraph",
+          text: "Then calculate. Open the soap calculator at /soap, enter the blend, and set the superfat. The lye line is the consequence of those choices. Change an oil, and read the lye again. Do not carry an old alkali number onto a new formula.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "Five oils cover the five jobs: hardness, cleansing, conditioning, bubbles, cream.",
+    "Balance hardness vs. solubility, cleansing vs. conditioning, bubbly vs. creamy.",
+    "Single-oil batches are controls, not recipes — feel the extremes first.",
+    "Superfat buffers; it does not fix a bad oil ratio.",
+    "Every oil change means a fresh lye calculation. Never carry the old number.",
+  ],
+};
+
+const traceStages: Guide = {
+  slug: "soap-trace-stages",
+  title: "Soap Trace Stages: Light, Medium, and Heavy",
+  description:
+    "Soap trace stages: what light, medium, and heavy trace look like, and which technique each stage is for.",
+  kicker: "Technique",
+  tags: ["trace", "emulsion", "cold-process", "technique"],
+  published: "2026-10-05",
+  intro: [
+    "Trace is the point where oils and lye solution have emulsified. The batter will not separate back into a slick of oil and a puddle of lye water. Thickness comes after that, from the recipe, the temperature, and how long you run the stick blender. A thin batter can already be at trace. A thick batter can be a false one.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "Lye goes into water, never the reverse.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Emulsion first",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Before trace, the mixture looks divided. Oil shines on top. Ribbons of lye solution sink and reappear. If you poured that, it would separate in the mold, and the bar would carry wet pockets of alkali. Stirring and short bursts of the blender bring it to one phase. That one phase is trace. Everything people call light, medium, or heavy is how far the emulsion has thickened past that point.",
+        },
+        {
+          kind: "paragraph",
+          text: "Judge it with the blender switched off. A running blender lies — it digs a trench through any batter. Lift it, wait a second, and look at the surface.",
+        },
+      ],
+    },
+    {
+      heading: "Light trace",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Light trace is a thin trail across the surface that sinks back in. The batter pours like a heavy cream. Drizzle from the blender disappears. This is the stage for swirls, drops, and any design that has to move in the mold after the pour.",
+        },
+        {
+          kind: "paragraph",
+          text: "It is also the right stage to add a fragrance that tends to accelerate, if you have not already added it. You want the emulsion secure and the batter still fluid. Light trace is a short visit in a fast recipe. Treat it as a decision point, not a place to linger.",
+        },
+      ],
+    },
+    {
+      heading: "Medium trace",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Medium trace leaves a trail that sits. The batter mounds a little and levels slowly. It will still pour, but it will not travel far into a fine swirl. This is the stage for layers, a textured top, and suspending something light — a line of herb, a thin embed — that should stay where you put it.",
+        },
+        {
+          kind: "paragraph",
+          text: "Many plain loaves are poured here, without a design at all. Medium is enough emulsion to trust and enough body to fill a mold without a watery cap of oil. If you only need a clean cut bar, you do not need to push past it.",
+        },
+      ],
+    },
+    {
+      heading: "Heavy trace",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Heavy trace holds a peak. It looks like thick pudding and spoons rather than pours. Use it when the batter must not move: a heavy embed pressed into the top, a spooned rustic loaf, a layer that has to stay put under the next color. It is the wrong stage for a swirl. The pattern will break into lumps.",
+        },
+        {
+          kind: "paragraph",
+          text: "Heavy trace is also where a hot, fast recipe arrives whether you wanted it or not. If you meant to swirl and you are already here, stop. Spoon it in. A clean rustic bar is better than a seized lump you tried to paint with.",
+        },
+      ],
+    },
+    {
+      heading: "False trace",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Cool hard oils thicken before they have emulsified. The batter looks like medium trace, then warms in the mold and splits. That is false trace. The usual cause is oils that were not fully melted, or a soaping temperature low enough to re-solidify a butter or a wax. Warm the oils until they are clear, hold them there, and test again. A true emulsion stays one phase as it sits. A false one weeps oil.",
+        },
+      ],
+    },
+    {
+      heading: "Staying at light when the recipe wants to sprint",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Fast trace comes from heat, from a long run of the stick blender, and from oils and additives that accelerate. Coconut, butters, beeswax, honey, beer, and some florals and spice oils all shorten the window. You can keep a sprinting recipe at light trace if you decide to before you mix.",
+        },
+        {
+          kind: "paragraph",
+          text: "Melt hard oils fully, then let the batter temperature sit moderate rather than warm. Hand-stir to a loose combination. Use the stick blender in short bursts — a few seconds, then a rest — and watch the surface with the motor off. Have fragrance, color, and the mold ready before the lye solution goes in. Add a known accelerator at the last moment, into an emulsion that is only just there. If the recipe is built to race, do not also insulate the mold and expect a fluid pour.",
+        },
+        {
+          kind: "paragraph",
+          text: "Trace is a tool. Light for movement. Medium for structure. Heavy for anything that has to stay. Name the stage you need before you start the blender, and stop when you have it. If the recipe is still on paper, open the soap calculator at /soap and settle the oils first — a fast blend will not give you light trace just because you stirred gently.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "Trace is emulsification, not thickness. A thin batter can already be at trace.",
+    "Judge with the blender off — a running blender digs a trench through anything.",
+    "Light for swirls, medium for layers, heavy for spooned rustic loaves.",
+    "False trace: cool butters thicken before they emulsify, then split in the mold.",
+    "Fast recipes need a plan before the lye goes in, not heroics after.",
+  ],
+};
+
+const goatMilkSoap: Guide = {
+  slug: "goat-milk-soap",
+  title: "Goat Milk Soap, Cold Process",
+  description:
+    "Goat milk soap, cold process: frozen milk, low heat, no insulation, and what the milk adds to the bar.",
+  kicker: "Technique",
+  tags: ["goat-milk", "milk-soap", "cold-process", "technique"],
+  published: "2026-10-05",
+  intro: [
+    "Goat milk soap is cold process with the water replaced by milk, in part or in full. The lye math does not change because the liquid is milk. The session does. Milk carries sugars. Sugars speed trace and feed heat. A milk batch that would have been calm in water can gel hard enough to volcano if you treat it like a plain loaf.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "Lye goes into the milk, never milk poured onto dry lye.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "What the milk actually adds",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Goat milk brings water, a little fat, protein, lactose, and lactic acid. The fat is a small share of a typical batch. It will not firm the bar the way tallow or cocoa butter will. The proteins and sugars are why the bar feels creamier and why the color moves if the soap gels. Lactic acid binds a little alkali, so a milk bar can feel slightly milder than the same oils in water at the same superfat. That is a side effect, not a reason to under-calculate the lye. The oils still need their full alkali dose.",
+        },
+        {
+          kind: "paragraph",
+          text: "On a label, goat milk belongs in the ingredient list if it is in the pot. A splash for color is not a milk soap. If milk is the liquid, say so, and use its INCI name with the rest of the declaration.",
+        },
+        {
+          kind: "paragraph",
+          text: "Ungelled milk soap stays pale, often ivory to a light tan. Gelled milk soap browns. The darker bar is not burnt by default. It is sugars that went through gel. Both can be fine soap. They will not match in a set.",
+        },
+      ],
+    },
+    {
+      heading: "Frozen milk, low temperature",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Sugars scorch when they meet a hot, concentrated lye solution. Freezing the milk is how you stop that. Freeze it in cubes or a flat tray so you can add lye to a slush, not to a warm jug. Add the lye slowly. Stir until every grain is dissolved and the mixture has the color of pale custard, not brown curd. If it smells cooked or looks like scrambled milk, the lye went in too fast or the milk was too warm. That batch of solution is for the notes, not for a pale bar.",
+        },
+        {
+          kind: "paragraph",
+          text: "Keep both sides cool. Oils fully melted, then brought down. Milk-lye solution cool enough to handle the jug comfortably. A warm soaping temperature plus lactose is how a milk loaf races to thick trace before the color is mixed.",
+        },
+      ],
+    },
+    {
+      heading: "No insulation",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "After the pour, do not wrap the mold. Do not stack towels on it. Do not set it on a heating pad. The sugars will look for an excuse to gel. Many makers put the mold somewhere cool, and some use a fridge or a short stay in the freezer to skip gel entirely. Peek at it. A volcano starts as a dome and a crack, then overflow. If it rises and you did not want the dark gel, moving it to a cool surface is the intervention. Do not stir a rising loaf back down.",
+        },
+        {
+          kind: "paragraph",
+          text: "Partial gel — a translucent ring and an opaque center — is common in milk soap. It is cosmetic. It is also a reason some makers force a full gel or force none, so the loaf is one color. Pick one and build the temperature plan around it.",
+        },
+      ],
+    },
+    {
+      heading: "Recipe side",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Milk does not forgive a fast oil blend. Coconut and butters already accelerate. Stacked on lactose, the working window collapses. Keep the formula on the calmer side of what you would pour in water, and have the mold and any color ready. Fragrance oils that accelerate deserve the same caution; add them at thin emulsion, not into a warm batter you still plan to swirl.",
+        },
+        {
+          kind: "paragraph",
+          text: "Salt bars and milk are an awkward pair. Salt heats and firms. Milk wants the opposite conditions. Learn milk on a plain loaf first.",
+        },
+        {
+          kind: "paragraph",
+          text: "Weigh the milk you actually use. Replacing \"the water\" means replacing that weight, not filling a jug by eye. Ice and frost change nothing about the grams.",
+        },
+        {
+          kind: "paragraph",
+          text: "Open the soap calculator at /soap, enter the oils and the superfat, and use the liquid weight the calculator gives as the weight of milk you freeze. The alkali line is still the oils and the superfat. Milk changes the session, not the SAP math.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "The lye math does not change because the liquid is milk. Same oils, same superfat, same alkali.",
+    "Freeze the milk. Add lye to a slush, slowly, until every grain is gone.",
+    "Keep both sides cool and skip the insulation — sugars feed gel.",
+    "Partial gel is cosmetic. Force full gel or none so the loaf is one color.",
+    "Weigh the milk. Replacing the water means replacing its weight.",
+  ],
+};
+
+const rebatchSoap: Guide = {
+  slug: "rebatch-soap",
+  title: "How to Rebatch Soap",
+  description:
+    "How to rebatch soap: grate, melt with a little liquid, and what a rebatch fixes — and what it cannot.",
+  kicker: "Technique",
+  tags: ["rebatch", "rescue", "hot-process", "technique"],
+  published: "2026-10-05",
+  intro: [
+    "Rebatching is the rescue. You grate a finished or fully saponified batch, melt it with a little liquid, and spoon it back into a mold. It saves an ugly loaf, a seized swirl, and a partial gel you cannot stand to look at. It does not remake the chemistry. Whatever alkali and oil balance went into the first pot is still in the grate.",
+  ],
+  sections: [
+    {
+      heading: "Before you grate",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles and gloves stay on — warmed soap off-gasses fragrance, and a batch you do not trust can still carry free alkali.",
+            "Ventilation still matters during the melt.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "If you are rebatching because you suspect lye-heavy soap, treat the grate as active alkali until a zap test says otherwise.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "What it fixes",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "A seized batter that set in the pot before you could pour. A swirl that turned to mud. A partial gel that left a dark ring and a pale core. A fragrance you forgot, added to a batch that is already a safe, finished soap. A color that separated and looks worse than a plain bar would have.",
+        },
+        {
+          kind: "paragraph",
+          text: "Rebatch also lets you mill a batch on purpose. Grated, melted, and molded again, soap is denser and a little smoother in use than a rough first pour. The look stays rustic. That is the trade.",
+        },
+      ],
+    },
+    {
+      heading: "What it cannot fix",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "A lye-heavy batch is still lye-heavy after you melt it. Heat does not create the missing oil. If the bar zaps, if it burns on a wet finger, or if the original numbers show too much alkali for the oils and the superfat, rebatching alone will not make it skin-safe. That batch needs a calculated fat addition — new oil, weighed against the deficit — and time. Melting and hoping is how a bad bar gets a second label.",
+        },
+        {
+          kind: "paragraph",
+          text: "Rancid soap stays rancid. Spots of DOS, a paint-like smell, orange blotches from oxidation: the melt spreads them. Throw that batch out or keep it for laundry experiments you are willing to smell. Rebatch is not a deodorizer.",
+        },
+        {
+          kind: "paragraph",
+          text: "A bar that is only soft because the cure has not finished does not need a rebatch. It needs air and weeks. Grating it now just makes a soft grate.",
+        },
+      ],
+    },
+    {
+      heading: "The method",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Wait until the soap has saponified. A fresh cold-process loaf is a poor candidate; give it its first days so you are grating soap, not batter. Shred it on a box grater or pulse it carefully. Finer shreds melt faster and more evenly.",
+        },
+        {
+          kind: "paragraph",
+          text: "Add liquid sparingly. Water, goat milk, or a light oil — a little, not a second water phase. You are loosening the shreds so they melt, not building a new recipe. Too much liquid gives a soft bar you will cure all over again.",
+        },
+        {
+          kind: "paragraph",
+          text: "Low heat. A crockpot on low, or a double boiler. Lid on, stir every so often. It will look like mashed potatoes, then like a glossy dough. That is done. Boiling drives off water you just added and can scorch sugars if the original bar had milk or honey. Do not chase a pour. Rebatch does not become fluid the way a new cold-process batter does.",
+        },
+        {
+          kind: "paragraph",
+          text: "Add fragrance or a colorant at the end, off the hottest heat, and stir until it is even. Spoon into the mold. Tap out the worst gaps. It will not take a swirl. Smooth the top if you want it less rough, and accept the rest.",
+        },
+      ],
+    },
+    {
+      heading: "After the mold",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Rebatched bars unmold sooner than a raw pour because they were already soap. They still need to dry. Any liquid you added has to leave. The texture stays matte, a little uneven, sometimes with a visible shred pattern under the surface. That is what rebatch looks like. Call it rustic and sell it as such, or keep it. Do not promise a poured-soap finish you cannot deliver.",
+        },
+        {
+          kind: "paragraph",
+          text: "If the goal is a precise new formula rather than a rescue, rebatch is the wrong tool. Open the soap calculator at /soap and build the next batch clean. Use rebatch for the loaf you already have — appearance, a late additive, a partial gel — and use new math for anything the first numbers got wrong.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "Rebatch fixes appearance, not chemistry. Lye-heavy stays lye-heavy.",
+    "Grate fully saponified soap, melt low and slow — mashed potatoes, then glossy dough.",
+    "Liquid is a loosener, not a second water phase. A little, not a pour.",
+    "Rancid stays rancid. A soft uncured bar needs air, not a rebatch.",
+    "A calculated fat addition fixes lye-heavy soap. Melting and hoping does not.",
+  ],
+};
+
+const fragranceUsage: Guide = {
+  slug: "fragrance-usage-rate",
+  title: "Fragrance Oil Usage Rate in Cold Process Soap",
+  description:
+    "Fragrance oil usage rate in soap is a safety cap, not a strength preference — and it is not a candle rate.",
+  kicker: "Formulation",
+  tags: ["fragrance", "essential-oil", "IFRA", "usage-rate"],
+  published: "2026-10-05",
+  intro: [
+    "A usage rate is the maximum share of a fragrance material allowed in that product. It is a safety number. It is not how strong you wish the bar were, and it is not the rate printed on a candle worksheet. Soap sits on skin, even if it rinses off. The cap comes from the supplier and from IFRA, the body that sets category limits for fragrance materials. Your nose does not get a vote above that cap.",
+  ],
+  sections: [
+    {
+      heading: "Before you measure lye",
+      accent: "warning",
+      blocks: [
+        {
+          kind: "list",
+          items: [
+            "Goggles, chemical-resistant gloves, and long sleeves before the lye lid opens.",
+            "Work with air moving — a window fan pulling vapor away is enough for most home batches.",
+            "You are still handling a lye batter when the fragrance goes in. Lye into water, never the reverse.",
+            "No aluminum pots or utensils; lye attacks them.",
+            "Flush any splash with running water. Vinegar is not a bench neutralizer.",
+          ],
+        },
+      ],
+    },
+    {
+      heading: "Why soap is not a candle",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "IFRA sorts products by how they meet the body. A rinse-off soap sits in a looser category than a leave-on cream, and in a different category from a candle, which is written for wax and a burn. A load that is normal in a candle can be well over what that same oil is allowed to do on skin. The bottle does not care that you used it somewhere else. Read the soap rate, or the IFRA category that covers rinse-off soap, and use that.",
+        },
+        {
+          kind: "paragraph",
+          text: "Essential oils are not a milder version of fragrance oils. They are the material. Clove, cinnamon, oregano, lemongrass, and the citrus oils that oxidize all have their own ceilings, often tighter than a blended fragrance oil sold for soap. \"Natural\" is not a usage rate.",
+        },
+      ],
+    },
+    {
+      heading: "How to read the sheet",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "The supplier sheet for a fragrance oil should give a rate for soap, sometimes listed against cold process specifically. IFRA certificate categories sit beside it. Use the lower number that applies to your bar. If the sheet says the oil is not for soap, or is not skin-safe, leave it out. Candle-only oils stay in candles.",
+        },
+        {
+          kind: "paragraph",
+          text: "Rate is calculated on the batch the supplier names — often the oil weight, sometimes the whole formula. Match their base. A rate meant for oils, applied by accident to the full loaf including water, overdoses the bar. Weigh the fragrance. Squirts from the bottle are how a cap gets crossed.",
+        },
+        {
+          kind: "paragraph",
+          text: "A blend of two fragrance materials does not get two full rates. Each one still counts toward skin exposure. Split the budget. Do not stack two maximums and call it a custom scent.",
+        },
+      ],
+    },
+    {
+      heading: "What the rate is not allowed to do",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "More oil does not mean a better bar. Past the cap you have a safety problem and, often, a worse soap. Excess fragrance can seize a batter, separate, weep out of the cut, or soften a bar that was firm. Vanilla-heavy and spice-heavy materials discolor. Some florals and spices accelerate trace the moment they hit emulsion. None of that is fixed by adding more.",
+        },
+        {
+          kind: "paragraph",
+          text: "Under the cap, strength is a formulation choice. A light scent and a firm scent can both be legal. Judge them at the end of cure, not at the cut. Top notes fade while the bar dries. A bar that smells loud on cutting day can be polite at six weeks, and the reverse is rare. If a scent fades, anchor it with a base note that is still inside the cap. Do not \"fix\" fade by exceeding the rate. Cure is doing what cure does.",
+        },
+      ],
+    },
+    {
+      heading: "Accelerators and discolorers",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Know the oil before it hits the pot. Spice oils, some florals, and a number of fragrance oils sold as \"floral\" or \"spice\" will thicken a light trace in seconds. Add those at thin emulsion, with the mold already set up. Plan a rustic pour if the supplier notes acceleration.",
+        },
+        {
+          kind: "paragraph",
+          text: "Discoloration is cosmetic and predictable. Vanillin goes tan to brown. Clove and cinnamon stain. A pale swirl design and a high-vanillin oil will not stay pale. Either accept the color or pick a different material. Rebatching later will not pull the color out.",
+        },
+        {
+          kind: "paragraph",
+          text: "Phototoxic citrus oils matter more in leave-on products, but a soap that sits on a wet sink in the sun is a poor place to ignore the sheet. If the note says use restrictions, follow them.",
+        },
+      ],
+    },
+    {
+      heading: "When the numbers disagree",
+      blocks: [
+        {
+          kind: "paragraph",
+          text: "Supplier sheet, IFRA category, and the habit you copied from a candle kit will not always match. The lowest applicable soap limit wins. When you are unsure which figure you actually weighed against, the lowest applicable soap limit on the sheet wins — then you confirm it before the next batch, and you write the rate on the formula card.",
+        },
+        {
+          kind: "paragraph",
+          text: "Open the soap calculator at /soap when the oils and the superfat are set, and add the fragrance as a weighed line rather than a guess at the pot. The usage rate is part of the formula. Treat it with the same care as the lye.",
+        },
+      ],
+    },
+  ],
+  keyNumbers: [
+    "Usage rate is a safety cap, not a strength preference. Your nose does not vote above it.",
+    "Soap is not a candle: rinse-off skin limits are tighter than wax loads.",
+    "Match the supplier's base — a rate meant for oils, applied to the whole loaf, overdoses the bar.",
+    "Two fragrance materials do not get two full rates. Split the budget.",
+    "Do not fix fade by exceeding the rate. Cure does what cure does.",
+  ],
+};
+
 export const GUIDE_DATABASE: Guide[] = [
   lyeSafety,
   readingAnOil,
@@ -1214,6 +1868,12 @@ export const GUIDE_DATABASE: Guide[] = [
   dualLye,
   sapValues,
   grainyBalm,
+  waterDiscount,
+  formulateRecipe,
+  traceStages,
+  goatMilkSoap,
+  rebatchSoap,
+  fragranceUsage,
 ];
 
 export function getGuideBySlug(slug: string): Guide | undefined {
