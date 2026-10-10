@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ComingBench } from "@/components/hub/coming-bench";
+import { BalmCalculator } from "@/components/calculator/balm-calculator";
 
 export const Route = createFileRoute("/balms")({
   head: () => ({
@@ -8,26 +8,19 @@ export const Route = createFileRoute("/balms")({
       {
         name: "description",
         content:
-          "Balm, salve, and wax calculator — coming soon: wax-to-oil ratios, melt points, and graininess alerts.",
+          "Balm and salve calculator: wax-to-oil ratios that set, estimated melt point, and graininess warnings before you pour.",
       },
+      { name: "robots", content: "index,follow" },
     ],
+    links: [{ rel: "canonical", href: "/balms" }],
   }),
   component: BalmsBench,
 });
 
 function BalmsBench() {
   return (
-    <ComingBench
-      kicker="02 · Balms"
-      title="Balms, salves & waxes"
-      status="calibrating"
-      statusLabel="Almost ready"
-      summary="Wax, butter, and oil ratios that set right — plus when the balm melts and a heads-up before it goes grainy. The soap bench is live while this one gets finished."
-      specs={[
-        "Wax, butter, and oil ratios that actually set",
-        "Melt-point curves for your waxes",
-        "Graininess warnings before you pour",
-      ]}
-    />
+    <main>
+      <BalmCalculator />
+    </main>
   );
 }

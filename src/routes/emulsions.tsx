@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ComingBench } from "@/components/hub/coming-bench";
+import { EmulsionCalculator } from "@/components/calculator/emulsion-calculator";
 
 export const Route = createFileRoute("/emulsions")({
   head: () => ({
@@ -8,26 +8,19 @@ export const Route = createFileRoute("/emulsions")({
       {
         name: "description",
         content:
-          "Emulsion and cream calculator — coming soon: emulsifier blending, skin-safe preservative amounts, and water-phase math.",
+          "Cream and lotion calculator: emulsifier blends matched to your oil phase by HLB, skin-safe preservative amounts, and water adjusted for evaporation.",
       },
+      { name: "robots", content: "index,follow" },
     ],
+    links: [{ rel: "canonical", href: "/emulsions" }],
   }),
   component: EmulsionsBench,
 });
 
 function EmulsionsBench() {
   return (
-    <ComingBench
-      kicker="03 · Creams"
-      title="Emulsions & creams"
-      status="next"
-      statusLabel="Coming soon"
-      summary="The right emulsifier blend, skin-safe preservative amounts, and water adjusted for what evaporates off. The recipe math is mapped out; the calculator is what's next."
-      specs={[
-        "Emulsifier blends matched to your oil phase",
-        "Preservative amounts that stay skin-safe",
-        "Water amounts adjusted for evaporation",
-      ]}
-    />
+    <main>
+      <EmulsionCalculator />
+    </main>
   );
 }
