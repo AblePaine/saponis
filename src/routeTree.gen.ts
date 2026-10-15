@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as BalmsRouteImport } from './routes/balms'
+import { Route as CandlesRouteImport } from './routes/candles'
 import { Route as EmulsionsRouteImport } from './routes/emulsions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SoapRouteImport } from './routes/soap'
@@ -38,6 +39,11 @@ const AppRoute = AppRouteImport.update({
 const BalmsRoute = BalmsRouteImport.update({
   id: '/balms',
   path: '/balms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CandlesRoute = CandlesRouteImport.update({
+  id: '/candles',
+  path: '/candles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmulsionsRoute = EmulsionsRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/balms': typeof BalmsRoute
+  '/candles': typeof CandlesRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
   '/soap': typeof SoapRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/balms': typeof BalmsRoute
+  '/candles': typeof CandlesRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
   '/soap': typeof SoapRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRoute
   '/balms': typeof BalmsRoute
+  '/candles': typeof CandlesRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
   '/soap': typeof SoapRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/balms'
+    | '/candles'
     | '/emulsions'
     | '/login'
     | '/soap'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/balms'
+    | '/candles'
     | '/emulsions'
     | '/login'
     | '/soap'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/balms'
+    | '/candles'
     | '/emulsions'
     | '/login'
     | '/soap'
@@ -211,6 +223,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRoute
   BalmsRoute: typeof BalmsRoute
+  CandlesRoute: typeof CandlesRoute
   EmulsionsRoute: typeof EmulsionsRoute
   LoginRoute: typeof LoginRoute
   SoapRoute: typeof SoapRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/balms'
       fullPath: '/balms'
       preLoaderRoute: typeof BalmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/candles': {
+      id: '/candles'
+      path: '/candles'
+      fullPath: '/candles'
+      preLoaderRoute: typeof CandlesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emulsions': {
@@ -339,6 +359,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRoute,
   BalmsRoute: BalmsRoute,
+  CandlesRoute: CandlesRoute,
   EmulsionsRoute: EmulsionsRoute,
   LoginRoute: LoginRoute,
   SoapRoute: SoapRoute,

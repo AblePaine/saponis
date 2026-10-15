@@ -25,7 +25,7 @@ const BENCHES: {
   status: BenchStatus;
   statusLabel: string;
   specs: string[];
-  href?: "/soap" | "/balms" | "/emulsions" | "/surfactants";
+  href?: "/soap" | "/balms" | "/emulsions" | "/surfactants" | "/candles";
   cta: string;
 }[] = [
   {
@@ -85,6 +85,20 @@ const BENCHES: {
     href: "/surfactants",
     cta: "Open cleansers bench",
   },
+  {
+    id: "candles",
+    kicker: "05 · Candles",
+    title: "Candlemaking",
+    status: "online",
+    statusLabel: "Live now",
+    specs: [
+      "Fragrance load with the convention named — % of wax or % of finished, both printed",
+      "Vessel fill from weighed water × wax specific gravity, not the jar label",
+      "Flags only against caps you enter — no seeded limits",
+    ],
+    href: "/candles",
+    cta: "Open candle bench",
+  },
 ];
 
 const TELEMETRY = [
@@ -111,9 +125,7 @@ export function HubLanding() {
               <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
                 Recipe lab
               </p>
-              <p className="font-display text-xl font-medium tracking-tight text-ink">
-                Saponis
-              </p>
+              <p className="font-display text-xl font-medium tracking-tight text-ink">Saponis</p>
             </div>
           </div>
           <AuthSlot />
@@ -141,8 +153,8 @@ export function HubLanding() {
           Soap and cosmetic recipes, minus the guesswork.
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-          Get your lye right, dial in your superfat, and print labels the rules
-          actually accept — without touching a spreadsheet.
+          Get your lye right, dial in your superfat, and print labels the rules actually accept —
+          without touching a spreadsheet.
         </p>
       </section>
 
@@ -196,15 +208,10 @@ export function HubLanding() {
         aria-label="System telemetry"
         className="mt-8 rounded-2xl bg-bg-subtle px-4 py-4 sm:px-5"
       >
-        <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
-          Under the hood
-        </p>
+        <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">Under the hood</p>
         <ul className="mt-3 grid gap-3 sm:grid-cols-2">
           {TELEMETRY.map((item) => (
-            <li
-              key={item}
-              className="font-mono text-xs leading-relaxed text-ink-soft"
-            >
+            <li key={item} className="font-mono text-xs leading-relaxed text-ink-soft">
               {item}
             </li>
           ))}
