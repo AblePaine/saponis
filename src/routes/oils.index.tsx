@@ -2,6 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { OIL_DATABASE } from "@/data/oils";
 import { formatSap } from "@/lib/format";
 import { catalogDatasetJsonLd, kohAdjustedSap } from "@/lib/oil-specs";
+import { ogMeta } from "@/lib/site";
 import { DirectoryHeader } from "@/components/oils/directory-header";
 import { JsonLd } from "@/components/oils/json-ld";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,12 @@ export const Route = createFileRoute("/oils/")({
           "Look up any soapmaking oil: NaOH and KOH SAP, iodine, INS, fatty acids, INCI names, and how it behaves in the bar.",
       },
       { name: "robots", content: "index,follow" },
+      ...ogMeta({
+        title: "Oil library — SAP, INCI, fatty acids · Saponis",
+        description:
+          "Look up any soapmaking oil: NaOH and KOH SAP, iodine, INS, fatty acids, INCI names, and how it behaves in the bar.",
+        path: "/oils",
+      }),
     ],
     links: [{ rel: "canonical", href: "/oils" }],
   }),

@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SurfactantCalculator } from "@/components/calculator/surfactant-calculator";
+import { JsonLd } from "@/components/oils/json-ld";
+import { ogMeta } from "@/lib/site";
+import { benchJsonLd } from "@/lib/site-jsonld";
 
 export const Route = createFileRoute("/surfactants")({
   head: () => ({
@@ -11,6 +14,12 @@ export const Route = createFileRoute("/surfactants")({
           "Surfactant cleanser calculator: total active matter, charge compatibility, a gentleness score for skin, and pH guidance.",
       },
       { name: "robots", content: "index,follow" },
+      ...ogMeta({
+        title: "Cleansers bench — Saponis",
+        description:
+          "Surfactant cleanser calculator: total active matter, charge compatibility, a gentleness score for skin, and pH guidance.",
+        path: "/surfactants",
+      }),
     ],
     links: [{ rel: "canonical", href: "/surfactants" }],
   }),
@@ -20,6 +29,14 @@ export const Route = createFileRoute("/surfactants")({
 function SurfactantsBench() {
   return (
     <main>
+      <JsonLd
+        data={benchJsonLd({
+          name: "Saponis Cleanser Calculator",
+          description:
+            "Surfactant cleanser calculator: total active matter, charge compatibility, a gentleness score for skin, and pH guidance.",
+          path: "/surfactants",
+        })}
+      />
       <SurfactantCalculator />
     </main>
   );

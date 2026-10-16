@@ -2,6 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { workhorseOils } from "@/data/oils";
 import { formatFactor, formatSap } from "@/lib/format";
 import { listWorkhorseComparePairs } from "@/lib/oil-specs";
+import { ogMeta } from "@/lib/site";
 import { DirectoryHeader } from "@/components/oils/directory-header";
 import { JsonLd } from "@/components/oils/json-ld";
 
@@ -18,6 +19,12 @@ export const Route = createFileRoute("/oils/compare/")({
           "Swapping oils? The factor tells you how much to adjust the lye. Head-to-head SAP factors for workhorse soapmaking oils.",
       },
       { name: "robots", content: "index,follow" },
+      ...ogMeta({
+        title: "Oil swap guide — Saponis",
+        description:
+          "Swapping oils? The factor tells you how much to adjust the lye. Head-to-head SAP factors for workhorse soapmaking oils.",
+        path: "/oils/compare",
+      }),
     ],
     links: [{ rel: "canonical", href: "/oils/compare" }],
   }),

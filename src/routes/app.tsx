@@ -7,6 +7,7 @@ import { billingSearchSchema } from "@/lib/billing";
 import { computeBatch } from "@/lib/calcEngine";
 import { STORAGE_KEY, parseStoredRecipe, useRecipeStore } from "@/lib/recipe-store";
 import { useEntitlements } from "@/lib/use-entitlements";
+import { ogMeta } from "@/lib/site";
 import { DirectoryHeader } from "@/components/oils/directory-header";
 import { LabelGenerator } from "@/components/pro/LabelGenerator";
 import { MoldCalculator } from "@/components/pro/MoldCalculator";
@@ -24,6 +25,11 @@ export const Route = createFileRoute("/app")({
           "Saponis Pro: FDA and EU/UK labels plus batch sizing for your mold.",
       },
       { name: "robots", content: "noindex" },
+      ...ogMeta({
+        title: "Pro bench — Saponis",
+        description: "Saponis Pro: FDA and EU/UK labels plus batch sizing for your mold.",
+        path: "/app",
+      }),
     ],
   }),
   component: ProBench,

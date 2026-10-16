@@ -15,6 +15,7 @@ import { Route as BalmsRouteImport } from './routes/balms'
 import { Route as CandlesRouteImport } from './routes/candles'
 import { Route as EmulsionsRouteImport } from './routes/emulsions'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SoapRouteImport } from './routes/soap'
 import { Route as SurfactantsRouteImport } from './routes/surfactants'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe-webhook'
@@ -54,6 +55,11 @@ const EmulsionsRoute = EmulsionsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SoapRoute = SoapRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/candles': typeof CandlesRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/candles': typeof CandlesRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/candles': typeof CandlesRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/candles'
     | '/emulsions'
     | '/login'
+    | '/sitemap.xml'
     | '/soap'
     | '/surfactants'
     | '/api/stripe-webhook'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/candles'
     | '/emulsions'
     | '/login'
+    | '/sitemap.xml'
     | '/soap'
     | '/surfactants'
     | '/api/stripe-webhook'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/candles'
     | '/emulsions'
     | '/login'
+    | '/sitemap.xml'
     | '/soap'
     | '/surfactants'
     | '/api/stripe-webhook'
@@ -226,6 +238,7 @@ export interface RootRouteChildren {
   CandlesRoute: typeof CandlesRoute
   EmulsionsRoute: typeof EmulsionsRoute
   LoginRoute: typeof LoginRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SoapRoute: typeof SoapRoute
   SurfactantsRoute: typeof SurfactantsRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
@@ -280,6 +293,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/soap': {
@@ -362,6 +382,7 @@ const rootRouteChildren: RootRouteChildren = {
   CandlesRoute: CandlesRoute,
   EmulsionsRoute: EmulsionsRoute,
   LoginRoute: LoginRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SoapRoute: SoapRoute,
   SurfactantsRoute: SurfactantsRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,

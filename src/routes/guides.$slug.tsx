@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { GUIDE_DATABASE, getGuideBySlug } from "@/data/guides";
 import type { Guide } from "@/data/guides";
 import { DirectoryHeader } from "@/components/oils/directory-header";
+import { JsonLd } from "@/components/oils/json-ld";
+import { guideArticleJsonLd } from "@/lib/site-jsonld";
 import { GuideBody } from "@/components/guides/guide-body";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -66,6 +68,7 @@ function GuidePage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 lg:px-8">
+      <JsonLd data={guideArticleJsonLd(guide)} />
       <DirectoryHeader current="guides" />
 
       <Link

@@ -1,5 +1,8 @@
 import { Navigate, createFileRoute } from "@tanstack/react-router";
 import { HubLanding } from "@/components/hub/hub-landing";
+import { JsonLd } from "@/components/oils/json-ld";
+import { ogMeta } from "@/lib/site";
+import { websiteJsonLd } from "@/lib/site-jsonld";
 import {
   hasLegacySoapSearch,
   soapSearchFromLegacy,
@@ -17,6 +20,12 @@ export const Route = createFileRoute("/")({
           "Soap and cosmetic calculators that do the math: exact lye for your oils, superfat you can trust, and INCI & FDA labels ready to print. Zero guesswork.",
       },
       { name: "robots", content: "index,follow" },
+      ...ogMeta({
+        title: "Saponis — soap & cosmetic calculators",
+        description:
+          "Soap and cosmetic calculators that do the math: exact lye for your oils, superfat you can trust, and INCI & FDA labels ready to print. Zero guesswork.",
+        path: "/",
+      }),
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -28,5 +37,10 @@ function Home() {
   if (hasLegacySoapSearch(search)) {
     return <Navigate to="/soap" search={soapSearchFromLegacy(search)} replace />;
   }
-  return <HubLanding />;
+  return (
+    <>
+      <JsonLd data={websiteJsonLd()} />
+      <HubLanding />
+    </>
+  );
 }

@@ -10,6 +10,7 @@ import {
   oilPageDescription,
   oilPageTitle,
 } from "@/lib/oil-specs";
+import { ogMeta } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DirectoryHeader } from "@/components/oils/directory-header";
@@ -36,6 +37,11 @@ export const Route = createFileRoute("/oils/$slug")({
         { title: oilPageTitle(loaderData) },
         { name: "description", content: oilPageDescription(loaderData) },
         { name: "robots", content: "index,follow" },
+        ...ogMeta({
+          title: oilPageTitle(loaderData),
+          description: oilPageDescription(loaderData),
+          path,
+        }),
       ],
       links: [{ rel: "canonical", href: path }],
     };

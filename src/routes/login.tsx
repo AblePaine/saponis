@@ -1,6 +1,7 @@
 import { Link, Navigate, createFileRoute } from "@tanstack/react-router";
 import { GROK_PROVIDERS, authEnabled, signIn } from "@/lib/auth/client";
 import { useCurrentUserState } from "@/lib/auth/use-current-user";
+import { ogMeta } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { DirectoryHeader } from "@/components/oils/directory-header";
 
@@ -12,6 +13,11 @@ export const Route = createFileRoute("/login")({
         name: "description",
         content: "Passwordless sign-in for Saponis Pro. No passwords to reset.",
       },
+      ...ogMeta({
+        title: "Sign in — Saponis Pro",
+        description: "Passwordless sign-in for Saponis Pro. No passwords to reset.",
+        path: "/login",
+      }),
     ],
   }),
   component: Login,
