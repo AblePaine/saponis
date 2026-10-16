@@ -1,8 +1,10 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { TriangleAlert } from "lucide-react";
+import { Check, Link2, TriangleAlert } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { SliderField } from "@/components/calculator/slider-field";
+import { Button } from "@/components/ui/button";
+import { writeBenchEncoded } from "@/lib/bench-url";
 import { cn } from "@/lib/utils";
 
 /** Page header shared by the balm / emulsion / cleanser benches. */
@@ -144,6 +146,48 @@ export function PercentRow({
         </div>
       ) : null}
     </div>
+  );
+}
+
+/**
+ * "Share formula" button for the bench results panels — writes the bench's
+ * encoded state into `?r=` (see src/lib/bench-url.ts) and copies the URL,
+ * mirroring the soap bench's share button.
+ */
+export function CopyBenchLink({
+  encoded,
+  label = "Share formula",
+}: {
+  encoded: string;
+  label?: string;
+}) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyLink() {
+    writeBenchEncoded(encoded);
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      className="h-11 w-full"
+      onClick={copyLink}
+    >
+      {copied ? (
+        <Check className="h-4 w-4" aria-hidden />
+      ) : (
+        <Link2 className="h-4 w-4" aria-hidden />
+      )}
+      {copied ? "Link copied" : label}
+    </Button>
   );
 }
 

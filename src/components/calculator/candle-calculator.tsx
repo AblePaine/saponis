@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { StepCard } from "@/components/calculator/step-card";
 import { MassField } from "@/components/calculator/mass-field";
@@ -7,10 +7,17 @@ import {
   BenchHeader,
   BenchLayout,
   BenchResults,
+  CopyBenchLink,
   ResultRow,
   WarningList,
 } from "@/components/calculator/bench-shell";
 import { computeCandle, FO_BASIS_LABEL, type FoBasis } from "@/lib/candle-engine";
+import {
+  decodeCandleState,
+  encodeCandleState,
+  readBenchEncoded,
+  writeBenchEncoded,
+} from "@/lib/bench-url";
 import { CANDLE_WAXES } from "@/data/candle-waxes";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +32,57 @@ export function CandleCalculator() {
   const [foLoadPercent, setFoLoadPercent] = useState(8);
   const [maxFoPercent, setMaxFoPercent] = useState(0);
   const [ifraCapPercent, setIfraCapPercent] = useState(0);
+
+  // Share links (?r=, see src/lib/bench-url.ts): hydrate once on load,
+  // then keep the URL in sync with the bench state.
+  const [booted, setBooted] = useState(false);
+  useLayoutEffect(() => {
+    const shared = decodeCandleState(readBenchEncoded());
+    if (shared) {
+      setWaterGrams(shared.waterGrams);
+      setVesselCount(shared.vesselCount);
+      setWaxId(shared.waxId);
+      setCustomSg(shared.customSg);
+      setHeadspacePercent(shared.headspacePercent);
+      setWastePercent(shared.wastePercent);
+      setFoBasis(shared.foBasis);
+      setFoLoadPercent(shared.foLoadPercent);
+      setMaxFoPercent(shared.maxFoPercent);
+      setIfraCapPercent(shared.ifraCapPercent);
+    }
+    setBooted(true);
+  }, []);
+  const shareEncoded = useMemo(
+    () =>
+      encodeCandleState({
+        waterGrams,
+        vesselCount,
+        waxId,
+        customSg,
+        headspacePercent,
+        wastePercent,
+        foBasis,
+        foLoadPercent,
+        maxFoPercent,
+        ifraCapPercent,
+      }),
+    [
+      waterGrams,
+      vesselCount,
+      waxId,
+      customSg,
+      headspacePercent,
+      wastePercent,
+      foBasis,
+      foLoadPercent,
+      maxFoPercent,
+      ifraCapPercent,
+    ],
+  );
+  useEffect(() => {
+    if (!booted) return;
+    writeBenchEncoded(shareEncoded);
+  }, [booted, shareEncoded]);
 
   const result = useMemo(
     () =>
@@ -331,6 +389,7 @@ export function CandleCalculator() {
                 />
               </dl>
               <WarningList warnings={result.warnings} />
+              <CopyBenchLink encoded={shareEncoded} />
               <p className="text-xs leading-relaxed text-faint">
                 Calculation tool only — it does the arithmetic, it doesn't certify a candle. Wick
                 choice, pour temperature, and burn performance are settled by your own test burns,

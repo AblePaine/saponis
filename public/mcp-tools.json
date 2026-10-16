@@ -1,0 +1,401 @@
+{
+  "api_base": "https://saponis.app/api",
+  "description": "Saponis formulation engines for AI agents: soap, balm, emulsion, and candle calculators plus the oil library — the same math as the benches at saponis.app. Stateless MCP endpoint at https://saponis.app/mcp; OpenAPI spec at https://saponis.app/openapi.json.",
+  "homepage": "https://saponis.app",
+  "mcp_endpoint": "https://saponis.app/mcp",
+  "name": "saponis",
+  "notes": [
+    "All calculate endpoints accept partial bodies; omitted fields fall back to the bench defaults, and the response echoes the normalized input the engine consumed.",
+    "Unknown ingredient ids never throw: soap reports them in safetyAlerts (UNKNOWN_OIL); balm and emulsion report them in unknownIds.",
+    "Label generation is a Saponis Pro feature and is intentionally not exposed here, nor via the MCP endpoint."
+  ],
+  "tools": [
+    {
+      "name": "soap_calculate",
+      "description": "Compute a cold-process soap batch with the Saponis soap engine — the same math as the /soap bench. All inputs optional; omitted fields use the bench defaults (grams, 5% superfat, all-NaOH, 33% lye concentration).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "enum": [
+              "g",
+              "oz"
+            ],
+            "description": "Mass unit for oil amounts and for the returned weights. Default: g."
+          },
+          "oils": {
+            "type": "array",
+            "description": "Oils in the recipe. Amounts are in `unit`. Unknown ids are excluded and reported in the result's safetyAlerts as UNKNOWN_OIL entries.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "oilId": {
+                  "type": "string",
+                  "description": "Oil id from oils_list — e.g. coconut-76, olive, palm-rspo, castor, shea-unrefined."
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Amount of this oil, in `unit`. Default: 0."
+                }
+              },
+              "required": [
+                "oilId"
+              ]
+            }
+          },
+          "superfatPercentage": {
+            "type": "number",
+            "description": "Superfat / lye discount percent (0–100). Default: 5."
+          },
+          "lyeChoice": {
+            "type": "object",
+            "description": "Alkali split and reagent purities.",
+            "properties": {
+              "naohRatio": {
+                "type": "number",
+                "description": "Fraction of the alkali demand met with NaOH (1 = all NaOH, 0 = all KOH). Default: 1."
+              },
+              "naohPurity": {
+                "type": "number",
+                "description": "NaOH purity as a mass fraction; the engine clamps to 0.85–1 for safety. Default: 1."
+              },
+              "kohPurity": {
+                "type": "number",
+                "description": "KOH purity as a mass fraction; the engine clamps to 0.80–1 for safety. Default: 0.9."
+              }
+            }
+          },
+          "liquidConfig": {
+            "type": "object",
+            "description": "How the liquid (water) amount is derived.",
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "concentration",
+                  "ratio",
+                  "water_percent_oils"
+                ],
+                "description": "concentration = lye solution strength %, ratio = water:lye ratio, water_percent_oils = water as % of oil weight. Default: concentration."
+              },
+              "value": {
+                "type": "number",
+                "description": "The number for the chosen mode. Default: 33."
+              }
+            }
+          },
+          "additives": {
+            "type": "object",
+            "properties": {
+              "fragranceGrams": {
+                "type": "number",
+                "description": "Fragrance mass in `unit`; counts toward total batch weight. Default: 0."
+              },
+              "sodiumLactateGrams": {
+                "type": "number",
+                "description": "Sodium lactate mass in `unit`. Default: 0."
+              }
+            }
+          },
+          "recipe": {
+            "type": "string",
+            "description": "Alternative input: a Saponis share-link recipe string (the `r` value from a /soap URL). When present and valid it takes precedence over the other fields."
+          }
+        }
+      },
+      "outputDescription": "Returns { input, result }: the normalized recipe, and the batch result — total oil weight, dry lye split (NaOH/KOH/total), liquid weight, total batch weight, lye concentration %, water:lye ratio, water as % of oils, the fatty-acid profile, quality scores (hardness, cleansing, conditioning, bubbly, creamy, longevity, iodine, INS), and safety alerts.",
+      "http": {
+        "method": "POST",
+        "path": "/soap/calculate",
+        "example_body": {
+          "oils": [
+            {
+              "oilId": "coconut-76",
+              "amount": 340
+            },
+            {
+              "oilId": "olive",
+              "amount": 330
+            },
+            {
+              "oilId": "palm-rspo",
+              "amount": 330
+            }
+          ],
+          "superfatPercentage": 5,
+          "liquidConfig": {
+            "mode": "concentration",
+            "value": 33
+          }
+        }
+      }
+    },
+    {
+      "name": "balm_calculate",
+      "description": "Compute a balm or salve formula with the Saponis balm engine — the same math as the /balms bench. Percents are normalized to 100; every mass derives from batchGrams.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "batchGrams": {
+            "type": "number",
+            "description": "Total batch size in grams. Default: 100."
+          },
+          "coolMethod": {
+            "type": "string",
+            "enum": [
+              "slow",
+              "fast"
+            ],
+            "description": "How the poured balm cools. A fast cool (tempering) lowers the graininess risk of shea-heavy blends. Default: fast."
+          },
+          "components": {
+            "type": "array",
+            "description": "Waxes, butters, and liquid oils with their percents of the formula. Percents need not sum to 100 — the engine normalizes. Component ids: beeswax-yellow, candelilla, carnauba, soy-wax, shea-unrefined, cocoa-butter, mango-butter, sweet-almond-balm, jojoba-balm, mct-balm, olive-balm. Unknown ids are skipped and reported in unknownIds.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Library id of the ingredient."
+                },
+                "percent": {
+                  "type": "number",
+                  "description": "Percent as entered; the engine normalizes where the bench does."
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        }
+      },
+      "outputDescription": "Returns { input, result }: the normalized input, and per-component rows (normalized %, grams), the wax/butter/liquid-oil split, weighted-average melt point (°C and °F), firmness (soft/balanced/firm/very_firm), graininess risk (low/moderate/high), warnings, and unknownIds.",
+      "http": {
+        "method": "POST",
+        "path": "/balm/calculate",
+        "example_body": {
+          "batchGrams": 100,
+          "coolMethod": "fast",
+          "components": [
+            {
+              "id": "beeswax-yellow",
+              "percent": 20
+            },
+            {
+              "id": "shea-unrefined",
+              "percent": 30
+            },
+            {
+              "id": "sweet-almond-balm",
+              "percent": 50
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "emulsion_calculate",
+      "description": "Compute an oil-in-water emulsion (lotion/cream) with the Saponis emulsion engine — the same math as the /emulsions bench. Matches the emulsifier blend's HLB to the oil phase's required HLB and checks the preservative against its maximum.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "batchGrams": {
+            "type": "number",
+            "description": "Total batch size in grams. Default: 100."
+          },
+          "oilPhasePercent": {
+            "type": "number",
+            "description": "Oil phase size as % of the total formula. Default: 20."
+          },
+          "evaporationPercent": {
+            "type": "number",
+            "description": "Extra water added upfront to cover heat-phase evaporation, % of the water phase (engine clamps to 0–30). Default: 10."
+          },
+          "oils": {
+            "type": "array",
+            "description": "Oil-phase oils; percents are shares of the oil phase and are normalized within it. Oil ids: sweet-almond-hlb, jojoba-hlb, olive-hlb, shea-hlb, cocoa-hlb, sunflower-hlb, mct-hlb.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Library id of the ingredient."
+                },
+                "percent": {
+                  "type": "number",
+                  "description": "Percent as entered; the engine normalizes where the bench does."
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          },
+          "emulsifiers": {
+            "type": "array",
+            "description": "Emulsifier blend; percents are of the total formula. Emulsifier ids: glyceryl-stearate-peg100, ceteareth-20, sorbitan-olivate, polysorbate-20, polysorbate-80, olivem-1000, btms-50, lecithin.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Library id of the ingredient."
+                },
+                "percent": {
+                  "type": "number",
+                  "description": "Percent as entered; the engine normalizes where the bench does."
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          },
+          "preservativeId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Preservative id or null. Preservative ids: phenoxyethanol, germaben-ii, germall-plus, liquid-germall-plus, optiphen, potassium-sorbate, sodium-benzoate. Default: null."
+          },
+          "preservativePercent": {
+            "type": "number",
+            "description": "Preservative as % of the total formula; the engine checks it against the preservative's maximum. Default: 0."
+          }
+        }
+      },
+      "outputDescription": "Returns { input, result }: the normalized input, and phase percents (oil/emulsifier/preservative/water), required HLB vs blend HLB with gap and verdict (good/acceptable/mismatch/unknown), preservative verdict and max, per-oil and per-emulsifier rows with grams, water grams plus evaporation makeup, warnings, and unknownIds.",
+      "http": {
+        "method": "POST",
+        "path": "/emulsion/calculate",
+        "example_body": {
+          "batchGrams": 200,
+          "oilPhasePercent": 20,
+          "oils": [
+            {
+              "id": "sweet-almond-hlb",
+              "percent": 70
+            },
+            {
+              "id": "shea-hlb",
+              "percent": 30
+            }
+          ],
+          "emulsifiers": [
+            {
+              "id": "glyceryl-stearate-peg100",
+              "percent": 4
+            }
+          ],
+          "preservativeId": "germaben-ii",
+          "preservativePercent": 1,
+          "evaporationPercent": 10
+        }
+      }
+    },
+    {
+      "name": "candle_calculate",
+      "description": "Compute a candle batch with the Saponis Candle Studio engine — the same math as the /candles bench. Sizes the vessel fill from weighed water × wax specific gravity, and splits wax vs fragrance under an explicitly named load basis, printing the load both ways.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "waterMassGramsPerVessel": {
+            "type": "number",
+            "description": "Weighed water fill of one vessel, grams, to the intended fill line. Default: 240."
+          },
+          "vesselCount": {
+            "type": "number",
+            "description": "Number of vessels in the batch. Default: 4."
+          },
+          "waxId": {
+            "type": "string",
+            "description": "Wax from the specific-gravity library: soy-container-seed, coconut-soy-blend-seed, paraffin-container-seed, beeswax-candle-seed. Or pass any id with specificGravityOverride. Default: soy-container-seed."
+          },
+          "specificGravityOverride": {
+            "type": "number",
+            "description": "Your supplier's SG for the wax SKU; overrides the library value when > 0. Default: 0 (use library)."
+          },
+          "headspacePercent": {
+            "type": "number",
+            "description": "Unfilled space at the top, % of the water-fill volume. Default: 10."
+          },
+          "wastePercent": {
+            "type": "number",
+            "description": "Extra melt allowance for kettle heel / spills, %. Applies to the melt only, not the fill. Default: 3."
+          },
+          "foBasis": {
+            "type": "string",
+            "enum": [
+              "wax",
+              "finished"
+            ],
+            "description": "What foLoadPercent is a percent OF: the wax weight, or the finished (wax + fragrance) weight. The result always prints both. Default: wax."
+          },
+          "foLoadPercent": {
+            "type": "number",
+            "description": "Fragrance load percent, expressed in foBasis. Default: 8."
+          },
+          "maxFoPercentOfWax": {
+            "type": "number",
+            "description": "Optional user cap (% of wax weight); the result flags overMaxFo when exceeded. 0 = no cap. Default: 0."
+          },
+          "ifraCapPercentOfFinished": {
+            "type": "number",
+            "description": "Optional user IFRA cap for the fragrance oil (% of finished weight); the result flags overIfraCap when exceeded. 0 = no cap. Default: 0."
+          }
+        }
+      },
+      "outputDescription": "Returns { input, result }: the normalized input, and the batch — SG used (library or custom), finished/wax/fragrance per vessel and in total, wax to melt and fragrance to weigh (waste allowance included), the load as % of wax and as % of finished weight, over-cap flags, and warnings.",
+      "http": {
+        "method": "POST",
+        "path": "/candle/calculate",
+        "example_body": {
+          "waterMassGramsPerVessel": 240,
+          "vesselCount": 4,
+          "waxId": "soy-container-seed",
+          "headspacePercent": 10,
+          "wastePercent": 3,
+          "foBasis": "wax",
+          "foLoadPercent": 8
+        }
+      }
+    },
+    {
+      "name": "oils_list",
+      "description": "List the full Saponis oil library — the database behind the soap engine and the /oils pages. Use an oil's id as oilId in soap_calculate, and its slug with oil_get.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "outputDescription": "Returns { oils: [...] } — every oil record: id, slug, name, botanical name, SAP values (sap_naoh, sap_koh), iodine, INS, fatty_acids profile, recommended_max_percentage, hardness_profile, INCI names, trace_speed_impact, aliases, workhorse flag.",
+      "http": {
+        "method": "GET",
+        "path": "/oils"
+      }
+    },
+    {
+      "name": "oil_get",
+      "description": "Fetch one oil from the Saponis library by slug (the id and listed aliases also resolve).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Oil slug — e.g. coconut-oil-76, olive-oil, shea-butter-unrefined."
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      },
+      "outputDescription": "Returns the full oil record (same fields as oils_list), or an error when no oil matches.",
+      "http": {
+        "method": "GET",
+        "path": "/oils/{slug}"
+      }
+    }
+  ],
+  "version": "1.0.0"
+}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { StepCard } from "@/components/calculator/step-card";
 import { MassField } from "@/components/calculator/mass-field";
@@ -6,11 +6,18 @@ import {
   BenchHeader,
   BenchLayout,
   BenchResults,
+  CopyBenchLink,
   PercentRow,
   ResultRow,
   WarningList,
 } from "@/components/calculator/bench-shell";
 import { computeBalm, FIRMNESS_LABEL, type CoolMethod } from "@/lib/balm-engine";
+import {
+  decodeBalmState,
+  encodeBalmState,
+  readBenchEncoded,
+  writeBenchEncoded,
+} from "@/lib/bench-url";
 import {
   BALM_LIQUID_OILS,
   BUTTERS,
@@ -43,6 +50,27 @@ export function BalmCalculator() {
     "shea-unrefined": 30,
     "sweet-almond-balm": 50,
   });
+
+  // Share links (?r=, see src/lib/bench-url.ts): hydrate once on load,
+  // then keep the URL in sync with the bench state.
+  const [booted, setBooted] = useState(false);
+  useLayoutEffect(() => {
+    const shared = decodeBalmState(readBenchEncoded());
+    if (shared) {
+      setBatchGrams(shared.batchGrams);
+      setCoolMethod(shared.coolMethod);
+      setPercents(shared.percents);
+    }
+    setBooted(true);
+  }, []);
+  const shareEncoded = useMemo(
+    () => encodeBalmState({ batchGrams, coolMethod, percents }),
+    [batchGrams, coolMethod, percents],
+  );
+  useEffect(() => {
+    if (!booted) return;
+    writeBenchEncoded(shareEncoded);
+  }, [booted, shareEncoded]);
 
   const result = useMemo(
     () =>
@@ -217,6 +245,7 @@ export function BalmCalculator() {
                 </dl>
               ) : null}
               <WarningList warnings={result.warnings} />
+              <CopyBenchLink encoded={shareEncoded} />
             </div>
           </BenchResults>
         }

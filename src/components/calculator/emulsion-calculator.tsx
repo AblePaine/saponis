@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { StepCard } from "@/components/calculator/step-card";
 import { MassField } from "@/components/calculator/mass-field";
@@ -7,6 +7,7 @@ import {
   BenchHeader,
   BenchLayout,
   BenchResults,
+  CopyBenchLink,
   PercentRow,
   ResultRow,
   WarningList,
@@ -15,6 +16,12 @@ import {
   computeEmulsion,
   HLB_VERDICT_LABEL,
 } from "@/lib/emulsion-engine";
+import {
+  decodeEmulsionState,
+  encodeEmulsionState,
+  readBenchEncoded,
+  writeBenchEncoded,
+} from "@/lib/bench-url";
 import {
   EMULSIFIERS,
   OIL_REQUIRED_HLB,
@@ -47,6 +54,48 @@ export function EmulsionCalculator() {
     "germaben-ii",
   );
   const [preservativePercent, setPreservativePercent] = useState(1);
+
+  // Share links (?r=, see src/lib/bench-url.ts): hydrate once on load,
+  // then keep the URL in sync with the bench state.
+  const [booted, setBooted] = useState(false);
+  useLayoutEffect(() => {
+    const shared = decodeEmulsionState(readBenchEncoded());
+    if (shared) {
+      setBatchGrams(shared.batchGrams);
+      setOilPhasePercent(shared.oilPhasePercent);
+      setEvaporationPercent(shared.evaporationPercent);
+      setOilPercents(shared.oilPercents);
+      setEmulsifierPercents(shared.emulsifierPercents);
+      setPreservativeId(shared.preservativeId);
+      setPreservativePercent(shared.preservativePercent);
+    }
+    setBooted(true);
+  }, []);
+  const shareEncoded = useMemo(
+    () =>
+      encodeEmulsionState({
+        batchGrams,
+        oilPhasePercent,
+        evaporationPercent,
+        oilPercents,
+        emulsifierPercents,
+        preservativeId,
+        preservativePercent,
+      }),
+    [
+      batchGrams,
+      oilPhasePercent,
+      evaporationPercent,
+      oilPercents,
+      emulsifierPercents,
+      preservativeId,
+      preservativePercent,
+    ],
+  );
+  useEffect(() => {
+    if (!booted) return;
+    writeBenchEncoded(shareEncoded);
+  }, [booted, shareEncoded]);
 
   const result = useMemo(
     () =>
@@ -335,6 +384,7 @@ export function EmulsionCalculator() {
                 </dl>
               ) : null}
               <WarningList warnings={result.warnings} />
+              <CopyBenchLink encoded={shareEncoded} />
             </div>
           </BenchResults>
         }

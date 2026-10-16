@@ -1,0 +1,55 @@
+# Saponis
+
+> Precision formulation engines for soap, balms, emulsions, and candles — calculated, not guessed. Saponis runs the same deterministic math for humans (benches) and for agents (API + MCP), so a number an agent returns is the number the bench shows.
+
+Saponis is a free formulation-math site for makers. Every calculator on the site is backed by a clean, tested engine library, and the public API below wraps those exact engines — no separate approximations.
+
+## Benches (human UI)
+
+- Soap bench — https://saponis.app/soap — cold-process soap calculator: lye (NaOH/KOH blends and purities), superfat, three liquid modes, fatty-acid profile, quality scores, and safety alerts. Recipes round-trip through share links (`?r=`).
+- Balm bench — https://saponis.app/balms — balm & salve weigh-up: wax/butter/oil ratios, normalized percents, estimated melt point, firmness, graininess risk, and tempering guidance.
+- Emulsion bench — https://saponis.app/emulsions — lotion & cream designer: required-HLB matching against your emulsifier blend, preservative check against its maximum, evaporation makeup water.
+- Candle Studio — https://saponis.app/candles — vessel fill from weighed water × wax specific gravity, fragrance loads stated in both conventions (% of wax and % of finished), IFRA and user caps.
+- Surfactant bench — https://saponis.app/surfactants — cleanser/syndet designer (web UI only; no API endpoint yet).
+- Saponis Pro — https://saponis.app/app — the full workspace. Label generation lives here and is a Pro feature: it is deliberately NOT exposed through the API or MCP.
+
+## Oil library
+
+22 soaping oils with SAP values (NaOH/KOH), iodine, INS, fatty-acid profiles, recommended maximums, and INCI names: https://saponis.app/oils — also available through the API (below) and pair comparisons at https://saponis.app/compare.
+
+## For AI agents
+
+Public JSON API and a stateless MCP server. No authentication. Every calculate endpoint accepts a partial JSON body — omitted fields fall back to the bench's own defaults — and returns `{ "input": <the normalized input the engine consumed>, "result": <the engine's full output> }`.
+
+- POST https://saponis.app/api/soap/calculate — soap batch. Body fields (all optional): unit ("g"|"oz", default "g"), oils [{ oilId, amount }] (ids from the oils endpoint, e.g. "coconut-76"), superfatPercentage (default 5), lyeChoice { naohRatio, naohPurity, kohPurity }, liquidConfig { mode: "concentration"|"ratio"|"water_percent_oils", value }, additives { fragranceGrams, sodiumLactateGrams }. Alternatively send { "recipe": "<r string>" } with a share-link recipe.
+- GET https://saponis.app/api/soap/calculate?r=<recipe> — the same calculation from a /soap share link's `r` value.
+- POST https://saponis.app/api/balm/calculate — balm formula. Body: batchGrams (default 100), coolMethod ("fast"|"slow", default "fast"), components [{ id, percent }] — ids: beeswax-yellow, candelilla, carnauba, soy-wax, shea-unrefined, cocoa-butter, mango-butter, sweet-almond-balm, jojoba-balm, mct-balm, olive-balm. Percents are normalized to 100.
+- POST https://saponis.app/api/emulsion/calculate — emulsion. Body: batchGrams (default 100), oilPhasePercent (default 20), evaporationPercent (default 10), oils [{ id, percent }] (shares of the oil phase; ids end in "-hlb", e.g. "sweet-almond-hlb", "shea-hlb"), emulsifiers [{ id, percent }] (% of total formula; e.g. "glyceryl-stearate-peg100"), preservativeId (e.g. "germaben-ii", or null), preservativePercent.
+- POST https://saponis.app/api/candle/calculate — candle batch. Body: waterMassGramsPerVessel (default 240), vesselCount (default 4), waxId ("soy-container-seed", "coconut-soy-blend-seed", "paraffin-container-seed", "beeswax-candle-seed"), specificGravityOverride (0 = library value), headspacePercent (default 10), wastePercent (default 3), foBasis ("wax"|"finished", default "wax"), foLoadPercent (default 8), maxFoPercentOfWax, ifraCapPercentOfFinished (0 = no cap).
+- GET https://saponis.app/api/oils — the full oil library as JSON.
+- GET https://saponis.app/api/oils/{slug} — one oil record by slug (ids and aliases also resolve), e.g. /api/oils/coconut-oil-76. 404 when nothing matches.
+- MCP server (stateless streamable HTTP, JSON-RPC 2.0): POST https://saponis.app/mcp — methods: initialize, ping, tools/list, tools/call. Tools: soap_calculate, balm_calculate, emulsion_calculate, candle_calculate, oils_list, oil_get — the same functions as the REST endpoints.
+- Tool manifest (names, HTTP routes, input schemas): https://saponis.app/mcp-tools.json
+- OpenAPI 3.0 spec: https://saponis.app/openapi.json
+
+Example — soap batch over REST:
+
+```bash
+curl -s https://saponis.app/api/soap/calculate \
+  -H 'Content-Type: application/json' \
+  -d '{"oils":[{"oilId":"coconut-76","amount":340},{"oilId":"olive","amount":330},{"oilId":"palm-rspo","amount":330}],"superfatPercentage":5,"liquidConfig":{"mode":"concentration","value":33}}'
+```
+
+Example — the same batch over MCP:
+
+```bash
+curl -s https://saponis.app/mcp \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"soap_calculate","arguments":{"oils":[{"oilId":"coconut-76","amount":340},{"oilId":"olive","amount":330},{"oilId":"palm-rspo","amount":330}]}}}'
+```
+
+Share links: every bench keeps its state in the page URL (`?r=`), so a link a human copies is a complete, reproducible formula. The soap bench's `r` value can also be fed straight back into the soap calculate endpoint.
+
+Safety note: the engines flag out-of-band inputs (unknown oils, extreme superfat, lye purity clamps, over-cap fragrance, missing preservative) in warnings / safetyAlerts fields — read them before treating a result as a formula to make.
+
+Contact: contact@saponis.app
