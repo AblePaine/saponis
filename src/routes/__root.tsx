@@ -65,6 +65,11 @@ export const Route = createRootRoute({
     <html lang="en" className="antialiased" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script
+          defer
+          src="https://umami.epoxybench.com/script.js"
+          data-website-id="c4b01d9a-2e64-4d98-8d58-1eeb6e3df725"
+        />
       </head>
       <body>
         <PreviewHostBridge />
