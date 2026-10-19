@@ -1,13 +1,13 @@
 {
   "api_base": "https://saponis.app/api",
-  "description": "Saponis formulation engines for AI agents: soap, balm, emulsion, and candle calculators plus the oil library — the same math as the benches at saponis.app. Stateless MCP endpoint at https://saponis.app/mcp; OpenAPI spec at https://saponis.app/openapi.json.",
+  "description": "Saponis formulation engines for AI agents: soap, balm, emulsion, and candle calculators, the costing suite's free mold-fill and cost-per-unit engines, plus the oil library — the same math as the benches at saponis.app. Stateless MCP endpoint at https://saponis.app/mcp; OpenAPI spec at https://saponis.app/openapi.json.",
   "homepage": "https://saponis.app",
   "mcp_endpoint": "https://saponis.app/mcp",
   "name": "saponis",
   "notes": [
     "All calculate endpoints accept partial bodies; omitted fields fall back to the bench defaults, and the response echoes the normalized input the engine consumed.",
     "Unknown ingredient ids never throw: soap reports them in safetyAlerts (UNKNOWN_OIL); balm and emulsion report them in unknownIds.",
-    "Label generation is a Saponis Pro feature and is intentionally not exposed here, nor via the MCP endpoint."
+    "Label generation is a Saponis Pro feature and is intentionally not exposed here, nor via the MCP endpoint. The same applies to the costing suite's wholesale pricing ladder."
   ],
   "tools": [
     {
@@ -359,6 +359,191 @@
           "wastePercent": 3,
           "foBasis": "wax",
           "foLoadPercent": 8
+        }
+      }
+    },
+    {
+      "name": "mold_fill_calculate",
+      "description": "Size a soap batch to a mold with the Saponis mold engine — the same math as the free mold-fill front door on the /costing bench (volume × batter density 1.05 × oil fraction 0.69, the mold engine's own constants). Standalone: no recipe needed. Supports cavity molds and cured bar weights.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "shape": {
+            "type": "string",
+            "enum": [
+              "loaf",
+              "slab",
+              "cylinder",
+              "water_fill"
+            ],
+            "description": "Mold shape. Dimensions describe ONE cavity. Default: loaf."
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "in",
+              "cm"
+            ],
+            "description": "Unit for the dimensions. Default: in."
+          },
+          "length": {
+            "type": "number",
+            "description": "Loaf/slab length. Default: 10."
+          },
+          "width": {
+            "type": "number",
+            "description": "Loaf/slab width. Default: 3.5."
+          },
+          "height": {
+            "type": "number",
+            "description": "Mold height/depth. Default: 3.5."
+          },
+          "diameter": {
+            "type": "number",
+            "description": "Cylinder diameter. Default: 3."
+          },
+          "waterGrams": {
+            "type": "number",
+            "description": "For water_fill: weighed water the WHOLE mold holds, grams (= cm³). Default: 0."
+          },
+          "fill": {
+            "type": "string",
+            "enum": [
+              "brim",
+              "headspace"
+            ],
+            "description": "brim = fill to the top; headspace = leave the mold engine's 10% headspace. Default: headspace."
+          },
+          "cavities": {
+            "type": "number",
+            "description": "Cavity count for cavity molds; dimensions are per cavity. Default: 1."
+          },
+          "cureLossPercent": {
+            "type": "number",
+            "description": "Percent of batter weight lost as water during cure, for the cured weights. Default: 10."
+          },
+          "bars": {
+            "type": "number",
+            "description": "Bars the batch is cut into for the per-bar cured weight; 0 = use the cavity count. Default: 0."
+          }
+        }
+      },
+      "outputDescription": "Returns { input, result }: the normalized input, and per-cavity volume, total volume, usable (filled) volume, batter grams, oil charge grams (the headline), cured batch grams after water loss, and per-bar cured grams.",
+      "http": {
+        "method": "POST",
+        "path": "/mold-fill/calculate",
+        "example_body": {
+          "shape": "loaf",
+          "unit": "in",
+          "length": 10,
+          "width": 3.5,
+          "height": 3.5,
+          "fill": "headspace",
+          "cavities": 1,
+          "cureLossPercent": 10
+        }
+      }
+    },
+    {
+      "name": "cost_calculate",
+      "description": "Compute the true cost per bar (or unit) with the Saponis costing engine — the same math as the /costing bench. Ingredients by weight or flat per batch, plus packaging, labor, overhead, and an optional cure-time carrying cost; the batch total divides by GOOD bars only (yield minus shrink), and a suggested retail at the target margin is printed with any channel fees netted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "array",
+            "description": "Ingredient cost rows. Weight mode: line cost = amountGrams / purchasedGrams × pricePaid. Flat mode: flatCost per batch (mica, embeds). Omit rows entirely to cost the built-in SAMPLE recipe (olive/coconut/shea/NaOH/water/fragrance/mica — sample prices, not market data).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Row label. Default: Ingredient."
+                },
+                "amountGrams": {
+                  "type": "number",
+                  "description": "Grams in the batch (weight mode). Default: 0."
+                },
+                "pricePaid": {
+                  "type": "number",
+                  "description": "Dollars paid for purchasedGrams. Default: 0."
+                },
+                "purchasedGrams": {
+                  "type": "number",
+                  "description": "Grams purchased for pricePaid. Default: 0."
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "weight",
+                    "flat"
+                  ],
+                  "description": "Default: weight."
+                },
+                "flatCost": {
+                  "type": "number",
+                  "description": "Dollars per batch (flat mode). Default: 0."
+                }
+              }
+            }
+          },
+          "packagingPerBar": {
+            "type": "number",
+            "description": "Packaging dollars per bar. Default: 0.45."
+          },
+          "laborMinutes": {
+            "type": "number",
+            "description": "Hands-on minutes per batch. Default: 45."
+          },
+          "laborRatePerHour": {
+            "type": "number",
+            "description": "Labor dollars per hour. Default: 15."
+          },
+          "overheadPerBatch": {
+            "type": "number",
+            "description": "Overhead dollars per batch. Default: 2.50."
+          },
+          "yieldBars": {
+            "type": "number",
+            "description": "Bars poured per batch. Default: 12."
+          },
+          "shrinkBars": {
+            "type": "number",
+            "description": "Unusable/shrink bars. Cost divides by GOOD bars only (yield − shrink). Default: 0."
+          },
+          "targetMarginPercent": {
+            "type": "number",
+            "description": "Target margin ON PRICE for the suggested retail: retail = unitCost / (1 − margin%). Default: 65."
+          },
+          "carryingRatePercent": {
+            "type": "number",
+            "description": "Cure-time carrying cost: annual rate % applied to the ingredient subtotal for cureWeeks. 0 = off. Default: 0."
+          },
+          "cureWeeks": {
+            "type": "number",
+            "description": "Weeks on the cure shelf. Default: 4."
+          },
+          "channelFeePercent": {
+            "type": "number",
+            "description": "Optional channel fee % (e.g. a marketplace), netted against suggested retail. Default: 0."
+          },
+          "channelFeeFixed": {
+            "type": "number",
+            "description": "Optional fixed channel fee dollars per sale. Default: 0."
+          }
+        }
+      },
+      "outputDescription": "Returns { input, result }: the normalized input, and per-line costs, the ingredient subtotal, carrying/packaging/labor/overhead totals, the batch total, good bars, unit cost, ingredients-only per bar, suggested retail, channel fee at that retail, net after fees, margin dollars, and the cost-stack shares.",
+      "http": {
+        "method": "POST",
+        "path": "/cost/calculate",
+        "example_body": {
+          "yieldBars": 12,
+          "shrinkBars": 0,
+          "packagingPerBar": 0.45,
+          "laborMinutes": 45,
+          "laborRatePerHour": 15,
+          "targetMarginPercent": 65
         }
       }
     },

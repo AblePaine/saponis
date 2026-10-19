@@ -17,6 +17,7 @@ const STATIC_PATHS = [
   "/emulsions",
   "/surfactants",
   "/candles",
+  "/costing",
   "/oils",
   "/oils/compare",
   "/guides",

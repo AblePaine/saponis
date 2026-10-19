@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as BalmsRouteImport } from './routes/balms'
 import { Route as CandlesRouteImport } from './routes/candles'
+import { Route as CostingRouteImport } from './routes/costing'
 import { Route as EmulsionsRouteImport } from './routes/emulsions'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -28,7 +29,9 @@ import { Route as OilsSlugRouteImport } from './routes/oils.$slug'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as ApiBalmCalculateRouteImport } from './routes/api/balm.calculate'
 import { Route as ApiCandleCalculateRouteImport } from './routes/api/candle.calculate'
+import { Route as ApiCostCalculateRouteImport } from './routes/api/cost.calculate'
 import { Route as ApiEmulsionCalculateRouteImport } from './routes/api/emulsion.calculate'
+import { Route as ApiMoldFillCalculateRouteImport } from './routes/api/mold-fill.calculate'
 import { Route as ApiOilsIndexRouteImport } from './routes/api/oils.index'
 import { Route as ApiOilsSlugRouteImport } from './routes/api/oils.$slug'
 import { Route as ApiSoapCalculateRouteImport } from './routes/api/soap.calculate'
@@ -53,6 +56,11 @@ const BalmsRoute = BalmsRouteImport.update({
 const CandlesRoute = CandlesRouteImport.update({
   id: '/candles',
   path: '/candles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CostingRoute = CostingRouteImport.update({
+  id: '/costing',
+  path: '/costing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmulsionsRoute = EmulsionsRouteImport.update({
@@ -130,9 +138,19 @@ const ApiCandleCalculateRoute = ApiCandleCalculateRouteImport.update({
   path: '/api/candle/calculate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCostCalculateRoute = ApiCostCalculateRouteImport.update({
+  id: '/api/cost/calculate',
+  path: '/api/cost/calculate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEmulsionCalculateRoute = ApiEmulsionCalculateRouteImport.update({
   id: '/api/emulsion/calculate',
   path: '/api/emulsion/calculate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMoldFillCalculateRoute = ApiMoldFillCalculateRouteImport.update({
+  id: '/api/mold-fill/calculate',
+  path: '/api/mold-fill/calculate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiOilsIndexRoute = ApiOilsIndexRouteImport.update({
@@ -166,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRoute
   '/balms': typeof BalmsRoute
   '/candles': typeof CandlesRoute
+  '/costing': typeof CostingRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
@@ -181,7 +200,9 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/balm/calculate': typeof ApiBalmCalculateRoute
   '/api/candle/calculate': typeof ApiCandleCalculateRoute
+  '/api/cost/calculate': typeof ApiCostCalculateRoute
   '/api/emulsion/calculate': typeof ApiEmulsionCalculateRoute
+  '/api/mold-fill/calculate': typeof ApiMoldFillCalculateRoute
   '/api/oils/$slug': typeof ApiOilsSlugRoute
   '/api/soap/calculate': typeof ApiSoapCalculateRoute
   '/oils/compare/$pair': typeof OilsComparePairRoute
@@ -193,6 +214,7 @@ export interface FileRoutesByTo {
   '/app': typeof AppRoute
   '/balms': typeof BalmsRoute
   '/candles': typeof CandlesRoute
+  '/costing': typeof CostingRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
@@ -208,7 +230,9 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/balm/calculate': typeof ApiBalmCalculateRoute
   '/api/candle/calculate': typeof ApiCandleCalculateRoute
+  '/api/cost/calculate': typeof ApiCostCalculateRoute
   '/api/emulsion/calculate': typeof ApiEmulsionCalculateRoute
+  '/api/mold-fill/calculate': typeof ApiMoldFillCalculateRoute
   '/api/oils/$slug': typeof ApiOilsSlugRoute
   '/api/soap/calculate': typeof ApiSoapCalculateRoute
   '/oils/compare/$pair': typeof OilsComparePairRoute
@@ -221,6 +245,7 @@ export interface FileRoutesById {
   '/app': typeof AppRoute
   '/balms': typeof BalmsRoute
   '/candles': typeof CandlesRoute
+  '/costing': typeof CostingRoute
   '/emulsions': typeof EmulsionsRoute
   '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
@@ -236,7 +261,9 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/balm/calculate': typeof ApiBalmCalculateRoute
   '/api/candle/calculate': typeof ApiCandleCalculateRoute
+  '/api/cost/calculate': typeof ApiCostCalculateRoute
   '/api/emulsion/calculate': typeof ApiEmulsionCalculateRoute
+  '/api/mold-fill/calculate': typeof ApiMoldFillCalculateRoute
   '/api/oils/$slug': typeof ApiOilsSlugRoute
   '/api/soap/calculate': typeof ApiSoapCalculateRoute
   '/oils/compare/$pair': typeof OilsComparePairRoute
@@ -250,6 +277,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/balms'
     | '/candles'
+    | '/costing'
     | '/emulsions'
     | '/login'
     | '/mcp'
@@ -265,7 +293,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/balm/calculate'
     | '/api/candle/calculate'
+    | '/api/cost/calculate'
     | '/api/emulsion/calculate'
+    | '/api/mold-fill/calculate'
     | '/api/oils/$slug'
     | '/api/soap/calculate'
     | '/oils/compare/$pair'
@@ -277,6 +307,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/balms'
     | '/candles'
+    | '/costing'
     | '/emulsions'
     | '/login'
     | '/mcp'
@@ -292,7 +323,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/balm/calculate'
     | '/api/candle/calculate'
+    | '/api/cost/calculate'
     | '/api/emulsion/calculate'
+    | '/api/mold-fill/calculate'
     | '/api/oils/$slug'
     | '/api/soap/calculate'
     | '/oils/compare/$pair'
@@ -304,6 +337,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/balms'
     | '/candles'
+    | '/costing'
     | '/emulsions'
     | '/login'
     | '/mcp'
@@ -319,7 +353,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/balm/calculate'
     | '/api/candle/calculate'
+    | '/api/cost/calculate'
     | '/api/emulsion/calculate'
+    | '/api/mold-fill/calculate'
     | '/api/oils/$slug'
     | '/api/soap/calculate'
     | '/oils/compare/$pair'
@@ -332,6 +368,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRoute
   BalmsRoute: typeof BalmsRoute
   CandlesRoute: typeof CandlesRoute
+  CostingRoute: typeof CostingRoute
   EmulsionsRoute: typeof EmulsionsRoute
   LoginRoute: typeof LoginRoute
   McpRoute: typeof McpRoute
@@ -347,7 +384,9 @@ export interface RootRouteChildren {
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiBalmCalculateRoute: typeof ApiBalmCalculateRoute
   ApiCandleCalculateRoute: typeof ApiCandleCalculateRoute
+  ApiCostCalculateRoute: typeof ApiCostCalculateRoute
   ApiEmulsionCalculateRoute: typeof ApiEmulsionCalculateRoute
+  ApiMoldFillCalculateRoute: typeof ApiMoldFillCalculateRoute
   ApiOilsSlugRoute: typeof ApiOilsSlugRoute
   ApiSoapCalculateRoute: typeof ApiSoapCalculateRoute
   OilsComparePairRoute: typeof OilsComparePairRoute
@@ -383,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/candles'
       fullPath: '/candles'
       preLoaderRoute: typeof CandlesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/costing': {
+      id: '/costing'
+      path: '/costing'
+      fullPath: '/costing'
+      preLoaderRoute: typeof CostingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emulsions': {
@@ -490,11 +536,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCandleCalculateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cost/calculate': {
+      id: '/api/cost/calculate'
+      path: '/api/cost/calculate'
+      fullPath: '/api/cost/calculate'
+      preLoaderRoute: typeof ApiCostCalculateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/emulsion/calculate': {
       id: '/api/emulsion/calculate'
       path: '/api/emulsion/calculate'
       fullPath: '/api/emulsion/calculate'
       preLoaderRoute: typeof ApiEmulsionCalculateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/mold-fill/calculate': {
+      id: '/api/mold-fill/calculate'
+      path: '/api/mold-fill/calculate'
+      fullPath: '/api/mold-fill/calculate'
+      preLoaderRoute: typeof ApiMoldFillCalculateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/oils/': {
@@ -540,6 +600,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRoute,
   BalmsRoute: BalmsRoute,
   CandlesRoute: CandlesRoute,
+  CostingRoute: CostingRoute,
   EmulsionsRoute: EmulsionsRoute,
   LoginRoute: LoginRoute,
   McpRoute: McpRoute,
@@ -555,7 +616,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiBalmCalculateRoute: ApiBalmCalculateRoute,
   ApiCandleCalculateRoute: ApiCandleCalculateRoute,
+  ApiCostCalculateRoute: ApiCostCalculateRoute,
   ApiEmulsionCalculateRoute: ApiEmulsionCalculateRoute,
+  ApiMoldFillCalculateRoute: ApiMoldFillCalculateRoute,
   ApiOilsSlugRoute: ApiOilsSlugRoute,
   ApiSoapCalculateRoute: ApiSoapCalculateRoute,
   OilsComparePairRoute: OilsComparePairRoute,

@@ -22,6 +22,17 @@ import {
   type EmulsionInput,
   type EmulsionResult,
 } from "./emulsion-engine.ts";
+import {
+  DEFAULT_COST_INPUT,
+  DEFAULT_MOLD_FILL,
+  computeCost,
+  computeMoldFill,
+  type CostInput,
+  type CostResult,
+  type CostRow,
+  type MoldFillInput,
+  type MoldFillResult,
+} from "./costing-engine.ts";
 import { decodeRecipe } from "./recipe-url.ts";
 
 /**
@@ -33,7 +44,9 @@ import { decodeRecipe } from "./recipe-url.ts";
  * show a human.
  *
  * Deliberately NOT exposed: the label engine (src/lib/label-engine.ts) —
- * label output is the planned Saponis Pro feature — and the /app Pro bench.
+ * label output is the planned Saponis Pro feature — the wholesale pricing
+ * engine (src/lib/wholesale-engine.ts, the costing suite's Pro piece),
+ * and the /app Pro bench.
  */
 
 export const AGENT_API_VERSION = "1.0.0";
@@ -210,6 +223,82 @@ export interface CandleCalculateOutput {
 export function runCandleCalculate(raw: unknown): CandleCalculateOutput {
   const input = normalizeCandleInput(raw);
   return { input, result: computeCandle(input) };
+}
+
+export function normalizeMoldFillInput(raw: unknown): MoldFillInput {
+  const body = asRecord(raw);
+  const shape =
+    body.shape === "slab" ||
+    body.shape === "cylinder" ||
+    body.shape === "water_fill"
+      ? body.shape
+      : "loaf";
+  return {
+    shape,
+    unit: body.unit === "cm" ? "cm" : "in",
+    length: num(body.length, DEFAULT_MOLD_FILL.length),
+    width: num(body.width, DEFAULT_MOLD_FILL.width),
+    height: num(body.height, DEFAULT_MOLD_FILL.height),
+    diameter: num(body.diameter, DEFAULT_MOLD_FILL.diameter),
+    waterGrams: num(body.waterGrams, DEFAULT_MOLD_FILL.waterGrams),
+    fill: body.fill === "brim" ? "brim" : "headspace",
+    cavities: num(body.cavities, DEFAULT_MOLD_FILL.cavities),
+    cureLossPercent: num(body.cureLossPercent, DEFAULT_MOLD_FILL.cureLossPercent),
+    bars: num(body.bars, DEFAULT_MOLD_FILL.bars),
+  };
+}
+
+export function normalizeCostInput(raw: unknown): CostInput {
+  const body = asRecord(raw);
+  const rowsRaw = Array.isArray(body.rows) ? body.rows : null;
+  const rows: CostRow[] = [];
+  if (rowsRaw) {
+    for (const item of rowsRaw) {
+      const row = asRecord(item);
+      rows.push({
+        name: typeof row.name === "string" && row.name.length > 0 ? row.name : "Ingredient",
+        amountGrams: num(row.amountGrams, 0),
+        pricePaid: num(row.pricePaid, 0),
+        purchasedGrams: num(row.purchasedGrams, 0),
+        mode: row.mode === "flat" ? "flat" : "weight",
+        flatCost: num(row.flatCost, 0),
+      });
+    }
+  }
+  return {
+    rows: rowsRaw ? rows : DEFAULT_COST_INPUT.rows,
+    packagingPerBar: num(body.packagingPerBar, DEFAULT_COST_INPUT.packagingPerBar),
+    laborMinutes: num(body.laborMinutes, DEFAULT_COST_INPUT.laborMinutes),
+    laborRatePerHour: num(body.laborRatePerHour, DEFAULT_COST_INPUT.laborRatePerHour),
+    overheadPerBatch: num(body.overheadPerBatch, DEFAULT_COST_INPUT.overheadPerBatch),
+    yieldBars: num(body.yieldBars, DEFAULT_COST_INPUT.yieldBars),
+    shrinkBars: num(body.shrinkBars, DEFAULT_COST_INPUT.shrinkBars),
+    targetMarginPercent: num(body.targetMarginPercent, DEFAULT_COST_INPUT.targetMarginPercent),
+    carryingRatePercent: num(body.carryingRatePercent, DEFAULT_COST_INPUT.carryingRatePercent),
+    cureWeeks: num(body.cureWeeks, DEFAULT_COST_INPUT.cureWeeks),
+    channelFeePercent: num(body.channelFeePercent, DEFAULT_COST_INPUT.channelFeePercent),
+    channelFeeFixed: num(body.channelFeeFixed, DEFAULT_COST_INPUT.channelFeeFixed),
+  };
+}
+
+export interface MoldFillCalculateOutput {
+  input: MoldFillInput;
+  result: MoldFillResult;
+}
+
+export function runMoldFillCalculate(raw: unknown): MoldFillCalculateOutput {
+  const input = normalizeMoldFillInput(raw);
+  return { input, result: computeMoldFill(input) };
+}
+
+export interface CostCalculateOutput {
+  input: CostInput;
+  result: CostResult;
+}
+
+export function runCostCalculate(raw: unknown): CostCalculateOutput {
+  const input = normalizeCostInput(raw);
+  return { input, result: computeCost(input) };
 }
 
 export function listOils(): { oils: MasterOilRecord[] } {
@@ -474,6 +563,95 @@ export const CANDLE_INPUT_SCHEMA: JsonSchema = {
   },
 };
 
+export const MOLD_FILL_INPUT_SCHEMA: JsonSchema = {
+  type: "object",
+  properties: {
+    shape: {
+      type: "string",
+      enum: ["loaf", "slab", "cylinder", "water_fill"],
+      description: "Mold shape. Dimensions describe ONE cavity. Default: loaf.",
+    },
+    unit: {
+      type: "string",
+      enum: ["in", "cm"],
+      description: "Unit for the dimensions. Default: in.",
+    },
+    length: { type: "number", description: "Loaf/slab length. Default: 10." },
+    width: { type: "number", description: "Loaf/slab width. Default: 3.5." },
+    height: { type: "number", description: "Mold height/depth. Default: 3.5." },
+    diameter: { type: "number", description: "Cylinder diameter. Default: 3." },
+    waterGrams: {
+      type: "number",
+      description: "For water_fill: weighed water the WHOLE mold holds, grams (= cm³). Default: 0.",
+    },
+    fill: {
+      type: "string",
+      enum: ["brim", "headspace"],
+      description: "brim = fill to the top; headspace = leave the mold engine's 10% headspace. Default: headspace.",
+    },
+    cavities: {
+      type: "number",
+      description: "Cavity count for cavity molds; dimensions are per cavity. Default: 1.",
+    },
+    cureLossPercent: {
+      type: "number",
+      description: "Percent of batter weight lost as water during cure, for the cured weights. Default: 10.",
+    },
+    bars: {
+      type: "number",
+      description: "Bars the batch is cut into for the per-bar cured weight; 0 = use the cavity count. Default: 0.",
+    },
+  },
+};
+
+export const COST_INPUT_SCHEMA: JsonSchema = {
+  type: "object",
+  properties: {
+    rows: {
+      type: "array",
+      description:
+        "Ingredient cost rows. Weight mode: line cost = amountGrams / purchasedGrams × pricePaid. Flat mode: flatCost per batch (mica, embeds). Omit rows entirely to cost the built-in SAMPLE recipe (olive/coconut/shea/NaOH/water/fragrance/mica — sample prices, not market data).",
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string", description: "Row label. Default: Ingredient." },
+          amountGrams: { type: "number", description: "Grams in the batch (weight mode). Default: 0." },
+          pricePaid: { type: "number", description: "Dollars paid for purchasedGrams. Default: 0." },
+          purchasedGrams: { type: "number", description: "Grams purchased for pricePaid. Default: 0." },
+          mode: { type: "string", enum: ["weight", "flat"], description: "Default: weight." },
+          flatCost: { type: "number", description: "Dollars per batch (flat mode). Default: 0." },
+        },
+      },
+    },
+    packagingPerBar: { type: "number", description: "Packaging dollars per bar. Default: 0.45." },
+    laborMinutes: { type: "number", description: "Hands-on minutes per batch. Default: 45." },
+    laborRatePerHour: { type: "number", description: "Labor dollars per hour. Default: 15." },
+    overheadPerBatch: { type: "number", description: "Overhead dollars per batch. Default: 2.50." },
+    yieldBars: { type: "number", description: "Bars poured per batch. Default: 12." },
+    shrinkBars: {
+      type: "number",
+      description: "Unusable/shrink bars. Cost divides by GOOD bars only (yield − shrink). Default: 0.",
+    },
+    targetMarginPercent: {
+      type: "number",
+      description: "Target margin ON PRICE for the suggested retail: retail = unitCost / (1 − margin%). Default: 65.",
+    },
+    carryingRatePercent: {
+      type: "number",
+      description: "Cure-time carrying cost: annual rate % applied to the ingredient subtotal for cureWeeks. 0 = off. Default: 0.",
+    },
+    cureWeeks: { type: "number", description: "Weeks on the cure shelf. Default: 4." },
+    channelFeePercent: {
+      type: "number",
+      description: "Optional channel fee % (e.g. a marketplace), netted against suggested retail. Default: 0.",
+    },
+    channelFeeFixed: {
+      type: "number",
+      description: "Optional fixed channel fee dollars per sale. Default: 0.",
+    },
+  },
+};
+
 export const AGENT_TOOLS: AgentTool[] = [
   {
     name: "soap_calculate",
@@ -563,6 +741,48 @@ export const AGENT_TOOLS: AgentTool[] = [
     },
   },
   {
+    name: "mold_fill_calculate",
+    description:
+      "Size a soap batch to a mold with the Saponis mold engine — the same math as the free mold-fill front door on the /costing bench (volume × batter density 1.05 × oil fraction 0.69, the mold engine's own constants). Standalone: no recipe needed. Supports cavity molds and cured bar weights.",
+    inputSchema: MOLD_FILL_INPUT_SCHEMA,
+    outputDescription:
+      "Returns { input, result }: the normalized input, and per-cavity volume, total volume, usable (filled) volume, batter grams, oil charge grams (the headline), cured batch grams after water loss, and per-bar cured grams.",
+    http: {
+      method: "POST",
+      path: "/mold-fill/calculate",
+      example_body: {
+        shape: "loaf",
+        unit: "in",
+        length: 10,
+        width: 3.5,
+        height: 3.5,
+        fill: "headspace",
+        cavities: 1,
+        cureLossPercent: 10,
+      },
+    },
+  },
+  {
+    name: "cost_calculate",
+    description:
+      "Compute the true cost per bar (or unit) with the Saponis costing engine — the same math as the /costing bench. Ingredients by weight or flat per batch, plus packaging, labor, overhead, and an optional cure-time carrying cost; the batch total divides by GOOD bars only (yield minus shrink), and a suggested retail at the target margin is printed with any channel fees netted.",
+    inputSchema: COST_INPUT_SCHEMA,
+    outputDescription:
+      "Returns { input, result }: the normalized input, and per-line costs, the ingredient subtotal, carrying/packaging/labor/overhead totals, the batch total, good bars, unit cost, ingredients-only per bar, suggested retail, channel fee at that retail, net after fees, margin dollars, and the cost-stack shares.",
+    http: {
+      method: "POST",
+      path: "/cost/calculate",
+      example_body: {
+        yieldBars: 12,
+        shrinkBars: 0,
+        packagingPerBar: 0.45,
+        laborMinutes: 45,
+        laborRatePerHour: 15,
+        targetMarginPercent: 65,
+      },
+    },
+  },
+  {
     name: "oils_list",
     description:
       "List the full Saponis oil library — the database behind the soap engine and the /oils pages. Use an oil's id as oilId in soap_calculate, and its slug with oil_get.",
@@ -608,6 +828,10 @@ export function callAgentTool(name: string, args: unknown): unknown {
       return runEmulsionCalculate(args);
     case "candle_calculate":
       return runCandleCalculate(args);
+    case "mold_fill_calculate":
+      return runMoldFillCalculate(args);
+    case "cost_calculate":
+      return runCostCalculate(args);
     case "oils_list":
       return listOils();
     case "oil_get": {

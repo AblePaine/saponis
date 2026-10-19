@@ -16,7 +16,9 @@ import {
   normalizeSoapInput,
   runBalmCalculate,
   runCandleCalculate,
+  runCostCalculate,
   runEmulsionCalculate,
+  runMoldFillCalculate,
   runSoapCalculate,
   SOAP_INPUT_SCHEMA,
 } from "./agent-api.ts";
@@ -214,7 +216,7 @@ describe("oils endpoints", () => {
 });
 
 describe("callAgentTool", () => {
-  it("exposes exactly the six public tools — no label tool", () => {
+  it("exposes exactly the eight public tools — no label tool, no wholesale tool", () => {
     assert.deepEqual(
       AGENT_TOOLS.map((tool) => tool.name),
       [
@@ -222,12 +224,15 @@ describe("callAgentTool", () => {
         "balm_calculate",
         "emulsion_calculate",
         "candle_calculate",
+        "mold_fill_calculate",
+        "cost_calculate",
         "oils_list",
         "oil_get",
       ],
     );
     assert.equal(isAgentTool("soap_calculate"), true);
     assert.equal(isAgentTool("label_generate"), false);
+    assert.equal(isAgentTool("wholesale_calculate"), false);
   });
 
   it("dispatches to the same runners as REST", () => {
@@ -237,6 +242,29 @@ describe("callAgentTool", () => {
       callAgentTool("balm_calculate", {}),
       runBalmCalculate({}),
     );
+    assert.deepEqual(
+      callAgentTool("mold_fill_calculate", {}),
+      runMoldFillCalculate({}),
+    );
+    assert.deepEqual(
+      callAgentTool("cost_calculate", {}),
+      runCostCalculate({}),
+    );
+  });
+
+  it("costing runners reproduce the SPEC hand-checked examples", () => {
+    const mold = runMoldFillCalculate({
+      shape: "loaf",
+      unit: "in",
+      length: 10,
+      width: 3.5,
+      height: 3.5,
+      fill: "headspace",
+    });
+    close(mold.result.oilChargeGrams, 1308.9, 0.5);
+    const cost = runCostCalculate({});
+    close(cost.result.unitCost, 2.59, 0.01);
+    close(cost.result.suggestedRetail, 7.4, 0.01);
   });
 
   it("fails oil_get cleanly for a bad slug", () => {
@@ -282,6 +310,8 @@ describe("OpenAPI parity", () => {
       "/api/balm/calculate",
       "/api/emulsion/calculate",
       "/api/candle/calculate",
+      "/api/mold-fill/calculate",
+      "/api/cost/calculate",
       "/api/oils",
       "/api/oils/{slug}",
       "/mcp",

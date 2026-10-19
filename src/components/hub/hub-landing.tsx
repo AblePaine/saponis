@@ -25,7 +25,7 @@ const BENCHES: {
   status: BenchStatus;
   statusLabel: string;
   specs: string[];
-  href?: "/soap" | "/balms" | "/emulsions" | "/surfactants" | "/candles";
+  href?: "/soap" | "/balms" | "/emulsions" | "/surfactants" | "/candles" | "/costing";
   cta: string;
 }[] = [
   {
@@ -98,6 +98,20 @@ const BENCHES: {
     ],
     href: "/candles",
     cta: "Open candle bench",
+  },
+  {
+    id: "costing",
+    kicker: "06 · Costing",
+    title: "Costing suite — size it, cost it, price it",
+    status: "online",
+    statusLabel: "Live now",
+    specs: [
+      "Mold-fill sizing with no recipe loaded — the mold engine's own math",
+      "True cost per bar: labor, packaging, overhead — not just ingredients",
+      "Wholesale ladder with discount and margin printed side by side (Pro)",
+    ],
+    href: "/costing",
+    cta: "Open costing suite",
   },
 ];
 

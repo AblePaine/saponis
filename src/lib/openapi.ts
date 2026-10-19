@@ -3,7 +3,9 @@ import {
   AGENT_API_VERSION,
   BALM_INPUT_SCHEMA,
   CANDLE_INPUT_SCHEMA,
+  COST_INPUT_SCHEMA,
   EMULSION_INPUT_SCHEMA,
+  MOLD_FILL_INPUT_SCHEMA,
   SOAP_INPUT_SCHEMA,
   type JsonSchema,
 } from "./agent-api.ts";
@@ -131,7 +133,7 @@ export function buildOpenApiSpec(): Record<string, unknown> {
       title: "Saponis Agent API",
       version: AGENT_API_VERSION,
       description:
-        "Programmatic access to the Saponis formulation engines — soap batches, balms, emulsions, and candles — plus the oil library. The same math as the public benches at saponis.app. No authentication. A stateless MCP endpoint exposing the same tools lives at /mcp; a JSON tool manifest at /mcp-tools.json. Label generation is a Saponis Pro feature and is not part of this API.",
+        "Programmatic access to the Saponis formulation engines — soap batches, balms, emulsions, and candles — plus the costing suite's free engines (mold-fill sizing, cost per unit) and the oil library. The same math as the public benches at saponis.app. No authentication. A stateless MCP endpoint exposing the same tools lives at /mcp; a JSON tool manifest at /mcp-tools.json. Label generation and the wholesale pricing ladder are Saponis Pro features and are not part of this API.",
       contact: { email: "contact@saponis.app", url: SITE_ORIGIN },
     },
     servers: [{ url: SITE_ORIGIN }],
@@ -196,6 +198,20 @@ export function buildOpenApiSpec(): Record<string, unknown> {
           "Candle result: specificGravity, usingCustomSg, fillVolumeMlPerVessel, finishedPerVesselGrams, waxPerVesselGrams, fragrancePerVesselGrams, finishedTotalGrams, waxToMeltGrams, fragranceToWeighGrams, foBasis, foPercentOfWax, foPercentOfFinished, overMaxFo, overIfraCap, warnings.",
         ),
       },
+      "/api/mold-fill/calculate": {
+        post: calculateOperation(
+          "mold_fill_calculate",
+          MOLD_FILL_INPUT_SCHEMA,
+          "Mold-fill result: perCavityVolumeCm3, totalVolumeCm3, usableVolumeCm3, batterGrams, oilChargeGrams, curedGrams, perBarCuredGrams, bars, fill.",
+        ),
+      },
+      "/api/cost/calculate": {
+        post: calculateOperation(
+          "cost_calculate",
+          COST_INPUT_SCHEMA,
+          "Cost result: lines (per-row cost), ingredientSubtotal, carryingCost, packagingTotal, laborTotal, overheadPerBatch, batchTotal, goodBars, unitCost, ingredientsPerBar, suggestedRetail, channelFeeAtRetail, netRetailAfterFees, marginDollarsAtRetail, stackShares.",
+        ),
+      },
       "/api/oils": {
         get: {
           operationId: "oils_list",
@@ -253,7 +269,7 @@ export function buildOpenApiSpec(): Record<string, unknown> {
         post: {
           operationId: "mcp",
           summary:
-            "Stateless MCP endpoint (streamable HTTP, JSON-RPC 2.0, JSON responses). Supports initialize, ping, tools/list, and tools/call for all six tools in this document. Send notifications without an id to receive HTTP 202. GET returns 405.",
+            "Stateless MCP endpoint (streamable HTTP, JSON-RPC 2.0, JSON responses). Supports initialize, ping, tools/list, and tools/call for all eight tools in this document. Send notifications without an id to receive HTTP 202. GET returns 405.",
           requestBody: {
             required: true,
             content: {

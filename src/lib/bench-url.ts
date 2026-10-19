@@ -1,17 +1,21 @@
 import type { CoolMethod } from "./balm-engine.ts";
 import type { FoBasis } from "./candle-engine.ts";
+import type { CostInput, CostRow, MoldFillInput } from "./costing-engine.ts";
+import type { WholesaleInput, WholesaleTierInput } from "./wholesale-engine.ts";
 
 /**
- * Shareable bench links for the balm, emulsion, and candle benches —
- * companion to recipe-url.ts (which covers the soap bench with the same
- * `?r=` compact pipe format). Each bench's state round-trips through the
- * URL so a formula can be linked, bookmarked, or handed to an agent.
+ * Shareable bench links for the balm, emulsion, candle, and costing
+ * benches — companion to recipe-url.ts (which covers the soap bench with
+ * the same `?r=` compact pipe format). Each bench's state round-trips
+ * through the URL so a formula can be linked, bookmarked, or handed to
+ * an agent.
  *
  * Pipe formats (in `?r=`):
  *
  *   balm:     batchGrams|coolMethod(s|f)|id:pct,id:pct,…
  *   emulsion: batchGrams|oilPhasePct|evapPct|oilId:pct,…|emulId:pct,…|presId-or-"-"|presPct
  *   candle:   waterGrams|vesselCount|waxId|customSg|headspacePct|wastePct|basis(w|f)|foLoadPct|maxFoPct|ifraCapPct
+ *   costing:  mold(11 fields)|cost(11 fields)|rows(name~amt~price~bought~mode~flat,…)|floorMargin|tiers(name~discount~minQty,…)
  *
  * Numbers use the same compact formatting as recipe-url (integers stay
  * plain; fractions get up to 3 decimals, trailing zeros stripped) and the
@@ -205,5 +209,159 @@ export function decodeCandleState(
     foLoadPercent: clamp(num(parts[7], 8), 0, 100),
     maxFoPercent: clamp(num(parts[8]), 0, 100),
     ifraCapPercent: clamp(num(parts[9]), 0, 100),
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* Costing suite                                                       */
+/* ------------------------------------------------------------------ */
+
+export interface CostingUrlState {
+  mold: MoldFillInput;
+  cost: CostInput;
+  /** Wholesale retail/cost are NOT stored — the bench feeds them from
+   *  the cost tool's result, exactly like the tab handoff does. */
+  wholesale: Pick<WholesaleInput, "floorMarginPercent" | "tiers">;
+}
+
+const MOLD_SHAPES = ["loaf", "slab", "cylinder", "water_fill"] as const;
+
+function encodeCostRow(row: CostRow): string {
+  return [
+    encodeURIComponent(row.name),
+    compact(row.amountGrams),
+    compact(row.pricePaid),
+    compact(row.purchasedGrams),
+    row.mode === "flat" ? "f" : "w",
+    compact(row.flatCost),
+  ].join("~");
+}
+
+function decodeCostRow(entry: string): CostRow | null {
+  const parts = entry.split("~");
+  if (parts.length < 6) return null;
+  let name = parts[0] ?? "";
+  try {
+    name = decodeURIComponent(name);
+  } catch {
+    /* keep the raw name */
+  }
+  return {
+    name,
+    amountGrams: clamp(num(parts[1]), 0, 1_000_000),
+    pricePaid: clamp(num(parts[2]), 0, 1_000_000),
+    purchasedGrams: clamp(num(parts[3]), 0, 1_000_000),
+    mode: parts[4] === "f" ? "flat" : "weight",
+    flatCost: clamp(num(parts[5]), 0, 1_000_000),
+  };
+}
+
+function encodeTier(tier: WholesaleTierInput): string {
+  return [
+    encodeURIComponent(tier.name),
+    compact(tier.discountPercent),
+    compact(tier.minQty),
+  ].join("~");
+}
+
+function decodeTier(entry: string): WholesaleTierInput | null {
+  const parts = entry.split("~");
+  if (parts.length < 3) return null;
+  let name = parts[0] ?? "";
+  try {
+    name = decodeURIComponent(name);
+  } catch {
+    /* keep the raw name */
+  }
+  return {
+    name,
+    discountPercent: clamp(num(parts[1]), 0, 100),
+    minQty: Math.floor(clamp(num(parts[2]), 0, 1_000_000)),
+  };
+}
+
+export function encodeCostingState(state: CostingUrlState): string {
+  const { mold, cost, wholesale } = state;
+  return [
+    // mold (11)
+    mold.shape,
+    mold.unit,
+    compact(mold.length),
+    compact(mold.width),
+    compact(mold.height),
+    compact(mold.diameter),
+    compact(mold.waterGrams),
+    mold.fill === "headspace" ? "h" : "b",
+    compact(mold.cavities),
+    compact(mold.cureLossPercent),
+    compact(mold.bars),
+    // cost scalars (11)
+    compact(cost.packagingPerBar),
+    compact(cost.laborMinutes),
+    compact(cost.laborRatePerHour),
+    compact(cost.overheadPerBatch),
+    compact(cost.yieldBars),
+    compact(cost.shrinkBars),
+    compact(cost.targetMarginPercent),
+    compact(cost.carryingRatePercent),
+    compact(cost.cureWeeks),
+    compact(cost.channelFeePercent),
+    compact(cost.channelFeeFixed),
+    // rows, wholesale floor, tiers
+    cost.rows.map(encodeCostRow).join(","),
+    compact(wholesale.floorMarginPercent),
+    wholesale.tiers.map(encodeTier).join(","),
+  ].join("|");
+}
+
+export function decodeCostingState(encoded: string | null): CostingUrlState | null {
+  if (!encoded) return null;
+  const parts = encoded.split("|");
+  if (parts.length < 25) return null;
+  const shape = (MOLD_SHAPES as readonly string[]).includes(parts[0] ?? "")
+    ? (parts[0] as CostingUrlState["mold"]["shape"])
+    : "loaf";
+  const rows = (parts[22] ?? "")
+    .split(",")
+    .filter((entry) => entry.length > 0)
+    .map(decodeCostRow)
+    .filter((row): row is CostRow => row !== null);
+  const tiers = (parts[24] ?? "")
+    .split(",")
+    .filter((entry) => entry.length > 0)
+    .map(decodeTier)
+    .filter((tier): tier is WholesaleTierInput => tier !== null);
+  return {
+    mold: {
+      shape,
+      unit: parts[1] === "cm" ? "cm" : "in",
+      length: clamp(num(parts[2], 10), 0, 10_000),
+      width: clamp(num(parts[3], 3.5), 0, 10_000),
+      height: clamp(num(parts[4], 3.5), 0, 10_000),
+      diameter: clamp(num(parts[5], 3), 0, 10_000),
+      waterGrams: clamp(num(parts[6]), 0, 1_000_000),
+      fill: parts[7] === "b" ? "brim" : "headspace",
+      cavities: Math.floor(clamp(num(parts[8], 1), 1, 10_000)),
+      cureLossPercent: clamp(num(parts[9], 10), 0, 100),
+      bars: Math.floor(clamp(num(parts[10]), 0, 10_000)),
+    },
+    cost: {
+      rows,
+      packagingPerBar: clamp(num(parts[11], 0.45), 0, 100_000),
+      laborMinutes: clamp(num(parts[12], 45), 0, 100_000),
+      laborRatePerHour: clamp(num(parts[13], 15), 0, 100_000),
+      overheadPerBatch: clamp(num(parts[14], 2.5), 0, 100_000),
+      yieldBars: clamp(num(parts[15], 12), 0, 100_000),
+      shrinkBars: clamp(num(parts[16]), 0, 100_000),
+      targetMarginPercent: clamp(num(parts[17], 65), 0, 100),
+      carryingRatePercent: clamp(num(parts[18]), 0, 100),
+      cureWeeks: clamp(num(parts[19], 4), 0, 520),
+      channelFeePercent: clamp(num(parts[20]), 0, 100),
+      channelFeeFixed: clamp(num(parts[21]), 0, 100_000),
+    },
+    wholesale: {
+      floorMarginPercent: clamp(num(parts[23], 20), 0, 100),
+      tiers,
+    },
   };
 }
