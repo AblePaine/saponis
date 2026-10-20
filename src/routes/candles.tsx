@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CandleCalculator } from "@/components/calculator/candle-calculator";
 import { JsonLd } from "@/components/oils/json-ld";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { benchJsonLd } from "@/lib/site-jsonld";
 
 export const Route = createFileRoute("/candles")({
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/candles")({
         path: "/candles",
       }),
     ],
-    links: [{ rel: "canonical", href: "/candles" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/candles` }],
   }),
   component: CandlesBench,
 });

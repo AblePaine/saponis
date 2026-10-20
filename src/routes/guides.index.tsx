@@ -36,7 +36,7 @@ export const Route = createFileRoute("/guides/")({
       },
       { name: "twitter:image", content: OG_IMAGE },
     ],
-    links: [{ rel: "canonical", href: "/guides" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/guides` }],
   }),
   component: GuidesHub,
 });

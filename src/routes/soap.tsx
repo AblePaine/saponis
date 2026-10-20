@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BatchCalculator } from "@/components/calculator/BatchCalculator";
 import { JsonLd } from "@/components/oils/json-ld";
 import { soapSearchSchema } from "@/lib/soap-search";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { benchJsonLd } from "@/lib/site-jsonld";
 
 export const Route = createFileRoute("/soap")({
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/soap")({
         path: "/soap",
       }),
     ],
-    links: [{ rel: "canonical", href: "/soap" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/soap` }],
   }),
   component: SoapBench,
 });

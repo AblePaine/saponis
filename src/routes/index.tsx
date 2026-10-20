@@ -1,7 +1,7 @@
 import { Navigate, createFileRoute } from "@tanstack/react-router";
 import { HubLanding } from "@/components/hub/hub-landing";
 import { JsonLd } from "@/components/oils/json-ld";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { websiteJsonLd } from "@/lib/site-jsonld";
 import {
   hasLegacySoapSearch,
@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
         path: "/",
       }),
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/` }],
   }),
   component: Home,
 });

@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { workhorseOils } from "@/data/oils";
 import { formatFactor, formatSap } from "@/lib/format";
 import { listWorkhorseComparePairs } from "@/lib/oil-specs";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { DirectoryHeader } from "@/components/oils/directory-header";
 import { JsonLd } from "@/components/oils/json-ld";
 
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/oils/compare/")({
         path: "/oils/compare",
       }),
     ],
-    links: [{ rel: "canonical", href: "/oils/compare" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/oils/compare` }],
   }),
   component: CompareIndex,
 });

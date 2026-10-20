@@ -3,7 +3,7 @@ import { ArrowLeftRight } from "lucide-react";
 import { FATTY_ACID_KEYS } from "@/types/soap";
 import { formatFactor, formatPercent, formatSap, formatScore } from "@/lib/format";
 import { METRIC_KEYS, QUALITY_RANGES } from "@/lib/quality-ranges";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import {
   FATTY_ACID_META,
   compareDatasetJsonLd,
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/oils/compare/$pair")({
           path,
         }),
       ],
-      links: [{ rel: "canonical", href: path }],
+      links: [{ rel: "canonical", href: `${SITE_ORIGIN}${path}` }],
     };
   },
   component: OilCompare,

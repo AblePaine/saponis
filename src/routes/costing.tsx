@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CostingCalculator } from "@/components/calculator/costing-calculator";
 import { JsonLd } from "@/components/oils/json-ld";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { benchJsonLd } from "@/lib/site-jsonld";
 
 const TITLE = "Costing suite — Saponis";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/costing")({
       { name: "robots", content: "index,follow" },
       ...ogMeta({ title: TITLE, description: DESCRIPTION, path: "/costing" }),
     ],
-    links: [{ rel: "canonical", href: "/costing" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/costing` }],
   }),
   component: CostingBench,
 });

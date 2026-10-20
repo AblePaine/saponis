@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SurfactantCalculator } from "@/components/calculator/surfactant-calculator";
 import { JsonLd } from "@/components/oils/json-ld";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { benchJsonLd } from "@/lib/site-jsonld";
 
 export const Route = createFileRoute("/surfactants")({
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/surfactants")({
         path: "/surfactants",
       }),
     ],
-    links: [{ rel: "canonical", href: "/surfactants" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/surfactants` }],
   }),
   component: SurfactantsBench,
 });

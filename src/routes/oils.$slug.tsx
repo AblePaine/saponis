@@ -10,7 +10,7 @@ import {
   oilPageDescription,
   oilPageTitle,
 } from "@/lib/oil-specs";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DirectoryHeader } from "@/components/oils/directory-header";
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/oils/$slug")({
           path,
         }),
       ],
-      links: [{ rel: "canonical", href: path }],
+      links: [{ rel: "canonical", href: `${SITE_ORIGIN}${path}` }],
     };
   },
   component: OilSpec,

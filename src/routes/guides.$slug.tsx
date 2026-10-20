@@ -40,7 +40,7 @@ export const Route = createFileRoute("/guides/$slug")({
         { name: "twitter:description", content: loaderData.description },
         { name: "twitter:image", content: OG_IMAGE },
       ],
-      links: [{ rel: "canonical", href: path }],
+      links: [{ rel: "canonical", href: url }],
     };
   },
   component: GuidePage,

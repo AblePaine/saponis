@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { EmulsionCalculator } from "@/components/calculator/emulsion-calculator";
 import { JsonLd } from "@/components/oils/json-ld";
-import { ogMeta } from "@/lib/site";
+import { SITE_ORIGIN, ogMeta } from "@/lib/site";
 import { benchJsonLd } from "@/lib/site-jsonld";
 
 export const Route = createFileRoute("/emulsions")({
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/emulsions")({
         path: "/emulsions",
       }),
     ],
-    links: [{ rel: "canonical", href: "/emulsions" }],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/emulsions` }],
   }),
   component: EmulsionsBench,
 });
