@@ -112,6 +112,18 @@ export function CandleCalculator() {
     ],
   );
 
+  // The blend tool below sends its weighted SG up here ("Use this SG
+  // in the batch bench") — it lands in the same custom-SG field a
+  // hand-measured value would.
+  useEffect(() => {
+    const onBlendSg = (event: Event) => {
+      const sg = (event as CustomEvent<number>).detail;
+      if (typeof sg === "number" && sg > 0) setCustomSg(sg);
+    };
+    window.addEventListener("saponis:use-blend-sg", onBlendSg);
+    return () => window.removeEventListener("saponis:use-blend-sg", onBlendSg);
+  }, []);
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col px-4 pt-6 pb-8 sm:px-6 lg:px-8 lg:pb-12">
       <BenchHeader

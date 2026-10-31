@@ -16,6 +16,22 @@ import {
   type CandleResult,
   type FoBasis,
 } from "./candle-engine.ts";
+import {
+  computeCandleBlend,
+  type CandleBlendInput,
+  type CandleBlendResult,
+} from "./candle-blend-engine.ts";
+import {
+  computeFoCard,
+  type FoCardInput,
+  type FoCardResult,
+  type FoFormat,
+} from "./fo-card-engine.ts";
+import {
+  computeWickStart,
+  type WickInput,
+  type WickResult,
+} from "./wick-engine.ts";
 import { computeBatch } from "./calcEngine.ts";
 import {
   computeEmulsion,
@@ -223,6 +239,88 @@ export interface CandleCalculateOutput {
 export function runCandleCalculate(raw: unknown): CandleCalculateOutput {
   const input = normalizeCandleInput(raw);
   return { input, result: computeCandle(input) };
+}
+
+export function normalizeCandleBlendInput(raw: unknown): CandleBlendInput {
+  const body = asRecord(raw);
+  return {
+    components: idPercentList(body.components).map((row) => ({
+      waxId: row.id,
+      percent: row.percent,
+    })),
+    stearicPercent: num(body.stearicPercent, 0),
+    vybarPercent: num(body.vybarPercent, 0),
+  };
+}
+
+export interface CandleBlendOutput {
+  input: CandleBlendInput;
+  result: CandleBlendResult;
+}
+
+export function runCandleBlend(raw: unknown): CandleBlendOutput {
+  const input = normalizeCandleBlendInput(raw);
+  return { input, result: computeCandleBlend(input) };
+}
+
+const FO_FORMAT_SET: FoFormat[] = ["candle", "melt", "diffuser", "soap"];
+
+export function normalizeFoCardInput(raw: unknown): FoCardInput {
+  const body = asRecord(raw);
+  const rawFormats = Array.isArray(body.formats) ? body.formats : [];
+  const formats: FoCardInput["formats"] = [];
+  for (const item of rawFormats) {
+    const row = asRecord(item);
+    const format = FO_FORMAT_SET.find((f) => f === row.format);
+    if (!format) continue;
+    formats.push({
+      format,
+      finishedGrams: num(row.finishedGrams, 0),
+      desiredLoadPercent: num(row.desiredLoadPercent, 0),
+      ifraCapPercent: num(row.ifraCapPercent, 0),
+      waxHoldPercentOfWax: num(row.waxHoldPercentOfWax, 0),
+    });
+  }
+  return {
+    foName: typeof body.foName === "string" ? body.foName : "",
+    formats,
+  };
+}
+
+export interface FoCardOutput {
+  input: FoCardInput;
+  result: FoCardResult;
+}
+
+export function runFoCard(raw: unknown): FoCardOutput {
+  const input = normalizeFoCardInput(raw);
+  return { input, result: computeFoCard(input) };
+}
+
+export function normalizeWickInput(raw: unknown): WickInput {
+  const body = asRecord(raw);
+  return {
+    diameterInches: num(body.diameterInches, 3),
+    waxId:
+      typeof body.waxId === "string" && body.waxId.length > 0
+        ? body.waxId
+        : "soy-container-seed",
+    foLoadPercent: num(body.foLoadPercent, 8),
+    seriesId:
+      typeof body.seriesId === "string" && body.seriesId.length > 0
+        ? body.seriesId
+        : undefined,
+  };
+}
+
+export interface WickOutput {
+  input: WickInput;
+  result: WickResult;
+}
+
+export function runWickStart(raw: unknown): WickOutput {
+  const input = normalizeWickInput(raw);
+  return { input, result: computeWickStart(input) };
 }
 
 export function normalizeMoldFillInput(raw: unknown): MoldFillInput {
@@ -563,6 +661,114 @@ export const CANDLE_INPUT_SCHEMA: JsonSchema = {
   },
 };
 
+/** Candle Studio expansion: blend window (brief engine D). */
+export const CANDLE_BLEND_INPUT_SCHEMA: JsonSchema = {
+  type: "object",
+  properties: {
+    components: {
+      type: "array",
+      description:
+        "Blend components: candle-wax library ids with percents (normalized to 100). Ids: soy-container-seed, coconut-soy-blend-seed, paraffin-container-seed, beeswax-candle-seed.",
+      items: {
+        type: "object",
+        properties: {
+          id: { type: "string" },
+          percent: { type: "number", minimum: 0, maximum: 100 },
+        },
+        required: ["id", "percent"],
+      },
+    },
+    stearicPercent: {
+      type: "number",
+      minimum: 0,
+      maximum: 30,
+      description: "Stearic acid, % of the blend (heuristic firming/melt lift).",
+    },
+    vybarPercent: {
+      type: "number",
+      minimum: 0,
+      maximum: 5,
+      description: "Vybar-type additive, % of the blend (heuristic).",
+    },
+  },
+  required: ["components"],
+};
+
+/** Candle Studio expansion: multi-format fragrance card (brief engine E). */
+export const FO_CARD_INPUT_SCHEMA: JsonSchema = {
+  type: "object",
+  properties: {
+    foName: { type: "string", description: "Fragrance oil name (label only)." },
+    formats: {
+      type: "array",
+      description:
+        "One entry per product format to run the oil through: candle, melt, diffuser, soap.",
+      items: {
+        type: "object",
+        properties: {
+          format: {
+            type: "string",
+            enum: ["candle", "melt", "diffuser", "soap"],
+          },
+          finishedGrams: { type: "number", minimum: 0 },
+          desiredLoadPercent: {
+            type: "number",
+            minimum: 0,
+            maximum: 100,
+            description: "Desired load, % of finished weight.",
+          },
+          ifraCapPercent: {
+            type: "number",
+            minimum: 0,
+            maximum: 100,
+            description:
+              "The oil's IFRA cap for this product type, % of finished, from its certificate. Omit for no cap.",
+          },
+          waxHoldPercentOfWax: {
+            type: "number",
+            minimum: 0,
+            maximum: 100,
+            description:
+              "Candle/melt only: the wax supplier's max load, % of wax weight. Converted to % of finished before comparison.",
+          },
+        },
+        required: ["format", "finishedGrams", "desiredLoadPercent"],
+      },
+    },
+  },
+  required: ["formats"],
+};
+
+/** Candle Studio expansion: wick starting point + burn-test card (brief engine C). */
+export const WICK_INPUT_SCHEMA: JsonSchema = {
+  type: "object",
+  properties: {
+    diameterInches: {
+      type: "number",
+      minimum: 0,
+      maximum: 12,
+      description: "Vessel inside diameter, inches.",
+    },
+    waxId: {
+      type: "string",
+      description:
+        "Candle-wax library id (picks the family size shift). Ids: soy-container-seed, coconut-soy-blend-seed, paraffin-container-seed, beeswax-candle-seed.",
+    },
+    foLoadPercent: {
+      type: "number",
+      minimum: 0,
+      maximum: 100,
+      description: "Fragrance load %; 12%+ shifts every series one size up.",
+    },
+    seriesId: {
+      type: "string",
+      description:
+        "Optional: restrict the card to one wick series (cd, eco, lx, htp, wood). Omit for the full card.",
+    },
+  },
+  required: ["diameterInches", "waxId", "foLoadPercent"],
+};
+
 export const MOLD_FILL_INPUT_SCHEMA: JsonSchema = {
   type: "object",
   properties: {
@@ -741,6 +947,71 @@ export const AGENT_TOOLS: AgentTool[] = [
     },
   },
   {
+    name: "candle_blend_calculate",
+    description:
+      "Estimate a candle wax blend's working window with the Candle Studio blend engine — mass-weighted specific gravity, melt band, pour window, hardness and frost tendency across the seed profile library, with heuristic stearic/vybar adjustments labelled as such.",
+    inputSchema: CANDLE_BLEND_INPUT_SCHEMA,
+    outputDescription:
+      "Returns { input, result }: the normalized input, and the estimate — per-wax rows, blend SG (feed it to candle_calculate as a custom SG), weighted melt band and pour window widened by component divergence, hardness and frost bands, container/pillar suitability, warnings and notes. Profile values are seed data; outputs are estimates for comparing blends, not burn tests.",
+    http: {
+      method: "POST",
+      path: "/candle-blend/calculate",
+      example_body: {
+        components: [
+          { id: "soy-container-seed", percent: 70 },
+          { id: "beeswax-candle-seed", percent: 30 },
+        ],
+      },
+    },
+  },
+  {
+    name: "fo_card_calculate",
+    description:
+      "Run one fragrance oil across product formats with the Candle Studio multi-format card — candle, wax melt, reed diffuser and bar soap splits at the desired load, each checked against the binding cap (the oil's IFRA cap and the wax's hold limit, both converted to % of finished). Saponis seeds no limits; caps are the caller's own numbers.",
+    inputSchema: FO_CARD_INPUT_SCHEMA,
+    outputDescription:
+      "Returns { input, result }: per-format fragrance and base grams, the load re-expressed as % of wax for candle/melt, the binding cap and its source, max fragrance grams at the cap, over-cap flags, and a cross-format warning when the entered caps differ.",
+    http: {
+      method: "POST",
+      path: "/fo-card/calculate",
+      example_body: {
+        foName: "Cedar & Smoke",
+        formats: [
+          {
+            format: "candle",
+            finishedGrams: 1000,
+            desiredLoadPercent: 8,
+            ifraCapPercent: 50,
+            waxHoldPercentOfWax: 10,
+          },
+          {
+            format: "soap",
+            finishedGrams: 500,
+            desiredLoadPercent: 3,
+            ifraCapPercent: 3,
+          },
+        ],
+      },
+    },
+  },
+  {
+    name: "wick_start_calculate",
+    description:
+      "Get a wick test card, not a wick verdict: for each series (CD, ECO, LX, HTP, wooden) a three-wick matrix — one size down, the seeded starting size, one up — for the vessel diameter and wax family, shifted for heavy fragrance loads, plus the burn-test protocol (an hour per inch of diameter, melt-pool targets, one-variable-at-a-time adjustment rules) that actually settles the size.",
+    inputSchema: WICK_INPUT_SCHEMA,
+    outputDescription:
+      "Returns { input, result }: the diameter band used, family and load shifts applied, per-series [down, start, up] sizes, the burn-test protocol with first-burn hours computed from the diameter, and advisories (including the double-wick test on wide vessels). Sizes are seed-guide starting points.",
+    http: {
+      method: "POST",
+      path: "/wick/calculate",
+      example_body: {
+        diameterInches: 3,
+        waxId: "soy-container-seed",
+        foLoadPercent: 8,
+      },
+    },
+  },
+  {
     name: "mold_fill_calculate",
     description:
       "Size a soap batch to a mold with the Saponis mold engine — the same math as the free mold-fill front door on the /costing bench (volume × batter density 1.05 × oil fraction 0.69, the mold engine's own constants). Standalone: no recipe needed. Supports cavity molds and cured bar weights.",
@@ -828,6 +1099,12 @@ export function callAgentTool(name: string, args: unknown): unknown {
       return runEmulsionCalculate(args);
     case "candle_calculate":
       return runCandleCalculate(args);
+    case "candle_blend_calculate":
+      return runCandleBlend(args);
+    case "fo_card_calculate":
+      return runFoCard(args);
+    case "wick_start_calculate":
+      return runWickStart(args);
     case "mold_fill_calculate":
       return runMoldFillCalculate(args);
     case "cost_calculate":

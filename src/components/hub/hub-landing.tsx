@@ -94,10 +94,11 @@ const BENCHES: {
     specs: [
       "Fragrance load with the convention named — % of wax or % of finished, both printed",
       "Vessel fill from weighed water × wax specific gravity, not the jar label",
-      "Flags only against caps you enter — no seeded limits",
+      "One oil across candle, melt, diffuser and soap — per-format caps, still only the ones you enter",
+      "Wax-blend melt/pour window, and a wick starting point with its burn-test card",
     ],
     href: "/candles",
-    cta: "Open candle bench",
+    cta: "Open Candle Studio",
   },
   {
     id: "costing",

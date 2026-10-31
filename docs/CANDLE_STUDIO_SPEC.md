@@ -36,11 +36,11 @@ seed values for the rest) and must be replaced with the supplier's published
 SG for the actual wax SKU before being treated as authoritative. A custom
 SG override is a first-class input for exactly that reason.
 
-## Out of scope (deliberate)
+## Out of scope (deliberate, core bench)
 
-- No wick recommendations (brief engine C — commoditized, and a lookup is
-  not a burn test).
-- No pour temperatures, cure times, or burn-performance claims.
+- No wick recommendations on the core batch bench (the expansion below
+  ships engine C as a *test card*, not a recommendation — see its notes).
+- No cure times or burn-performance claims.
 - No safety guarantees in copy. The bench is a calculation tool: it shows
   its formulas and conventions, and the maker's own test burns decide.
 
@@ -53,3 +53,68 @@ SG override is a first-class input for exactly that reason.
 - `src/components/calculator/candle-calculator.tsx` — UI on the shared
   bench shell.
 - `src/routes/candles.tsx` — `/candles` route.
+
+---
+
+# Expansion — the rest of the brief's engine sequence (2026-10-31)
+
+Green-lit by Brad 2026-10-31 as the "Candle Studio expansion (Tier 1
+Build 2)". The 2026-09-29 brief's build order was **A → B → E → D → C**;
+A + B shipped as the core bench above. This expansion completes the
+sequence on the same `/candles` page, below the batch bench, with the
+same parity wiring (agent tool + REST route + OpenAPI + manifest +
+llms.txt per engine) and the same data posture (seed values stamped
+SEED, caps user-supplied only). Each tool keeps its state in its own
+query param — the batch bench owns `?r=`; these use `?f=`, `?b=`, `?w=`
+(see `src/lib/bench-url.ts`).
+
+## E — multi-format fragrance card (`fo-card-engine.ts`)
+
+One oil run through the formats the maker selects — candle, wax melt,
+reed diffuser, bar soap. Per format: the split at the desired load
+(**% of finished**, the IFRA convention, reusing `dualBasisSplit`),
+the load re-expressed as % of wax for the wax formats, and the
+**binding cap** — the lower of the user-entered IFRA cap (% of
+finished) and the wax supplier's hold limit converted from % of wax,
+`p/(100+p)`. No cap entered = no ceiling, stated on the card. This is
+the engine the brief said is "the only reason this belongs on Saponis":
+the same percent is a different answer in each format.
+
+## D — wax blend window (`candle-blend-engine.ts`)
+
+Mass-weighted blend arithmetic over a seed profile library
+(`src/data/candle-blend-profiles.ts`: melt band, pour window, relative
+hardness, frost tendency per wax class): blend SG (one click sends it
+to the batch bench's custom-SG field), weighted melt band, pour window
+widened by component melt divergence, hardness/frost bands,
+container/pillar suitability. Stearic and vybar effects are heuristics
+and are labelled as such wherever they print. Outputs are estimates
+for comparing blends, stamped as such — the pour window is a range to
+start testing in, not a promise.
+
+## C — wick starting point + burn-test card (`wick-engine.ts`)
+
+Shipped in the only form consistent with this bench's doctrine: not a
+wick oracle but a **test card**. Per series (CD, ECO, LX, HTP, wooden —
+seed ladder data in `src/data/wick-guide.ts`, seeded from the structure
+of supplier-published per-wax/per-diameter charts), a three-wick matrix
+— one size down, the seeded start, one up — for the vessel diameter,
+shifted by wax family (beeswax +1, container paraffin −1) and by
+fragrance load (≥12% shifts +1). Attached is the burn-test protocol,
+computed from the diameter: first burn ≈ 1 hour per inch of diameter,
+melt pool to the walls at ¼″–½″ depth, three full cycles before
+judging, one variable changed at a time. Above ≈4¼″ the card advises
+pricing a double-wick test. The protocol is the deliverable; the table
+is a first guess with its seed stamp on it.
+
+## Expansion files
+
+- `src/data/candle-blend-profiles.ts`, `src/data/wick-guide.ts` — seed libraries.
+- `src/lib/fo-card-engine.ts`, `src/lib/candle-blend-engine.ts`,
+  `src/lib/wick-engine.ts` — pure TS cores + node:test suites (registered
+  in `package.json`).
+- `src/components/calculator/candle-studio-tools.tsx` — the three tools
+  (steps 5–7) on the shared bench shell.
+- Agent parity: tools `fo_card_calculate`, `candle_blend_calculate`,
+  `wick_start_calculate`; REST `POST /api/fo-card/calculate`,
+  `/api/candle-blend/calculate`, `/api/wick/calculate`.

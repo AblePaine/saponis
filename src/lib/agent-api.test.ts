@@ -216,7 +216,7 @@ describe("oils endpoints", () => {
 });
 
 describe("callAgentTool", () => {
-  it("exposes exactly the eight public tools — no label tool, no wholesale tool", () => {
+  it("exposes exactly the eleven public tools — no label tool, no wholesale tool", () => {
     assert.deepEqual(
       AGENT_TOOLS.map((tool) => tool.name),
       [
@@ -224,6 +224,9 @@ describe("callAgentTool", () => {
         "balm_calculate",
         "emulsion_calculate",
         "candle_calculate",
+        "candle_blend_calculate",
+        "fo_card_calculate",
+        "wick_start_calculate",
         "mold_fill_calculate",
         "cost_calculate",
         "oils_list",
@@ -310,6 +313,9 @@ describe("OpenAPI parity", () => {
       "/api/balm/calculate",
       "/api/emulsion/calculate",
       "/api/candle/calculate",
+      "/api/candle-blend/calculate",
+      "/api/fo-card/calculate",
+      "/api/wick/calculate",
       "/api/mold-fill/calculate",
       "/api/cost/calculate",
       "/api/oils",

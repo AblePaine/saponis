@@ -2,11 +2,14 @@ import {
   AGENT_TOOLS,
   AGENT_API_VERSION,
   BALM_INPUT_SCHEMA,
+  CANDLE_BLEND_INPUT_SCHEMA,
   CANDLE_INPUT_SCHEMA,
   COST_INPUT_SCHEMA,
   EMULSION_INPUT_SCHEMA,
+  FO_CARD_INPUT_SCHEMA,
   MOLD_FILL_INPUT_SCHEMA,
   SOAP_INPUT_SCHEMA,
+  WICK_INPUT_SCHEMA,
   type JsonSchema,
 } from "./agent-api.ts";
 import { SITE_ORIGIN } from "./site.ts";
@@ -198,6 +201,27 @@ export function buildOpenApiSpec(): Record<string, unknown> {
           "Candle result: specificGravity, usingCustomSg, fillVolumeMlPerVessel, finishedPerVesselGrams, waxPerVesselGrams, fragrancePerVesselGrams, finishedTotalGrams, waxToMeltGrams, fragranceToWeighGrams, foBasis, foPercentOfWax, foPercentOfFinished, overMaxFo, overIfraCap, warnings.",
         ),
       },
+      "/api/candle-blend/calculate": {
+        post: calculateOperation(
+          "candle_blend_calculate",
+          CANDLE_BLEND_INPUT_SCHEMA,
+          "Candle blend estimate: rows (per-wax shares), blendSg, meltLowC/meltHighC/meltMidC, pourLowC/pourHighC, meltSpreadC, hardnessScore/hardnessBand, frostRiskScore/frostRiskBand, containerOk, pillarOk, warnings, notes. Seed-profile estimates, not burn tests.",
+        ),
+      },
+      "/api/fo-card/calculate": {
+        post: calculateOperation(
+          "fo_card_calculate",
+          FO_CARD_INPUT_SCHEMA,
+          "Multi-format fragrance card: rows per format (fragranceGrams, baseGrams, loadPercentOfWax, bindingCapPercent, bindingCapSource, maxFragranceGrams, overCap, warnings), totalFragranceGrams, warnings.",
+        ),
+      },
+      "/api/wick/calculate": {
+        post: calculateOperation(
+          "wick_start_calculate",
+          WICK_INPUT_SCHEMA,
+          "Wick test card: diameterInches, bandInches, waxName, familyShift, loadShift, series ([down, start, up] sizes per series), protocol (firstBurnHours, fullBurnCycles, melt-pool targets, evaluate/adjust rules), advisories.",
+        ),
+      },
       "/api/mold-fill/calculate": {
         post: calculateOperation(
           "mold_fill_calculate",
@@ -269,7 +293,7 @@ export function buildOpenApiSpec(): Record<string, unknown> {
         post: {
           operationId: "mcp",
           summary:
-            "Stateless MCP endpoint (streamable HTTP, JSON-RPC 2.0, JSON responses). Supports initialize, ping, tools/list, and tools/call for all eight tools in this document. Send notifications without an id to receive HTTP 202. GET returns 405.",
+            "Stateless MCP endpoint (streamable HTTP, JSON-RPC 2.0, JSON responses). Supports initialize, ping, tools/list, and tools/call for all eleven tools in this document. Send notifications without an id to receive HTTP 202. GET returns 405.",
           requestBody: {
             required: true,
             content: {

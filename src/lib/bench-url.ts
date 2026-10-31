@@ -1,5 +1,6 @@
 import type { CoolMethod } from "./balm-engine.ts";
 import type { FoBasis } from "./candle-engine.ts";
+import type { FoFormat } from "./fo-card-engine.ts";
 import type { CostInput, CostRow, MoldFillInput } from "./costing-engine.ts";
 import type { WholesaleInput, WholesaleTierInput } from "./wholesale-engine.ts";
 
@@ -363,5 +364,134 @@ export function decodeCostingState(encoded: string | null): CostingUrlState | nu
       floorMarginPercent: clamp(num(parts[23], 20), 0, 100),
       tiers,
     },
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* Candle Studio expansion — named params on the /candles page        */
+/*                                                                    */
+/* The main candle bench owns `?r=`. The three expansion tools share  */
+/* the page, so each carries its state in its own param:              */
+/*   blend (?b=): id:pct,…|stearicPct|vybarPct                        */
+/*   focard (?f=): format~finished~desired~ifra~waxhold rows, ","-cut */
+/*   wick (?w=):   diameterIn|waxId|foLoadPct|seriesId-or-"-"         */
+/* ------------------------------------------------------------------ */
+
+export function readNamedParam(name: string): string | null {
+  if (typeof window === "undefined") return null;
+  const value = new URLSearchParams(window.location.search).get(name);
+  return value && value.length > 0 ? value : null;
+}
+
+/** ReplaceState-write one named param, leaving the others untouched. */
+export function writeNamedParam(name: string, encoded: string): void {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  url.searchParams.set(name, encoded);
+  const next = url.toString();
+  if (next !== window.location.href) {
+    window.history.replaceState(null, "", next);
+  }
+}
+
+export interface BlendUrlState {
+  percents: Record<string, number>;
+  stearicPercent: number;
+  vybarPercent: number;
+}
+
+export function encodeBlendState(state: BlendUrlState): string {
+  return [
+    encodePercentMap(state.percents),
+    compact(state.stearicPercent),
+    compact(state.vybarPercent),
+  ].join("|");
+}
+
+export function decodeBlendState(encoded: string | null): BlendUrlState | null {
+  if (!encoded) return null;
+  const parts = encoded.split("|");
+  if (parts.length < 3) return null;
+  return {
+    percents: decodePercentMap(parts[0]),
+    stearicPercent: clamp(num(parts[1]), 0, 30),
+    vybarPercent: clamp(num(parts[2]), 0, 5),
+  };
+}
+
+export interface FoCardUrlRow {
+  format: FoFormat;
+  finishedGrams: number;
+  desiredLoadPercent: number;
+  ifraCapPercent: number;
+  waxHoldPercentOfWax: number;
+}
+
+export interface FoCardUrlState {
+  formats: FoCardUrlRow[];
+}
+
+const FO_FORMATS: FoFormat[] = ["candle", "melt", "diffuser", "soap"];
+
+export function encodeFoCardState(state: FoCardUrlState): string {
+  return state.formats
+    .map((row) =>
+      [
+        row.format,
+        compact(row.finishedGrams),
+        compact(row.desiredLoadPercent),
+        compact(row.ifraCapPercent),
+        compact(row.waxHoldPercentOfWax),
+      ].join("~"),
+    )
+    .join(",");
+}
+
+export function decodeFoCardState(encoded: string | null): FoCardUrlState | null {
+  if (!encoded) return null;
+  const formats: FoCardUrlRow[] = [];
+  for (const entry of encoded.split(",")) {
+    const parts = entry.split("~");
+    if (parts.length < 5) continue;
+    const format = FO_FORMATS.find((f) => f === parts[0]);
+    if (!format) continue;
+    formats.push({
+      format,
+      finishedGrams: clamp(num(parts[1], 500), 0, 1_000_000),
+      desiredLoadPercent: clamp(num(parts[2], 8), 0, 100),
+      ifraCapPercent: clamp(num(parts[3]), 0, 100),
+      waxHoldPercentOfWax: clamp(num(parts[4]), 0, 100),
+    });
+  }
+  return formats.length > 0 ? { formats } : null;
+}
+
+export interface WickUrlState {
+  diameterInches: number;
+  waxId: string;
+  foLoadPercent: number;
+  /** "" means the full card (all series). */
+  seriesId: string;
+}
+
+export function encodeWickState(state: WickUrlState): string {
+  return [
+    compact(state.diameterInches),
+    state.waxId,
+    compact(state.foLoadPercent),
+    state.seriesId === "" ? "-" : state.seriesId,
+  ].join("|");
+}
+
+export function decodeWickState(encoded: string | null): WickUrlState | null {
+  if (!encoded) return null;
+  const parts = encoded.split("|");
+  if (parts.length < 4) return null;
+  const seriesId = parts[3] ?? "-";
+  return {
+    diameterInches: clamp(num(parts[0], 3), 0, 12),
+    waxId: parts[1] ?? "soy-container-seed",
+    foLoadPercent: clamp(num(parts[2], 8), 0, 100),
+    seriesId: seriesId === "-" ? "" : seriesId,
   };
 }
