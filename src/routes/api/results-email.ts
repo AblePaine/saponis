@@ -40,11 +40,18 @@ async function post({ request }: { request: Request }): Promise<Response> {
   if (snapshotJson.length > MAX_SNAPSHOT_CHARS) {
     return Response.json({ error: "snapshot_too_large" }, { status: 400 });
   }
-  const sql = await getSql();
-  await sql.query(
-    "insert into results_email_requests (email, surface, snapshot) values ($1, $2, $3::jsonb)",
-    [email.trim(), surface, snapshotJson],
-  );
+  try {
+    const sql = await getSql();
+    await sql.query(
+      "insert into results_email_requests (email, surface, snapshot) values ($1, $2, $3::jsonb)",
+      [email.trim(), surface, snapshotJson],
+    );
+  } catch (err) {
+    return Response.json(
+      { error: err instanceof Error ? err.message : "storage_failed" },
+      { status: 500 },
+    );
+  }
   return Response.json({ ok: true, stored: true, delivery: "pending" });
 }
 
