@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { NextStep } from "@/components/next-step";
 import { StepCard } from "@/components/calculator/step-card";
 import { MassField } from "@/components/calculator/mass-field";
 import { SliderField } from "@/components/calculator/slider-field";
@@ -389,6 +390,7 @@ export function EmulsionCalculator() {
           </BenchResults>
         }
       />
+      <NextStep to="/costing" label="Cost this in the costing suite" blurb="This emulsion's numbers are set — the costing suite turns them into a true cost per bottle, with labor, packaging, and overhead counted in." />
     </div>
   );
 }

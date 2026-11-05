@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AuthSlot } from "@/components/auth-slot";
 import { BrandMark } from "@/components/brand-mark";
+import { NextStep } from "@/components/next-step";
 import { StepOils } from "@/components/calculator/step-oils";
 import { StepLye } from "@/components/calculator/step-lye";
 import { StepMetrics } from "@/components/calculator/step-metrics";
@@ -205,6 +206,12 @@ export function BatchCalculator() {
           <StepOutput config={config} result={result} />
         </div>
       </div>
+
+      <NextStep
+        to="/costing"
+        label="Cost this in the costing suite"
+        blurb="The batch is built — the costing suite turns this recipe into a true cost per bar, with labor, packaging, and overhead counted in."
+      />
 
       <div className="pointer-events-none h-28 shrink-0 lg:hidden" aria-hidden="true" />
       <StickyBar config={config} result={result} />

@@ -21,6 +21,7 @@ import { Route as OpenapiDotjsonRouteImport } from './routes/openapi[.]json'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SoapRouteImport } from './routes/soap'
 import { Route as SurfactantsRouteImport } from './routes/surfactants'
+import { Route as ApiResultsEmailRouteImport } from './routes/api/results-email'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe-webhook'
 import { Route as GuidesIndexRouteImport } from './routes/guides.index'
 import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
@@ -99,6 +100,11 @@ const SoapRoute = SoapRouteImport.update({
 const SurfactantsRoute = SurfactantsRouteImport.update({
   id: '/surfactants',
   path: '/surfactants',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiResultsEmailRoute = ApiResultsEmailRouteImport.update({
+  id: '/api/results-email',
+  path: '/api/results-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
@@ -210,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
+  '/api/results-email': typeof ApiResultsEmailRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
@@ -243,6 +250,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
+  '/api/results-email': typeof ApiResultsEmailRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
@@ -277,6 +285,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
+  '/api/results-email': typeof ApiResultsEmailRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
@@ -312,6 +321,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/soap'
     | '/surfactants'
+    | '/api/results-email'
     | '/api/stripe-webhook'
     | '/guides/$slug'
     | '/oils/$slug'
@@ -345,6 +355,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/soap'
     | '/surfactants'
+    | '/api/results-email'
     | '/api/stripe-webhook'
     | '/guides/$slug'
     | '/oils/$slug'
@@ -378,6 +389,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/soap'
     | '/surfactants'
+    | '/api/results-email'
     | '/api/stripe-webhook'
     | '/guides/$slug'
     | '/oils/$slug'
@@ -412,6 +424,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SoapRoute: typeof SoapRoute
   SurfactantsRoute: typeof SurfactantsRoute
+  ApiResultsEmailRoute: typeof ApiResultsEmailRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
   OilsSlugRoute: typeof OilsSlugRoute
@@ -517,6 +530,13 @@ declare module '@tanstack/react-router' {
       path: '/surfactants'
       fullPath: '/surfactants'
       preLoaderRoute: typeof SurfactantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/results-email': {
+      id: '/api/results-email'
+      path: '/api/results-email'
+      fullPath: '/api/results-email'
+      preLoaderRoute: typeof ApiResultsEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/stripe-webhook': {
@@ -668,6 +688,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SoapRoute: SoapRoute,
   SurfactantsRoute: SurfactantsRoute,
+  ApiResultsEmailRoute: ApiResultsEmailRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,
   GuidesSlugRoute: GuidesSlugRoute,
   OilsSlugRoute: OilsSlugRoute,

@@ -9,6 +9,7 @@ import {
 } from "@/components/calculator/bench-shell";
 import { MassField } from "@/components/calculator/mass-field";
 import { StepCard } from "@/components/calculator/step-card";
+import { EmailResults } from "@/components/email-results";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { UpgradePanel } from "@/components/pro/upgrade-panel";
 import { Button } from "@/components/ui/button";
@@ -459,6 +460,34 @@ export function CostingCalculator() {
               <CopyBenchLink encoded={shareEncoded} label="Share this costing" />
             </div>
           </BenchResults>
+          <EmailResults
+            surface="costing"
+            snapshot={{
+              moldFill: {
+                totalVolumeCm3: moldResult.totalVolumeCm3,
+                batterGrams: moldResult.batterGrams,
+                oilChargeGrams: moldResult.oilChargeGrams,
+                perBarCuredGrams: moldResult.perBarCuredGrams,
+              },
+              costPerBar: {
+                ingredients: costResult.ingredientSubtotal,
+                packaging: costResult.packagingTotal,
+                labor: costResult.laborTotal,
+                overheadAndCarrying:
+                  costResult.overheadPerBatch + costResult.carryingCost,
+                batchTotal: costResult.batchTotal,
+                unitCost: costResult.unitCost,
+                ingredientsPerBar: costResult.ingredientsPerBar,
+                suggestedRetail: costResult.suggestedRetail,
+              },
+              wholesale: {
+                floorPrice: wholesale.floorPrice,
+                retailMarginPercent: wholesale.retailMarginPercent,
+                requiredRetailForFirstTier:
+                  wholesale.requiredRetailForFirstTier,
+              },
+            }}
+          />
           <NewsletterSignup source="costing-results" />
           </>
         }

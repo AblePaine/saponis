@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { NextStep } from "@/components/next-step";
 import { StepCard } from "@/components/calculator/step-card";
 import { MassField } from "@/components/calculator/mass-field";
 import {
@@ -250,6 +251,7 @@ export function BalmCalculator() {
           </BenchResults>
         }
       />
+      <NextStep to="/costing" label="Cost this in the costing suite" blurb="A finished formula is only half the job — the costing suite turns these ratios into a true cost per tin, with labor, packaging, and overhead counted in." />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StepCard } from "@/components/calculator/step-card";
+import { NextStep } from "@/components/next-step";
 import { MassField } from "@/components/calculator/mass-field";
 import { SliderField } from "@/components/calculator/slider-field";
 import {
@@ -751,6 +752,13 @@ export function CandleStudioTools() {
       <FoCardTool />
       <BlendTool />
       <WickTool />
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <NextStep
+          to="/costing"
+          label="Cost this in the costing suite"
+          blurb="The pour is planned — the costing suite turns it into a true cost per candle, with labor, packaging, and overhead counted in."
+        />
+      </div>
     </div>
   );
 }

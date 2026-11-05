@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { NextStep } from "@/components/next-step";
 import { StepCard } from "@/components/calculator/step-card";
 import { MassField } from "@/components/calculator/mass-field";
 import { SliderField } from "@/components/calculator/slider-field";
@@ -219,6 +220,7 @@ export function SurfactantCalculator() {
           </BenchResults>
         }
       />
+      <NextStep to="/costing" label="Cost this in the costing suite" blurb="The blend is balanced — the costing suite turns it into a true cost per bottle, with labor, packaging, and overhead counted in." />
     </div>
   );
 }
