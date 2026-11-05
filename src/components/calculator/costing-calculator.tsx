@@ -9,6 +9,7 @@ import {
 } from "@/components/calculator/bench-shell";
 import { MassField } from "@/components/calculator/mass-field";
 import { StepCard } from "@/components/calculator/step-card";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 import { UpgradePanel } from "@/components/pro/upgrade-panel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -430,6 +431,7 @@ export function CostingCalculator() {
           </>
         }
         results={
+          <>
           <BenchResults title="Your numbers" subtitle="Updates as you type.">
             <div className="flex flex-col gap-5">
               <div>
@@ -457,8 +459,11 @@ export function CostingCalculator() {
               <CopyBenchLink encoded={shareEncoded} label="Share this costing" />
             </div>
           </BenchResults>
+          <NewsletterSignup source="costing-results" />
+          </>
         }
       />
+      <NewsletterSignup source="costing" />
     </div>
   );
 }
