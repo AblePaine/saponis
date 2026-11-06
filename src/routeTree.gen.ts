@@ -22,6 +22,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SoapRouteImport } from './routes/soap'
 import { Route as SurfactantsRouteImport } from './routes/surfactants'
 import { Route as ApiResultsEmailRouteImport } from './routes/api/results-email'
+import { Route as ApiResultsEmailDrainRouteImport } from './routes/api/results-email-drain'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api/stripe-webhook'
 import { Route as GuidesIndexRouteImport } from './routes/guides.index'
 import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
@@ -105,6 +106,11 @@ const SurfactantsRoute = SurfactantsRouteImport.update({
 const ApiResultsEmailRoute = ApiResultsEmailRouteImport.update({
   id: '/api/results-email',
   path: '/api/results-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiResultsEmailDrainRoute = ApiResultsEmailDrainRouteImport.update({
+  id: '/api/results-email-drain',
+  path: '/api/results-email-drain',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
@@ -217,6 +223,7 @@ export interface FileRoutesByFullPath {
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/results-email': typeof ApiResultsEmailRoute
+  '/api/results-email-drain': typeof ApiResultsEmailDrainRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
@@ -251,6 +258,7 @@ export interface FileRoutesByTo {
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/results-email': typeof ApiResultsEmailRoute
+  '/api/results-email-drain': typeof ApiResultsEmailDrainRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
@@ -286,6 +294,7 @@ export interface FileRoutesById {
   '/soap': typeof SoapRoute
   '/surfactants': typeof SurfactantsRoute
   '/api/results-email': typeof ApiResultsEmailRoute
+  '/api/results-email-drain': typeof ApiResultsEmailDrainRoute
   '/api/stripe-webhook': typeof ApiStripeWebhookRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/oils/$slug': typeof OilsSlugRoute
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
     | '/soap'
     | '/surfactants'
     | '/api/results-email'
+    | '/api/results-email-drain'
     | '/api/stripe-webhook'
     | '/guides/$slug'
     | '/oils/$slug'
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
     | '/soap'
     | '/surfactants'
     | '/api/results-email'
+    | '/api/results-email-drain'
     | '/api/stripe-webhook'
     | '/guides/$slug'
     | '/oils/$slug'
@@ -390,6 +401,7 @@ export interface FileRouteTypes {
     | '/soap'
     | '/surfactants'
     | '/api/results-email'
+    | '/api/results-email-drain'
     | '/api/stripe-webhook'
     | '/guides/$slug'
     | '/oils/$slug'
@@ -425,6 +437,7 @@ export interface RootRouteChildren {
   SoapRoute: typeof SoapRoute
   SurfactantsRoute: typeof SurfactantsRoute
   ApiResultsEmailRoute: typeof ApiResultsEmailRoute
+  ApiResultsEmailDrainRoute: typeof ApiResultsEmailDrainRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
   OilsSlugRoute: typeof OilsSlugRoute
@@ -537,6 +550,13 @@ declare module '@tanstack/react-router' {
       path: '/api/results-email'
       fullPath: '/api/results-email'
       preLoaderRoute: typeof ApiResultsEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/results-email-drain': {
+      id: '/api/results-email-drain'
+      path: '/api/results-email-drain'
+      fullPath: '/api/results-email-drain'
+      preLoaderRoute: typeof ApiResultsEmailDrainRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/stripe-webhook': {
@@ -689,6 +709,7 @@ const rootRouteChildren: RootRouteChildren = {
   SoapRoute: SoapRoute,
   SurfactantsRoute: SurfactantsRoute,
   ApiResultsEmailRoute: ApiResultsEmailRoute,
+  ApiResultsEmailDrainRoute: ApiResultsEmailDrainRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,
   GuidesSlugRoute: GuidesSlugRoute,
   OilsSlugRoute: OilsSlugRoute,
