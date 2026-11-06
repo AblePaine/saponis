@@ -8,10 +8,9 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // "Email me these results" (capture fold-in, Brad's ruling
 // 2026-11-05). The request — address + a snapshot of the results on
-// screen — is stored server-side via /api/results-email. There is no
-// mail send leg yet, so the copy says exactly that: the request is
-// stored now and the results go out when delivery switches on.
-// Nothing here claims an email was sent.
+// screen — is stored server-side via /api/results-email; the drain
+// job (send leg, live 2026-11-06) emails the results via Resend
+// within a few minutes. The copy says exactly that.
 export function EmailResults({
   surface,
   snapshot,
@@ -53,13 +52,13 @@ export function EmailResults({
         Email me these results
       </h2>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-        We&apos;ll store your request now and email this costing as soon as
-        delivery switches on — no email goes out yet.
+        We&apos;ll email this costing to you — it goes out within a few
+        minutes.
       </p>
       {status === "done" ? (
         <p className="mt-5 inline-flex items-center gap-2 text-sm text-ok">
           <Check className="size-4" />
-          Request saved — this costing is on the list to be emailed.
+          Request saved — this costing is on its way to your inbox.
         </p>
       ) : (
         <form onSubmit={onSubmit} className="mt-5">
